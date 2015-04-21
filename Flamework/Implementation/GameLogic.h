@@ -30,7 +30,7 @@ class Ball : public Entity
 {
 public:
     unit _r, _vx, _vy;
-    unit _oldX, _oldY;
+    //unit _oldX, _oldY;
     
     Ball(unit x, unit y, unit r, unit vx, unit vy);
 };

@@ -14,8 +14,8 @@ Entity(x, y)
     _r = r;
     _vx = vx;
     _vy = vy;
-    _oldX = _x;
-    _oldY = _y;
+    //_oldX = _x;
+    //_oldY = _y;
     _modelName = "sphere";
 }
 
@@ -203,8 +203,8 @@ void Game::moveBall()
 
 void Game::moveBall2()
 {
-    _ball._oldX = _ball._x;
-    _ball._oldY = _ball._y;
+    //_ball._oldX = _ball._x;
+    //_ball._oldY = _ball._y;
     //_ball._x += _ball._vx;
     //_ball._y += _ball._vy;
     _ball._x += _ball._vx/_velocityDivisor;
