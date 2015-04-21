@@ -24,6 +24,11 @@ Entity(x, y)
 {
 }
 
+Obstacle::~Obstacle()
+{
+    
+}
+
 bool Obstacle::destroyOnCollision()
 {
     return false;

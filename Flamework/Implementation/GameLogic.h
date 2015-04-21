@@ -17,13 +17,13 @@ typedef float unit;
 
 class Entity {
 protected:
-    char* _modelName = "";
+    const char* _modelName = "";
     
 public:
     unit _x, _y;
     
     Entity(unit x, unit y) : _x(x), _y(y) {}
-    char* getModelName() { return _modelName; }
+    char* getModelName() { return (char*)_modelName; }
 };
 
 class Ball : public Entity
@@ -45,6 +45,7 @@ public:
     virtual bool detectCollision(Cuboid& cuboid) = 0;
     virtual bool destroyOnCollision();
     virtual bool endRoundOnCollision();
+    virtual ~Obstacle();
 };
 
 class Cuboid : public Obstacle
