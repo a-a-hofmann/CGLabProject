@@ -31,6 +31,7 @@ bool Obstacle::destroyOnCollision()
 
 bool Obstacle::endRoundOnCollision()
 {
+    
     return false;
 }
 
