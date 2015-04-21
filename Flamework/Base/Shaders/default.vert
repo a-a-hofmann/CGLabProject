@@ -17,5 +17,5 @@ void main()
 
     colorVarying = vec4(vec3(0.5) + normal * 0.5, 1.0);
     
-    gl_Position = ProjectionMatrix * pos;
+    gl_Position =    ProjectionMatrix * pos;
 }
