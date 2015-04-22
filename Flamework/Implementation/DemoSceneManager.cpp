@@ -125,7 +125,8 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            shader->setUniform("ProjectionMatrix", vmml::create_scaling(vmml::vec3f(.1f)));
+            shader->setUniform("ProjectionMatrix", vmml::create_scaling(vmml::vec3f(.05f)));
+//            shader->setUniform("ProjectionMatrix", vmml::mat4f::IDENTITY);
             shader->setUniform("ModelViewMatrix", _viewMatrix * _modelMatrix);
             
             vmml::mat3f normalMatrix;
@@ -189,15 +190,17 @@ void DemoSceneManager::draw(double deltaT)
     vmml::mat4f translation = vmml::create_translation(vmml::vec3f(_scrolling.x(), -_scrolling.y(), 0));
     vmml::mat4f scaling = vmml::create_scaling(vmml::vec3f(.12f, .12f, .12f));
     
+    
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
     vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
+//    vmml::vec3f eyePos(0, 0.25, 0.25);
     vmml::vec3f eyePos(0, 0, 0.25);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * eyePos, vmml::vec3f::ZERO, rotation * eyeUp);
 
     _modelMatrix = vmml::mat4f::IDENTITY;
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(2.25, 1.75, 1)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.5, 4, 4)));
     drawModel("field4");
     popModelMatrix();
     
