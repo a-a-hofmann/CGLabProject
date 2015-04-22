@@ -14,8 +14,6 @@ Entity(x, y)
     _r = r;
     _vx = vx;
     _vy = vy;
-    //_oldX = _x;
-    //_oldY = _y;
     _modelName = "sphere";
 }
 
@@ -60,8 +58,6 @@ bool detectCornerCollision(Ball& ball, unit x, unit y)
         ball._vy += q * dy;
         ball._x += ball._vx;
         ball._y += ball._vy;
-        //ball._x = ball._oldX;
-        //ball._y = ball._oldY;
         return true;
     }
     return false;
@@ -204,10 +200,6 @@ void Game::moveBall()
 
 void Game::moveBall2()
 {
-    //_ball._oldX = _ball._x;
-    //_ball._oldY = _ball._y;
-    //_ball._x += _ball._vx;
-    //_ball._y += _ball._vy;
     _ball._x += _ball._vx/_velocityDivisor;
     _ball._y += _ball._vy/_velocityDivisor;
 
@@ -222,9 +214,6 @@ void Game::moveBall2()
                 return;
             }
             else if((*it)->destroyOnCollision()) {
-                //_obstacles.erase(it);
-                //delete *it;
-                //break;
                 toDestroy.insert(toDestroy.begin(), *it);
             }
         }
@@ -234,8 +223,6 @@ void Game::moveBall2()
         _obstacles.remove(*it2);
         delete *it2;
     }
-    
-    //_paddle.detectCollision(_ball);
     
     return;
 }
