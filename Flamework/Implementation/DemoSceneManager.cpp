@@ -42,7 +42,7 @@ void DemoSceneManager::onTouchBegan(float x, float y)
     vmml::vec2f cScrollPos(x, y);
     _lScrollPos = cScrollPos;
     
-    getSound("test")->play();
+    //getSound("test")->play();
 }
 
 void DemoSceneManager::onTouchMoved(float x, float y)
