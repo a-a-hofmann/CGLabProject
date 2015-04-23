@@ -125,11 +125,11 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            float n = 0.05;
-            float r = 0.5;
-            float t = 0.5;
-            float f = 0.1;
-            vmml::mat4f pm;
+            float n = 1.0;
+            float r = 10.0;
+            float t = 10.0;
+            float f = 2.0;
+            vmml::mat4f pm;  // projection matrix
             pm.set_row(0, vmml::vec4f(n/r, 0.0f, 0.0f, 0.0f));
             pm.set_row(1, vmml::vec4f(0.0f, n/t, 0.0f, 0.0f));
             pm.set_row(2, vmml::vec4f(0.0f, 0.0f, -(f+n)/(f-n), -2.0*f*n/(f-n)));
@@ -203,8 +203,8 @@ void DemoSceneManager::draw(double deltaT)
     
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
     vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
-    vmml::vec3f eyePos(0, 0.0, 0.0125);
-//    vmml::vec3f eyePos(0, 0, 0.25);
+//    vmml::vec3f eyePos(0, 0.25, 0.25);
+    vmml::vec3f eyePos(0, 0, 0.25);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * eyePos, vmml::vec3f::ZERO, rotation * eyeUp);
 
@@ -230,21 +230,18 @@ void DemoSceneManager::draw(double deltaT)
     
     for(std::list<Obstacle*>::iterator it = _game._obstacles.begin(); it != _game._obstacles.end(); ++it) {
         pushModelMatrix();
-        transformModelMatrix(vmml::create_scaling(vmml::vec3f(.05, .05, .05)));
         transformModelMatrix(vmml::create_translation(vmml::vec3f((*it)->_x, (*it)->_y, 0)));
         drawModel((*it)->getModelName());
         popModelMatrix();
     }
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(.05, .05, .05)));
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, 0)));
     drawModel(_game._paddle.getModelName());
     popModelMatrix();
     
     if(_game._playing) {
         pushModelMatrix();
-        transformModelMatrix(vmml::create_scaling(vmml::vec3f(.05, .05, .05)));
         transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
         drawModel(_game._ball.getModelName());
         popModelMatrix();
