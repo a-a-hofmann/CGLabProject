@@ -160,6 +160,10 @@ public:
     // left: true if move to the left, false if to the right
     void movePaddle(bool left);
     
+    // ADDED
+    void movePaddle(unit dx);
+
+    
     // returns true if the game is won (i.e. all bricks have been destroyed)
     bool isWon();
 };

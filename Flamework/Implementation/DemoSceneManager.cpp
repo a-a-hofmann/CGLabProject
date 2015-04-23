@@ -20,6 +20,10 @@
 #include <glm/glm/gtc/matrix_access.hpp>
 
 
+//ADDED
+#include <string.h>
+
+
 #include <boost/lexical_cast.hpp>
 
 using boost::lexical_cast;
@@ -97,10 +101,11 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("sphere.obj", true, true);
     loadModel("brick.obj", true, true);
     loadModel("paddle.obj", true, true);
-    loadModel("horizontalwall.obj", true, true);
-    loadModel("verticalwall.obj", true, true);
-    loadModel("field.obj", true, true);
-    loadModel("field4.obj", true, true);
+//    loadModel("horizontalwall.obj", true, true);
+//    loadModel("verticalwall.obj", true, true);
+//    loadModel("field.obj", true, true);
+//    loadModel("field4.obj", true, true);
+    loadModel("newFieldNoGround.obj", true, true);
 //    loadSound("test.mp3");
 }
 
@@ -149,8 +154,6 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
 //            shader->setUniform("ProjectionMatrix", pm);
 //            shader->setUniform("ProjectionMatrix", vmml::create_scaling(vmml::vec3f(.05f)));
             shader->setUniform("ProjectionMatrix", projection);
-//            shader->setUniform("ProjectionMatrix", proj);
-//            shader->setUniform("ProjectionMatrix", vmml::mat4f::IDENTITY);
             shader->setUniform("ModelViewMatrix", _viewMatrix * _modelMatrix);
             
             vmml::mat3f normalMatrix;
@@ -226,14 +229,15 @@ void DemoSceneManager::draw(double deltaT)
 
     _modelMatrix = vmml::mat4f::IDENTITY;
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.5, 4, 4)));
-    drawModel("field4");
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
+    drawModel("newFieldNoGround");
     popModelMatrix();
     
     
     if(_game._playing)
     {
-        _game.movePaddle(_game._ball._x < _game._paddle._x);
+//        _game.movePaddle(_game._ball._x < _game._paddle._x);
+        _game.movePaddle(dx);
         _game.moveBall();
     }
     else
@@ -244,14 +248,18 @@ void DemoSceneManager::draw(double deltaT)
             std::cout << "LOST!" << std::endl;
     }
     
+    // !!!strcmp returns 0 IFF strings are equal
     for(std::list<Obstacle*>::iterator it = _game._obstacles.begin(); it != _game._obstacles.end(); ++it) {
-        pushModelMatrix();
-        transformModelMatrix(vmml::create_translation(vmml::vec3f((*it)->_x, (*it)->_y, 0)));
-        drawModel((*it)->getModelName());
-        popModelMatrix();
+        if(strcmp((*it)->getModelName(), "newFieldNoGround")){
+            pushModelMatrix();
+            transformModelMatrix(vmml::create_translation(vmml::vec3f((*it)->_x, (*it)->_y, 0)));
+            drawModel((*it)->getModelName());
+            popModelMatrix();
+        }
     }
     
     pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 1, 1)));
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, 0)));
     drawModel(_game._paddle.getModelName());
     popModelMatrix();

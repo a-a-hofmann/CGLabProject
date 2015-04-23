@@ -136,10 +136,8 @@ Wall::Wall(unit x, unit y, unit width, unit height, bool horizontal, bool endRou
 Cuboid(x, y, width, height),
 _endRoundOnCollision(endRoundOnCollision)
 {
-    if(horizontal)
-        _modelName = "horizontalwall";
-    else
-        _modelName = "verticalwall";
+    _modelName = "newFieldNoGround";
+    
 }
 
 bool Wall::endRoundOnCollision()
@@ -166,18 +164,28 @@ bool Paddle::detectCollision(Ball& ball)
     return false;
 }
 
+
+// FIXME: Ball bounces too soon on impact with wall
+
 Game::Game() :
 _obstacles(),
 _ball(0.0, 0.0, 1.0, 0.0, -0.2),
-_paddle(0.0, -4.5, 2.0, 1.0, 0.1),
+_paddle(0.0, -4.5, 2.0, 1.0, 0.2),
 _velocityDivisor(1),
 _playing(true)
 {
-//    _obstacles.insert(_obstacles.begin(), new Wall(0.0, 5.5, 10.0, 1.0, true));
-//    _obstacles.insert(_obstacles.begin(), new Wall(-5.5, 0.0, 1.0, 10.0, false));
-//    _obstacles.insert(_obstacles.begin(), new Wall(5.5, 0.0, 1.0, 10.0, false));
-//    _obstacles.insert(_obstacles.begin(), new Wall(0.0, -5.5, 10.0, 1.0, true, true));
+    Wall* lowerWall = new Wall(0.0, -11.0, 27.5, 2.0, true);
+    Wall* upperWall = new Wall(0.0, 11.0, 27.5, 2.0, false);
+    Wall* leftWall = new Wall(-13.75, 0.0, 1.25, 40.0, false);
+    Wall* rightWall = new Wall(13.75, 0.0, 1.25, 40.0, false);
     
+    _obstacles.insert(_obstacles.begin(), lowerWall);
+    _obstacles.insert(_obstacles.begin(), upperWall);
+    _obstacles.insert(_obstacles.begin(), leftWall);
+    _obstacles.insert(_obstacles.begin(), rightWall);
+    
+    
+
     for(unit x = -4.0; x <= 4.0; x += 2.0)
         for(unit y = 4.0; y >= 2.0; y -= 1.0)
             _obstacles.insert(_obstacles.begin(), new Brick(x, y, 2.0, 1.0));
@@ -236,6 +244,23 @@ void Game::movePaddle(bool left)
         _paddle._vx += _paddle._dvx;
         
     _paddle._x += _paddle._vx;
+    
+    for(std::list<Obstacle*>::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+        if((*it)->detectCollision(_paddle)) {
+            _paddle._x = paddleOldX;
+            break;
+        }
+    }
+}
+
+
+// TODO: Add boundary detection to avoid having the paddle leave the screen
+// FIXME: Sometimes the ball goes through the paddle
+void Game::movePaddle(unit dx)
+{
+    unit paddleOldX = _paddle._x;
+    _paddle._x -= dx;
+    
     
     for(std::list<Obstacle*>::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         if((*it)->detectCollision(_paddle)) {
