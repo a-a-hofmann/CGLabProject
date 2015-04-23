@@ -131,7 +131,8 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
         if (shader.get())
         {
             shader->setUniform("ProjectionMatrix", getProjectionMatrix());
-            shader->setUniform("ModelViewMatrix", _viewMatrix * _modelMatrix);
+            shader->setUniform("ViewMatrix", _viewMatrix);
+            shader->setUniform("ModelMatrix", _modelMatrix);
             
             vmml::mat3f normalMatrix;
             vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
