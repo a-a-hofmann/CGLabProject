@@ -47,6 +47,7 @@ public:
     void popModelMatrix();
     void transformModelMatrix(const vmml::mat4f &t);
     void drawSphere();
+    void startGame();
     
 private:
     double _time;
