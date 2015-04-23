@@ -17,6 +17,9 @@
 #include "Shader.h"
 #include "Util.h"
 
+#include <glm/glm/glm.hpp>
+#include <glm/glm/gtc/matrix_transform.hpp>
+
 using boost::lexical_cast;
 
 
@@ -109,6 +112,16 @@ void Shader::setUniform(const std::string &name, const vmml::mat4f &arg)
     if (loc > -1)
     {
         glUniformMatrix4fv(loc, 1, false, arg.begin());
+    }
+}
+void Shader::setUniform(const std::string &name, const glm::mat4 &arg)
+{
+    glUseProgram(_programID);
+    
+    GLint loc = findUniformLocation(name);
+    if (loc > -1)
+    {
+        glUniformMatrix4fv(loc, 1, false, &arg[0][0]);
     }
 }
 

@@ -14,6 +14,7 @@
 		04EFD8361AE2F230000DA18A /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8351AE2F230000DA18A /* cube.obj */; };
 		04EFD8381AE31B94000DA18A /* paddle.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8371AE31B94000DA18A /* paddle.obj */; };
 		04EFD83A1AE382CC000DA18A /* brick.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8391AE382CC000DA18A /* brick.obj */; };
+		11148C441AE90928003DCC59 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 11148C431AE90928003DCC59 /* glm */; };
 		11A5A9481AE692EC00999851 /* field.obj in Resources */ = {isa = PBXBuildFile; fileRef = 11A5A9471AE692EC00999851 /* field.obj */; };
 		11CBCEB01AE6A16B0098D7B8 /* field4.obj in Resources */ = {isa = PBXBuildFile; fileRef = 11CBCEAF1AE6A16B0098D7B8 /* field4.obj */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -73,6 +74,7 @@
 		04EFD8351AE2F230000DA18A /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		04EFD8371AE31B94000DA18A /* paddle.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paddle.obj; sourceTree = "<group>"; };
 		04EFD8391AE382CC000DA18A /* brick.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.obj; sourceTree = "<group>"; };
+		11148C431AE90928003DCC59 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		11A5A9471AE692EC00999851 /* field.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field.obj; sourceTree = "<group>"; };
 		11CBCEAF1AE6A16B0098D7B8 /* field4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field4.obj; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -234,6 +236,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				11148C431AE90928003DCC59 /* glm */,
 				F87C331E1910561A00E8A523 /* Base */,
 				F86CA081171FEB6200DD23CA /* boost */,
 				F814A6111716A0E000A2A910 /* obj */,
@@ -583,6 +586,7 @@
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
 				11CBCEB01AE6A16B0098D7B8 /* field4.obj in Resources */,
+				11148C441AE90928003DCC59 /* glm in Resources */,
 				04EFD82D1ADD4114000DA18A /* newobj.obj in Resources */,
 				04EFD8321AE2E9CB000DA18A /* verticalwall.obj in Resources */,
 				04EFD8341AE2EBAF000DA18A /* horizontalwall.obj in Resources */,
@@ -648,7 +652,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Flamework_Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
-				"HEADER_SEARCH_PATHS[arch=*]" = $SRCROOT;
 				INFOPLIST_FILE = "Flamework-Info.plist";
 				PRODUCT_NAME = Flamework;
 			};

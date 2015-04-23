@@ -17,6 +17,9 @@
 
 #include "GameLogic.h"
 
+#include <glm/glm/glm.hpp>
+
+
 class Application;
 
 class DemoSceneManager: public SceneManager, public ITouchHandler, public IScaleHandler
@@ -56,6 +59,7 @@ private:
     MatrixStack _modelMatrixStack;
     vmml::mat4f _modelMatrix;
     vmml::mat4f _viewMatrix;
+//    glm::mat4 _viewMatrix;
 };
 
 
