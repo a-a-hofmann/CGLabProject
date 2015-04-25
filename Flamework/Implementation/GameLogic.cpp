@@ -258,8 +258,10 @@ void Game::movePaddle(bool left)
 // FIXME: Sometimes the ball goes through the paddle
 void Game::movePaddle(unit dx)
 {
+ 
     unit paddleOldX = _paddle._x;
     _paddle._x -= dx;
+    _paddle._vx += _paddle._dvx;
     
     
     for(std::list<Obstacle*>::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
