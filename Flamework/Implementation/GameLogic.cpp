@@ -173,10 +173,10 @@ _paddle(0.0, -4.5, 2.0, 1.0, 0.1),
 _velocityDivisor(1),
 _playing(true)
 {
-//    _obstacles.insert(_obstacles.begin(), new Wall(0.0, 5.5, 10.0, 1.0, true));
-//    _obstacles.insert(_obstacles.begin(), new Wall(-5.5, 0.0, 1.0, 10.0, false));
-//    _obstacles.insert(_obstacles.begin(), new Wall(5.5, 0.0, 1.0, 10.0, false));
-//    _obstacles.insert(_obstacles.begin(), new Wall(0.0, -5.5, 10.0, 1.0, true, true));
+    _obstacles.insert(_obstacles.begin(), new Wall(0.0, 5.5, 10.0, 1.0, true));
+    _obstacles.insert(_obstacles.begin(), new Wall(-5.5, 0.0, 1.0, 10.0, false));
+    _obstacles.insert(_obstacles.begin(), new Wall(5.5, 0.0, 1.0, 10.0, false));
+    _obstacles.insert(_obstacles.begin(), new Wall(0.0, -5.5, 10.0, 1.0, true, true));
     
     for(unit x = -4.0; x <= 4.0; x += 2.0)
         for(unit y = 4.0; y >= 2.0; y -= 1.0)

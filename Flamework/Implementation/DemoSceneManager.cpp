@@ -90,7 +90,7 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("horizontalwall.obj", true, true);
     loadModel("verticalwall.obj", true, true);
     loadModel("field4.obj", true, true);
-//    loadSound("test.mp3");
+    loadModel("quad.obj", true, true);
 }
 
 vmml::mat4f lookAt(vmml::vec3f eye, vmml::vec3f target, vmml::vec3f up)
@@ -198,6 +198,12 @@ void DemoSceneManager::draw(double deltaT)
 void DemoSceneManager::startGame()
 {
     _modelMatrix = vmml::mat4f::IDENTITY;
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(75.0, 50.0, 10.)));
+    drawModel("quad");
+    popModelMatrix();
+    
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.5, 4, 4)));
     drawModel("field4");
