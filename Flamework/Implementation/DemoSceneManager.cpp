@@ -212,7 +212,10 @@ void DemoSceneManager::draw(double deltaT)
 
     vmml::vec3f eyePos(0.0, -5.0, -7.0);
     vmml::vec3f eyeUp = vmml::vec3f::DOWN;
-    _viewMatrix = lookAt(rotation * eyePos, vmml::vec3f::UNIT_Y, eyeUp);
+//    _viewMatrix = lookAt(rotation * eyePos, vmml::vec3f::UNIT_Y, eyeUp);
+    
+    // For demo purposes on iPad
+    _viewMatrix = lookAt(eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
 
     _modelMatrix = vmml::mat4f::IDENTITY;
@@ -224,8 +227,8 @@ void DemoSceneManager::draw(double deltaT)
     
     if(_game._playing)
     {
-        _game.movePaddle(dx);
         _game.moveBall();
+        _game.movePaddle(dx);
     }
     else
     {

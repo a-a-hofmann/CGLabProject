@@ -165,17 +165,16 @@ bool Paddle::detectCollision(Ball& ball)
 }
 
 
-// FIXME: Ball bounces too soon on impact with wall
 
 Game::Game() :
 _obstacles(),
-_ball(0.0, 0.0, 1.0, 0.0, -0.2),
-_paddle(0.0, -4.5, 2.0, 1.0, 0.2),
+_ball(0.0, 0.0, 1.0, -0.2, -0.2),
+_paddle(0.0, -4.5, 10.0, 1.0, 0.1),
 _velocityDivisor(1),
 _playing(true)
 {
-    Wall* lowerWall = new Wall(0.0, -11.0, 27.5, 2.0, true);
-    Wall* upperWall = new Wall(0.0, 11.0, 27.5, 2.0, false);
+    Wall* lowerWall = new Wall(0.0, -19.0, 27.5, 2.0, true);
+    Wall* upperWall = new Wall(0.0, 19.0, 27.5, 2.0, false);
     Wall* leftWall = new Wall(-13.75, 0.0, 1.25, 40.0, false);
     Wall* rightWall = new Wall(13.75, 0.0, 1.25, 40.0, false);
     
@@ -186,9 +185,10 @@ _playing(true)
     
     
 
+    // Add bricks at the end so the first 4 obstacles are always the wall
     for(unit x = -4.0; x <= 4.0; x += 2.0)
         for(unit y = 4.0; y >= 2.0; y -= 1.0)
-            _obstacles.insert(_obstacles.begin(), new Brick(x, y, 2.0, 1.0));
+            _obstacles.insert(_obstacles.end(), new Brick(x, y, 2.0, 1.0));
 }
 
 Game::~Game()
@@ -238,6 +238,7 @@ void Game::moveBall2()
 void Game::movePaddle(bool left)
 {
     unit paddleOldX = _paddle._x;
+    
     if(left)
         _paddle._vx -= _paddle._dvx;
     else
@@ -252,6 +253,7 @@ void Game::movePaddle(bool left)
         }
     }
 }
+
 
 
 // TODO: Add boundary detection to avoid having the paddle leave the screen

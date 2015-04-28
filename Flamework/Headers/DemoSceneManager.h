@@ -59,7 +59,6 @@ private:
     MatrixStack _modelMatrixStack;
     vmml::mat4f _modelMatrix;
     vmml::mat4f _viewMatrix;
-//    glm::mat4 _viewMatrix;
 };
 
 
