@@ -15,6 +15,9 @@
 		04EFD8381AE31B94000DA18A /* paddle.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8371AE31B94000DA18A /* paddle.obj */; };
 		04EFD83A1AE382CC000DA18A /* brick.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8391AE382CC000DA18A /* brick.obj */; };
 		11148C441AE90928003DCC59 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 11148C431AE90928003DCC59 /* glm */; };
+		11A40F7E1AEF93310059154D /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7B1AEF93310059154D /* Ball.cpp */; };
+		11A40F7F1AEF93310059154D /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7C1AEF93310059154D /* Entity.cpp */; };
+		11A40F801AEF93310059154D /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7D1AEF93310059154D /* Obstacle.cpp */; };
 		11A5A9481AE692EC00999851 /* field.obj in Resources */ = {isa = PBXBuildFile; fileRef = 11A5A9471AE692EC00999851 /* field.obj */; };
 		11CBCEB01AE6A16B0098D7B8 /* field4.obj in Resources */ = {isa = PBXBuildFile; fileRef = 11CBCEAF1AE6A16B0098D7B8 /* field4.obj */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -75,6 +78,12 @@
 		04EFD8371AE31B94000DA18A /* paddle.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paddle.obj; sourceTree = "<group>"; };
 		04EFD8391AE382CC000DA18A /* brick.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.obj; sourceTree = "<group>"; };
 		11148C431AE90928003DCC59 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
+		11A40F781AEF93280059154D /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ball.h; path = Implementation/Ball.h; sourceTree = SOURCE_ROOT; };
+		11A40F791AEF93280059154D /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Implementation/Entity.h; sourceTree = SOURCE_ROOT; };
+		11A40F7A1AEF93280059154D /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Obstacle.h; path = Implementation/Obstacle.h; sourceTree = SOURCE_ROOT; };
+		11A40F7B1AEF93310059154D /* Ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ball.cpp; sourceTree = "<group>"; };
+		11A40F7C1AEF93310059154D /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		11A40F7D1AEF93310059154D /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
 		11A5A9471AE692EC00999851 /* field.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field.obj; sourceTree = "<group>"; };
 		11CBCEAF1AE6A16B0098D7B8 /* field4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field4.obj; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -383,6 +392,9 @@
 		F87C33191910557D00E8A523 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				11A40F781AEF93280059154D /* Ball.h */,
+				11A40F791AEF93280059154D /* Entity.h */,
+				11A40F7A1AEF93280059154D /* Obstacle.h */,
 				04EFD82F1ADEB6A9000DA18A /* GameLogic.h */,
 				F87C331A1910557D00E8A523 /* DemoSceneManager.h */,
 			);
@@ -392,6 +404,9 @@
 		F87C331B1910557D00E8A523 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				11A40F7B1AEF93310059154D /* Ball.cpp */,
+				11A40F7C1AEF93310059154D /* Entity.cpp */,
+				11A40F7D1AEF93310059154D /* Obstacle.cpp */,
 				F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */,
 				04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */,
 			);
@@ -603,6 +618,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A40F7E1AEF93310059154D /* Ball.cpp in Sources */,
 				F87C33131910554000E8A523 /* PhysicalObject.cpp in Sources */,
 				F87C330B1910554000E8A523 /* main.m in Sources */,
 				F87C330F1910554000E8A523 /* Geometry.cpp in Sources */,
@@ -618,6 +634,7 @@
 				F87C33121910554000E8A523 /* ModelData.cpp in Sources */,
 				F87C33461910561A00E8A523 /* default.vert in Sources */,
 				F87C33151910554000E8A523 /* SceneManager.cpp in Sources */,
+				11A40F7F1AEF93310059154D /* Entity.cpp in Sources */,
 				F87C33111910554000E8A523 /* Model.cpp in Sources */,
 				F814A6161716A0E000A2A910 /* obj.cpp in Sources */,
 				F87C331D1910557D00E8A523 /* DemoSceneManager.cpp in Sources */,
@@ -625,6 +642,7 @@
 				F87C33171910554000E8A523 /* ShaderData.cpp in Sources */,
 				F87C33451910561A00E8A523 /* default.frag in Sources */,
 				F87C33071910554000E8A523 /* EAGLView.m in Sources */,
+				11A40F801AEF93310059154D /* Obstacle.cpp in Sources */,
 				F87C330E1910554000E8A523 /* Util.mm in Sources */,
 				F814A6171716A0E000A2A910 /* obj_parser.cpp in Sources */,
 				F87C33051910554000E8A523 /* Application.cpp in Sources */,
