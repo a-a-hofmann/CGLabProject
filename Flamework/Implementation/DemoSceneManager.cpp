@@ -238,6 +238,7 @@ void DemoSceneManager::startGame()
     if(_game._playing) {
         pushModelMatrix();
         transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
+        transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.3)));
         drawModel(_game._ball.getModelName());
         popModelMatrix();
     }

@@ -8,8 +8,7 @@
 
 #include "Ball.h"
 
-Ball::Ball(float x, float y, float r, float vx, float vy) :
-Entity(x, y)
+Ball::Ball(float x, float y, float r, float vx, float vy) : Entity(x, y)
 {
     _r = r;
     _vx = vx;
