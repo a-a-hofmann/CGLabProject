@@ -12,8 +12,6 @@
 #include "Entity.h"
 #include "Ball.h"
 
-class Cuboid;
-
 // An obstacle (i.e. brick, wall or paddle)
 class Obstacle : public Entity
 {

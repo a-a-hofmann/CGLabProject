@@ -28,7 +28,7 @@ _playing(true)
 
 Game::~Game()
 {
-    for(std::list<Cuboid*>::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+    for(ObstacleList::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         delete *it;
     }
 }
@@ -48,9 +48,9 @@ void Game::moveBall2()
 
     _paddle.detectCollision(_ball);
     
-    std::list<Cuboid*> toDestroy;
+    ObstacleList toDestroy;
     
-    for(std::list<Cuboid*>::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+    for(ObstacleList::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         if((*it)->detectCollision(_ball)) {
             if((*it)->endRoundOnCollision()) {
                 _playing = false;
@@ -62,7 +62,7 @@ void Game::moveBall2()
         }
     }
     
-    for(std::list<Cuboid*>::iterator it2 = toDestroy.begin(); it2 != toDestroy.end(); ++it2) {
+    for(ObstacleList::iterator it2 = toDestroy.begin(); it2 != toDestroy.end(); ++it2) {
         _obstacles.remove(*it2);
         delete *it2;
     }
@@ -80,7 +80,7 @@ void Game::movePaddle(bool left)
         
     _paddle._x += _paddle._vx;
     
-    for(std::list<Cuboid*>::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
+    for(ObstacleList::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         if((*it)->detectCollision(_paddle)) {
             _paddle._x = paddleOldX;
             break;

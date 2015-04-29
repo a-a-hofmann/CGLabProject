@@ -223,7 +223,7 @@ void DemoSceneManager::startGame()
             std::cout << "LOST!" << std::endl;
     }
     
-    for(std::list<Cuboid*>::iterator it = _game._obstacles.begin(); it != _game._obstacles.end(); ++it) {
+    for(ObstacleList::iterator it = _game._obstacles.begin(); it != _game._obstacles.end(); ++it) {
         pushModelMatrix();
         transformModelMatrix(vmml::create_translation(vmml::vec3f((*it)->_x, (*it)->_y, 0)));
         drawModel((*it)->getModelName());

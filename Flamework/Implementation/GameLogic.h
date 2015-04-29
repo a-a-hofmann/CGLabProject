@@ -19,7 +19,7 @@
 #include "Brick.h"
 #include "Paddle.h"
 
-
+typedef std::list<Cuboid*> ObstacleList;
 // The game
 class Game
 {
@@ -28,7 +28,7 @@ protected:
     void moveBall2();   // moves the ball with velocity devided by _velocityDivisor
     
 public:
-    std::list<Cuboid*> _obstacles;    // list of obstacles (i.e. bricks and walls)
+    ObstacleList _obstacles;    // list of obstacles (i.e. bricks and walls)
     Paddle _paddle; // the paddle
     Ball _ball;     // the ball
     bool _playing;  // true if the game round has not ended yet

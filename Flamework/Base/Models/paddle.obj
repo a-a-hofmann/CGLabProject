@@ -27,7 +27,7 @@ v -2.000000 0.150000 -1.000000
 
 # Point/Line/Face list
 
-usemtl default
+usemtl paddle
 f 4 3 2 1
 f 2 6 5 1
 f 3 7 6 2
