@@ -14,6 +14,10 @@
 #include "Entity.h"
 #include "Ball.h"
 #include "Obstacle.h"
+#include "Cuboid.h"
+#include "Wall.h"
+#include "Brick.h"
+#include "Paddle.h"
 
 
 // The game
@@ -24,7 +28,7 @@ protected:
     void moveBall2();   // moves the ball with velocity devided by _velocityDivisor
     
 public:
-    std::list<Obstacle*> _obstacles;    // list of obstacles (i.e. bricks and walls)
+    std::list<Cuboid*> _obstacles;    // list of obstacles (i.e. bricks and walls)
     Paddle _paddle; // the paddle
     Ball _ball;     // the ball
     bool _playing;  // true if the game round has not ended yet

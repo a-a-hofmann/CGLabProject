@@ -19,6 +19,10 @@
 		11A40F7F1AEF93310059154D /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7C1AEF93310059154D /* Entity.cpp */; };
 		11A40F801AEF93310059154D /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7D1AEF93310059154D /* Obstacle.cpp */; };
 		11A5A9481AE692EC00999851 /* field.obj in Resources */ = {isa = PBXBuildFile; fileRef = 11A5A9471AE692EC00999851 /* field.obj */; };
+		11C786491AF1132300F40E78 /* Cuboid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C786471AF1132300F40E78 /* Cuboid.cpp */; };
+		11C7864C1AF1139300F40E78 /* Brick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C7864A1AF1139300F40E78 /* Brick.cpp */; };
+		11C7864F1AF113FD00F40E78 /* Wall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C7864D1AF113FD00F40E78 /* Wall.cpp */; };
+		11C786521AF1143E00F40E78 /* Paddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C786501AF1143E00F40E78 /* Paddle.cpp */; };
 		11CBCEB01AE6A16B0098D7B8 /* field4.obj in Resources */ = {isa = PBXBuildFile; fileRef = 11CBCEAF1AE6A16B0098D7B8 /* field4.obj */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		283D33F312AEDA3D00C06CB4 /* FrameworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283D33F212AEDA3D00C06CB4 /* FrameworkViewController.xib */; };
@@ -85,6 +89,14 @@
 		11A40F7C1AEF93310059154D /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		11A40F7D1AEF93310059154D /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Obstacle.cpp; sourceTree = "<group>"; };
 		11A5A9471AE692EC00999851 /* field.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field.obj; sourceTree = "<group>"; };
+		11C786471AF1132300F40E78 /* Cuboid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cuboid.cpp; sourceTree = "<group>"; };
+		11C786481AF1132300F40E78 /* Cuboid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cuboid.h; path = ../Implementation/Cuboid.h; sourceTree = "<group>"; };
+		11C7864A1AF1139300F40E78 /* Brick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Brick.cpp; sourceTree = "<group>"; };
+		11C7864B1AF1139300F40E78 /* Brick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Brick.h; path = ../Implementation/Brick.h; sourceTree = "<group>"; };
+		11C7864D1AF113FD00F40E78 /* Wall.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wall.cpp; sourceTree = "<group>"; };
+		11C7864E1AF113FD00F40E78 /* Wall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wall.h; path = ../Implementation/Wall.h; sourceTree = "<group>"; };
+		11C786501AF1143E00F40E78 /* Paddle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Paddle.cpp; sourceTree = "<group>"; };
+		11C786511AF1143E00F40E78 /* Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Paddle.h; path = ../Implementation/Paddle.h; sourceTree = "<group>"; };
 		11CBCEAF1AE6A16B0098D7B8 /* field4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field4.obj; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Flamework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flamework.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -395,6 +407,10 @@
 				11A40F781AEF93280059154D /* Ball.h */,
 				11A40F791AEF93280059154D /* Entity.h */,
 				11A40F7A1AEF93280059154D /* Obstacle.h */,
+				11C786481AF1132300F40E78 /* Cuboid.h */,
+				11C7864B1AF1139300F40E78 /* Brick.h */,
+				11C7864E1AF113FD00F40E78 /* Wall.h */,
+				11C786511AF1143E00F40E78 /* Paddle.h */,
 				04EFD82F1ADEB6A9000DA18A /* GameLogic.h */,
 				F87C331A1910557D00E8A523 /* DemoSceneManager.h */,
 			);
@@ -409,6 +425,10 @@
 				11A40F7D1AEF93310059154D /* Obstacle.cpp */,
 				F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */,
 				04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */,
+				11C786471AF1132300F40E78 /* Cuboid.cpp */,
+				11C7864A1AF1139300F40E78 /* Brick.cpp */,
+				11C7864D1AF113FD00F40E78 /* Wall.cpp */,
+				11C786501AF1143E00F40E78 /* Paddle.cpp */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -625,8 +645,10 @@
 				F87C330D1910554000E8A523 /* TextureData.mm in Sources */,
 				F87C330C1910554000E8A523 /* Sound.mm in Sources */,
 				F87C33181910554000E8A523 /* Texture.cpp in Sources */,
+				11C786521AF1143E00F40E78 /* Paddle.cpp in Sources */,
 				F87C330A1910554000E8A523 /* Gyro.mm in Sources */,
 				F87C33091910554000E8A523 /* FrameworkViewController.mm in Sources */,
+				11C7864F1AF113FD00F40E78 /* Wall.cpp in Sources */,
 				F87C33081910554000E8A523 /* FrameworkAppDelegate.m in Sources */,
 				F87C33141910554000E8A523 /* PhysicsManager.cpp in Sources */,
 				F87C33161910554000E8A523 /* Shader.cpp in Sources */,
@@ -637,12 +659,14 @@
 				11A40F7F1AEF93310059154D /* Entity.cpp in Sources */,
 				F87C33111910554000E8A523 /* Model.cpp in Sources */,
 				F814A6161716A0E000A2A910 /* obj.cpp in Sources */,
+				11C7864C1AF1139300F40E78 /* Brick.cpp in Sources */,
 				F87C331D1910557D00E8A523 /* DemoSceneManager.cpp in Sources */,
 				F87C33061910554000E8A523 /* Camera.cpp in Sources */,
 				F87C33171910554000E8A523 /* ShaderData.cpp in Sources */,
 				F87C33451910561A00E8A523 /* default.frag in Sources */,
 				F87C33071910554000E8A523 /* EAGLView.m in Sources */,
 				11A40F801AEF93310059154D /* Obstacle.cpp in Sources */,
+				11C786491AF1132300F40E78 /* Cuboid.cpp in Sources */,
 				F87C330E1910554000E8A523 /* Util.mm in Sources */,
 				F814A6171716A0E000A2A910 /* obj_parser.cpp in Sources */,
 				F87C33051910554000E8A523 /* Application.cpp in Sources */,
