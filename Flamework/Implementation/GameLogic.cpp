@@ -132,7 +132,7 @@ bool Brick::destroyOnCollision()
     return true;
 }
 
-Wall::Wall(unit x, unit y, unit width, unit height, bool horizontal, bool endRoundOnCollision) :
+Wall::Wall(unit x, unit y, unit width, unit height, bool endRoundOnCollision) :
 Cuboid(x, y, width, height),
 _endRoundOnCollision(endRoundOnCollision)
 {
@@ -255,9 +255,6 @@ void Game::movePaddle(bool left)
 }
 
 
-
-// TODO: Add boundary detection to avoid having the paddle leave the screen
-// FIXME: Sometimes the ball goes through the paddle
 void Game::movePaddle(unit dx)
 {
  

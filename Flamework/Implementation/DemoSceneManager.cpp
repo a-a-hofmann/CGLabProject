@@ -249,8 +249,8 @@ void DemoSceneManager::draw(double deltaT)
     }
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 1, 1)));
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, 0)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 1, 1)));
     drawModel(_game._paddle.getModelName());
     popModelMatrix();
     
