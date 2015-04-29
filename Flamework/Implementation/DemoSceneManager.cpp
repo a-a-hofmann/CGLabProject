@@ -197,6 +197,7 @@ void DemoSceneManager::draw(double deltaT)
 
 void DemoSceneManager::startGame()
 {
+    float angle = _time;
     _modelMatrix = vmml::mat4f::IDENTITY;
     
     pushModelMatrix();
@@ -239,6 +240,7 @@ void DemoSceneManager::startGame()
         pushModelMatrix();
         transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
         transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.3)));
+        transformModelMatrix(vmml::create_rotation(angle, vmml::vec3f::UNIT_Z));
         drawModel(_game._ball.getModelName());
         popModelMatrix();
     }
