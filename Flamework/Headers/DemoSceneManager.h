@@ -57,6 +57,8 @@ private:
     vmml::vec2f _scaling;
     vmml::vec2f _lScale;
     
+    vmml::vec3f _eyePos;
+    
     MatrixStack _modelMatrixStack;
     vmml::mat4f _modelMatrix;
     vmml::mat4f _viewMatrix;

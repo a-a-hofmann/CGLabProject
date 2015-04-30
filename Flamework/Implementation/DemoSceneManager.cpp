@@ -138,7 +138,7 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
             shader->setUniform("NormalMatrix", normalMatrix);
             
-            shader->setUniform("EyePos", vmml::vec3f(0.0, -5.0, -7.0));
+            shader->setUniform("EyePos", _eyePos);
             
             shader->setUniform("LightPos", vmml::vec4f(0.f, -5.0f, -7.0f, 1.f));
             shader->setUniform("Ia", vmml::vec3f(1.f));
@@ -196,6 +196,7 @@ void DemoSceneManager::draw(double deltaT)
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
     vmml::vec3f eyePos(0.0, -5.0, -7.0);
+    _eyePos = eyePos;
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
