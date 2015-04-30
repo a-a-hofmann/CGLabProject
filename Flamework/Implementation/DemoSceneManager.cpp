@@ -188,7 +188,7 @@ void DemoSceneManager::draw(double deltaT)
     glDepthFunc(GL_LEQUAL);
     
     glCullFace(GL_BACK);
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
     
     Gyro *gyro = Gyro::getInstance();
     gyro->read();

@@ -9,4 +9,5 @@ Ks 0.300000 0.300000 0.300000
 # Ni 1.000000
 # d 1.000000
 # illum 1
+#map_Kd cube.png
 map_Kd brick.png
