@@ -137,6 +137,13 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             vmml::mat3f normalMatrix;
             vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
             shader->setUniform("NormalMatrix", normalMatrix);
+            
+            shader->setUniform("EyePos", vmml::vec3f(0.0, -5.0, -7.0));
+            
+            shader->setUniform("LightPos", vmml::vec4f(0.f, -5.0f, -7.0f, 1.f));
+            shader->setUniform("Ia", vmml::vec3f(1.f));
+            shader->setUniform("Id", vmml::vec3f(1.f));
+            shader->setUniform("Is", vmml::vec3f(1.f));
         }
         else
         {

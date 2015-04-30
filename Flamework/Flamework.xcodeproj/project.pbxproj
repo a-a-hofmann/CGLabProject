@@ -11,6 +11,8 @@
 		0496EABF1AF15EF3000B72EB /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EABD1AF15EF3000B72EB /* ball.png */; };
 		0496EAC21AF15FE9000B72EB /* ball.frag in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC01AF15FE9000B72EB /* ball.frag */; };
 		0496EAC31AF15FE9000B72EB /* ball.vert in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC11AF15FE9000B72EB /* ball.vert */; };
+		0496EAC61AF2154B000B72EB /* brick.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC41AF2154B000B72EB /* brick.mtl */; };
+		0496EAC71AF2154B000B72EB /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC51AF2154B000B72EB /* brick.png */; };
 		04EFD82D1ADD4114000DA18A /* newobj.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD82C1ADD4113000DA18A /* newobj.obj */; };
 		04EFD8301ADEB6A9000DA18A /* GameLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */; };
 		04EFD8321AE2E9CB000DA18A /* verticalwall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8311AE2E9CB000DA18A /* verticalwall.obj */; };
@@ -87,6 +89,8 @@
 		0496EABD1AF15EF3000B72EB /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		0496EAC01AF15FE9000B72EB /* ball.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ball.frag; sourceTree = "<group>"; };
 		0496EAC11AF15FE9000B72EB /* ball.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ball.vert; sourceTree = "<group>"; };
+		0496EAC41AF2154B000B72EB /* brick.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.mtl; sourceTree = "<group>"; };
+		0496EAC51AF2154B000B72EB /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
 		04EFD82C1ADD4113000DA18A /* newobj.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newobj.obj; sourceTree = "<group>"; };
 		04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLogic.cpp; sourceTree = "<group>"; };
 		04EFD82F1ADEB6A9000DA18A /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = ../Implementation/GameLogic.h; sourceTree = "<group>"; };
@@ -466,6 +470,8 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0496EAC41AF2154B000B72EB /* brick.mtl */,
+				0496EAC51AF2154B000B72EB /* brick.png */,
 				0496EABC1AF15EF3000B72EB /* ball.mtl */,
 				0496EABD1AF15EF3000B72EB /* ball.png */,
 				11CBCEAF1AE6A16B0098D7B8 /* field4.obj */,
@@ -649,6 +655,7 @@
 				11C7865C1AF1247900F40E78 /* brick.vert in Resources */,
 				F8ED69F416E64F7400E6D6CA /* Default.png in Resources */,
 				F87C333D1910561A00E8A523 /* quad.obj in Resources */,
+				0496EAC71AF2154B000B72EB /* brick.png in Resources */,
 				F8ED69F516E64F7400E6D6CA /* Default@2x.png in Resources */,
 				F8ED6AD016E652B800E6D6CA /* ACKNOWLEDGEMENTS in Resources */,
 				11C786561AF1187300F40E78 /* paddle.frag in Resources */,
@@ -656,6 +663,7 @@
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
 				0496EAC31AF15FE9000B72EB /* ball.vert in Resources */,
+				0496EAC61AF2154B000B72EB /* brick.mtl in Resources */,
 				11CBCEB01AE6A16B0098D7B8 /* field4.obj in Resources */,
 				11C7865A1AF11CD000F40E78 /* quad.vert in Resources */,
 				11148C441AE90928003DCC59 /* glm in Resources */,
