@@ -46,7 +46,12 @@ public:
     void pushModelMatrix();
     void popModelMatrix();
     void transformModelMatrix(const vmml::mat4f &t);
+    
     void drawSphere();
+    void drawObstacles();
+    void drawBall();
+    void drawPaddle();
+    void drawField();
     void startGame();
     
 private:

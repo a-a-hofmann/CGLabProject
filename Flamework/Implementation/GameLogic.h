@@ -42,9 +42,12 @@ public:
     // Move ball
     void moveBall();
     
-    // Move paddle
+    // Move paddle: Autopilot
     // left: true if move to the left, false if to the right
     void movePaddle(bool left);
+    
+    // Move paddle: touchscreen
+    void movePaddle(float dx);
     
     // returns true if the game is won (i.e. all bricks have been destroyed)
     bool isWon();

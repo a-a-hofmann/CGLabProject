@@ -9,14 +9,12 @@
 #include "Wall.h"
 
 
-Wall::Wall(float x, float y, float width, float height, bool horizontal, bool endRoundOnCollision) :
+Wall::Wall(float x, float y, float width, float height, bool endRoundOnCollision) :
 Cuboid(x, y, width, height),
 _endRoundOnCollision(endRoundOnCollision)
 {
-    if(horizontal)
-        _modelName = "horizontalwall";
-    else
-        _modelName = "verticalwall";
+    _modelName = "field";
+
 }
 
 bool Wall::endRoundOnCollision()

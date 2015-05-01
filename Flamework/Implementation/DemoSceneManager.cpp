@@ -87,10 +87,10 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("sphere.obj", true, true);
     loadModel("brick.obj", true, true);
     loadModel("paddle.obj", true, true);
-    loadModel("horizontalwall.obj", true, true);
-    loadModel("verticalwall.obj", true, true);
-    loadModel("field4.obj", true, true);
+    loadModel("field.obj", true, true);
     loadModel("quad.obj", true, true);
+    
+    _modelMatrix = vmml::mat4f::IDENTITY;
 }
 
 vmml::mat4f lookAt(vmml::vec3f eye, vmml::vec3f target, vmml::vec3f up)
@@ -140,7 +140,7 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             
             shader->setUniform("EyePos", _eyePos);
             
-            shader->setUniform("LightPos", vmml::vec4f(0.f, -5.0f, 7.0f, 1.f));
+            shader->setUniform("LightPos", vmml::vec4f(7.f, 5.0f, 0.0f, 1.f));
             shader->setUniform("Ia", vmml::vec3f(1.f));
             shader->setUniform("Id", vmml::vec3f(1.f));
             shader->setUniform("Is", vmml::vec3f(1.f));
@@ -195,34 +195,77 @@ void DemoSceneManager::draw(double deltaT)
     
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
-    vmml::vec3f eyePos(0.0, -5.0, -7.0);
-    _eyePos = eyePos;
+    _eyePos = vmml::vec3f(0.0, -5.0, -7.0);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
-    _viewMatrix = lookAt(rotation * eyePos, vmml::vec3f::UNIT_Y, eyeUp);
+    _viewMatrix = lookAt(rotation * _eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
     startGame();
 }
 
-void DemoSceneManager::startGame()
+void DemoSceneManager::drawObstacles()
 {
-    float angle = _time;
-    _modelMatrix = vmml::mat4f::IDENTITY;
-    
+    for (Cuboid *obstacle : _game._obstacles){
+        if (strcmp(obstacle->getModelName(), "field")) {
+            pushModelMatrix();
+            transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0)));
+            drawModel(obstacle->getModelName());
+            popModelMatrix();
+        }
+    }
+}
+
+void DemoSceneManager::drawBall()
+{
+    if(_game._playing) {
+        float angle = _time;
+        pushModelMatrix();
+        transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
+        transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.3)));
+        transformModelMatrix(vmml::create_rotation(angle, vmml::vec3f::UNIT_Z));
+        drawModel(_game._ball.getModelName());
+        popModelMatrix();
+    }
+}
+
+void DemoSceneManager::drawPaddle()
+{
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, 0)));
+    drawModel(_game._paddle.getModelName());
+    popModelMatrix();
+}
+
+void DemoSceneManager::drawField(){
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(75.0, 50.0, 10.)));
     drawModel("quad");
     popModelMatrix();
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.5, 4, 4)));
-    drawModel("field4");
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
+    drawModel("field");
     popModelMatrix();
-    
+}
+
+
+
+void DemoSceneManager::startGame()
+{
+    drawField();
     
     if(_game._playing)
     {
-        _game.movePaddle(_game._ball._x < _game._paddle._x);
+        // Autopilot: uncomment for demo
+        //_game.movePaddle(_game._ball._x < _game._paddle._x);
+        
+        // touch controls
+        float touchDx = _scrolling.x();
+        _game.movePaddle(touchDx);
+        
+        drawPaddle();
+        
         _game.moveBall();
+        drawBall();
     }
     else
     {
@@ -232,24 +275,6 @@ void DemoSceneManager::startGame()
             std::cout << "LOST!" << std::endl;
     }
     
-    for(ObstacleList::iterator it = _game._obstacles.begin(); it != _game._obstacles.end(); ++it) {
-        pushModelMatrix();
-        transformModelMatrix(vmml::create_translation(vmml::vec3f((*it)->_x, (*it)->_y, 0)));
-        drawModel((*it)->getModelName());
-        popModelMatrix();
-    }
+    drawObstacles();
     
-    pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, 0)));
-    drawModel(_game._paddle.getModelName());
-    popModelMatrix();
-    
-    if(_game._playing) {
-        pushModelMatrix();
-        transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
-        transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.3)));
-        transformModelMatrix(vmml::create_rotation(angle, vmml::vec3f::UNIT_Z));
-        drawModel(_game._ball.getModelName());
-        popModelMatrix();
-    }
 }
