@@ -34,12 +34,15 @@ varying mediump vec3 normalVarying;    // normal in world space
 
 void main()
 {
-    normalVarying = Normal;
-    posVarying = Position;
+    //normalVarying = Normal;
+    //posVarying = Position;
     
     mediump vec4 pos = ModelMatrix * Position;
     mediump vec3 normal = normalize(NormalMatrix * Normal);
     texCoordVarying = TexCoord;
+    
+    normalVarying = normal;
+    posVarying = pos;
     
     ambientVarying = vec4(Ka * Ia, 1.0);
     

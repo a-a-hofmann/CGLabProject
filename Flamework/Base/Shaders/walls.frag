@@ -40,7 +40,6 @@ void main()
     
     ambientV = vec4(Ka * Ia, 1.0);
     
-    diffuseV = vec4(0.0);
     mediump vec3 n = normal;
     mediump vec3 l = normalize(LightPos.xyz - pos.xyz);
     
