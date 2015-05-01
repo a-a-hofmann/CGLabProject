@@ -89,7 +89,6 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("paddle.obj", true, true);
     loadModel("horizontalwall.obj", true, true);
     loadModel("verticalwall.obj", true, true);
-    loadModel("field4.obj", true, true);
     loadModel("quad.obj", true, true);
 }
 
@@ -209,15 +208,9 @@ void DemoSceneManager::startGame()
     _modelMatrix = vmml::mat4f::IDENTITY;
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(75.0, 50.0, 10.)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, 2.0)));
     drawModel("quad");
     popModelMatrix();
-    
-    pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.5, 4, 4)));
-    drawModel("field4");
-    popModelMatrix();
-    
     
     if(_game._playing)
     {
