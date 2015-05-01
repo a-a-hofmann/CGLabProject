@@ -140,7 +140,7 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             
             shader->setUniform("EyePos", _eyePos);
             
-            shader->setUniform("LightPos", vmml::vec4f(0.f, -5.0f, -7.0f, 1.f));
+            shader->setUniform("LightPos", vmml::vec4f(0.f, -5.0f, 7.0f, 1.f));
             shader->setUniform("Ia", vmml::vec3f(1.f));
             shader->setUniform("Id", vmml::vec3f(1.f));
             shader->setUniform("Is", vmml::vec3f(1.f));

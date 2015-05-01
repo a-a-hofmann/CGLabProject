@@ -34,7 +34,6 @@ lowp vec4 specularV;
 
 void main()
 {
-/*
     // Phong Shading (per-fragment lighting)
     mediump vec4 pos = ModelMatrix * posVarying;
     mediump vec3 normal = normalize(NormalMatrix * normalVarying);
@@ -60,9 +59,9 @@ void main()
         mediump vec3 specular = Ks * pow(max(0.0, dot( n, h )), Ns) * Is;
         specularV = vec4(clamp(specular, 0.0, 1.0), 1.0);
     }
-*/
+
     lowp vec3 tc = texture2DProj( DiffuseMap, texCoordVarying ).xyz;
     lowp vec4 color = vec4(tc, 0.0);
-    gl_FragColor = (ambientVarying + diffuseVarying) * color + specularVarying;
-    //gl_FragColor = (ambientV + diffuseV) * color + specularV;
+    gl_FragColor = (ambientV + diffuseV) * color + specularV;
+    //gl_FragColor = (ambientVarying + diffuseVarying) * color + specularVarying;
 }

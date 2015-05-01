@@ -41,9 +41,6 @@ void main()
     mediump vec3 normal = normalize(NormalMatrix * Normal);
     texCoordVarying = TexCoord;
     
-    //normalVarying = normal;
-    //posVarying = pos;
-    
     ambientVarying = vec4(Ka * Ia, 1.0);
     
     // calculate diffuse lighting
