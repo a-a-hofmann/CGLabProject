@@ -474,6 +474,7 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0496EAD81AF39500000B72EB /* quad.mtl */,
 				0496EAD21AF388EA000B72EB /* wall.mtl */,
 				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
 				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
@@ -671,6 +672,7 @@
 				F87C33371910561A00E8A523 /* sphere.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* wall.mtl in Resources */,
 				0496EAD71AF3894D000B72EB /* wall.vert in Resources */,
+				0496EAD91AF39500000B72EB /* quad.mtl in Resources */,
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
 				0496EAC31AF15FE9000B72EB /* ball.vert in Resources */,
