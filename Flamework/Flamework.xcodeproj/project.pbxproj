@@ -13,6 +13,13 @@
 		0496EAC31AF15FE9000B72EB /* ball.vert in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC11AF15FE9000B72EB /* ball.vert */; };
 		0496EAC61AF2154B000B72EB /* brick.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC41AF2154B000B72EB /* brick.mtl */; };
 		0496EAC71AF2154B000B72EB /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC51AF2154B000B72EB /* brick.png */; };
+		0496EACD1AF367B8000B72EB /* crazy_paving.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EACA1AF367B8000B72EB /* crazy_paving.png */; };
+		0496EACE1AF367B8000B72EB /* ornate_tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EACB1AF367B8000B72EB /* ornate_tiles.png */; };
+		0496EACF1AF367B8000B72EB /* red_shiny_wet_tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */; };
+		0496EAD11AF36EA9000B72EB /* wood_planks_old.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD01AF36EA9000B72EB /* wood_planks_old.png */; };
+		0496EAD31AF388EA000B72EB /* wall.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD21AF388EA000B72EB /* wall.mtl */; };
+		0496EAD61AF3894D000B72EB /* wall.frag in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD41AF3894D000B72EB /* wall.frag */; };
+		0496EAD71AF3894D000B72EB /* wall.vert in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD51AF3894D000B72EB /* wall.vert */; };
 		04EFD82D1ADD4114000DA18A /* newobj.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD82C1ADD4113000DA18A /* newobj.obj */; };
 		04EFD8301ADEB6A9000DA18A /* GameLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */; };
 		04EFD8321AE2E9CB000DA18A /* verticalwall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8311AE2E9CB000DA18A /* verticalwall.obj */; };
@@ -91,6 +98,13 @@
 		0496EAC11AF15FE9000B72EB /* ball.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ball.vert; sourceTree = "<group>"; };
 		0496EAC41AF2154B000B72EB /* brick.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.mtl; sourceTree = "<group>"; };
 		0496EAC51AF2154B000B72EB /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
+		0496EACA1AF367B8000B72EB /* crazy_paving.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crazy_paving.png; sourceTree = "<group>"; };
+		0496EACB1AF367B8000B72EB /* ornate_tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ornate_tiles.png; sourceTree = "<group>"; };
+		0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_shiny_wet_tiles.png; sourceTree = "<group>"; };
+		0496EAD01AF36EA9000B72EB /* wood_planks_old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood_planks_old.png; sourceTree = "<group>"; };
+		0496EAD21AF388EA000B72EB /* wall.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wall.mtl; sourceTree = "<group>"; };
+		0496EAD41AF3894D000B72EB /* wall.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = wall.frag; sourceTree = "<group>"; };
+		0496EAD51AF3894D000B72EB /* wall.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = wall.vert; sourceTree = "<group>"; };
 		04EFD82C1ADD4113000DA18A /* newobj.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = newobj.obj; sourceTree = "<group>"; };
 		04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLogic.cpp; sourceTree = "<group>"; };
 		04EFD82F1ADEB6A9000DA18A /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = ../Implementation/GameLogic.h; sourceTree = "<group>"; };
@@ -470,6 +484,11 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0496EAD21AF388EA000B72EB /* wall.mtl */,
+				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
+				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
+				0496EACB1AF367B8000B72EB /* ornate_tiles.png */,
+				0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */,
 				0496EAC41AF2154B000B72EB /* brick.mtl */,
 				0496EAC51AF2154B000B72EB /* brick.png */,
 				0496EABC1AF15EF3000B72EB /* ball.mtl */,
@@ -492,6 +511,8 @@
 		F87C33301910561A00E8A523 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				0496EAD41AF3894D000B72EB /* wall.frag */,
+				0496EAD51AF3894D000B72EB /* wall.vert */,
 				0496EAC01AF15FE9000B72EB /* ball.frag */,
 				0496EAC11AF15FE9000B72EB /* ball.vert */,
 				F87C33311910561A00E8A523 /* default.frag */,
@@ -642,24 +663,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0496EACE1AF367B8000B72EB /* ornate_tiles.png in Resources */,
 				F8757CA119107FA000B62379 /* default.vert in Resources */,
 				F8757CA019107F9800B62379 /* default.frag in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				11C786581AF11CC800F40E78 /* quad.frag in Resources */,
+				0496EACD1AF367B8000B72EB /* crazy_paving.png in Resources */,
 				0496EABE1AF15EF3000B72EB /* ball.mtl in Resources */,
 				F87C33491910561A00E8A523 /* test.mp3 in Resources */,
+				0496EACF1AF367B8000B72EB /* red_shiny_wet_tiles.png in Resources */,
 				283D33F312AEDA3D00C06CB4 /* FrameworkViewController.xib in Resources */,
 				F8ED69F316E64F7400E6D6CA /* Default-568h@2x.png in Resources */,
 				11A5A9481AE692EC00999851 /* field.obj in Resources */,
 				0496EAC21AF15FE9000B72EB /* ball.frag in Resources */,
 				11C7865C1AF1247900F40E78 /* brick.vert in Resources */,
 				F8ED69F416E64F7400E6D6CA /* Default.png in Resources */,
+				0496EAD61AF3894D000B72EB /* wall.frag in Resources */,
 				F87C333D1910561A00E8A523 /* quad.obj in Resources */,
 				0496EAC71AF2154B000B72EB /* brick.png in Resources */,
 				F8ED69F516E64F7400E6D6CA /* Default@2x.png in Resources */,
 				F8ED6AD016E652B800E6D6CA /* ACKNOWLEDGEMENTS in Resources */,
 				11C786561AF1187300F40E78 /* paddle.frag in Resources */,
 				F87C33371910561A00E8A523 /* sphere.obj in Resources */,
+				0496EAD31AF388EA000B72EB /* wall.mtl in Resources */,
+				0496EAD71AF3894D000B72EB /* wall.vert in Resources */,
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
 				0496EAC31AF15FE9000B72EB /* ball.vert in Resources */,
@@ -670,6 +697,7 @@
 				04EFD82D1ADD4114000DA18A /* newobj.obj in Resources */,
 				04EFD8321AE2E9CB000DA18A /* verticalwall.obj in Resources */,
 				11C786541AF1186A00F40E78 /* paddle.vert in Resources */,
+				0496EAD11AF36EA9000B72EB /* wood_planks_old.png in Resources */,
 				04EFD8341AE2EBAF000DA18A /* horizontalwall.obj in Resources */,
 				04EFD8361AE2F230000DA18A /* cube.obj in Resources */,
 				0496EABF1AF15EF3000B72EB /* ball.png in Resources */,
