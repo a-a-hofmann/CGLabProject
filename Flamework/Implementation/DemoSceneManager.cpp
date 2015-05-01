@@ -87,7 +87,7 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("sphere.obj", true, true);
     loadModel("brick.obj", true, true);
     loadModel("paddle.obj", true, true);
-    loadModel("field.obj", true, true);
+    loadModel("walls.obj", true, true);
     loadModel("quad.obj", true, true);
     
     _modelMatrix = vmml::mat4f::IDENTITY;
@@ -140,7 +140,7 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             
             shader->setUniform("EyePos", _eyePos);
             
-            shader->setUniform("LightPos", vmml::vec4f(7.f, 5.0f, 0.0f, 1.f));
+            shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 0.0f, 1.f));
             shader->setUniform("Ia", vmml::vec3f(1.f));
             shader->setUniform("Id", vmml::vec3f(1.f));
             shader->setUniform("Is", vmml::vec3f(1.f));
@@ -244,7 +244,7 @@ void DemoSceneManager::drawField(){
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
-    drawModel("field");
+    drawModel("walls");
     popModelMatrix();
 }
 

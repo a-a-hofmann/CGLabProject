@@ -63,5 +63,4 @@ void main()
     lowp vec3 tc = texture2DProj( DiffuseMap, texCoordVarying ).xyz;
     lowp vec4 color = vec4(tc, 0.0);
     gl_FragColor = (ambientV + diffuseV) * color + specularV;
-    //gl_FragColor = (ambientVarying + diffuseVarying) * color + specularVarying;
 }
