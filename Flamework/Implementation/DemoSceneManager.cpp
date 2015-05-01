@@ -237,6 +237,7 @@ void DemoSceneManager::drawPaddle()
 
 void DemoSceneManager::drawField(){
     pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(10.0, 6.0, 1.0)));
     transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, 2.0)));
     drawModel("quad");
     popModelMatrix();

@@ -25,6 +25,7 @@
 		04EFD83A1AE382CC000DA18A /* brick.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8391AE382CC000DA18A /* brick.obj */; };
 		11148C441AE90928003DCC59 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 11148C431AE90928003DCC59 /* glm */; };
 		1149693B1AF394B700FC0A7E /* field.obj in Resources */ = {isa = PBXBuildFile; fileRef = 1149693A1AF394B700FC0A7E /* field.obj */; };
+		1149693D1AF3DCA200FC0A7E /* quad.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 1149693C1AF3DCA200FC0A7E /* quad.mtl */; };
 		11A40F7E1AEF93310059154D /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7B1AEF93310059154D /* Ball.cpp */; };
 		11A40F7F1AEF93310059154D /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7C1AEF93310059154D /* Entity.cpp */; };
 		11A40F801AEF93310059154D /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7D1AEF93310059154D /* Obstacle.cpp */; };
@@ -106,6 +107,7 @@
 		04EFD8391AE382CC000DA18A /* brick.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.obj; sourceTree = "<group>"; };
 		11148C431AE90928003DCC59 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		1149693A1AF394B700FC0A7E /* field.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = field.obj; sourceTree = "<group>"; };
+		1149693C1AF3DCA200FC0A7E /* quad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quad.mtl; sourceTree = "<group>"; };
 		11A40F781AEF93280059154D /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ball.h; path = Implementation/Ball.h; sourceTree = SOURCE_ROOT; };
 		11A40F791AEF93280059154D /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Implementation/Entity.h; sourceTree = SOURCE_ROOT; };
 		11A40F7A1AEF93280059154D /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Obstacle.h; path = Implementation/Obstacle.h; sourceTree = SOURCE_ROOT; };
@@ -474,22 +476,22 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0496EAD81AF39500000B72EB /* quad.mtl */,
-				0496EAD21AF388EA000B72EB /* wall.mtl */,
-				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
-				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
-				0496EACB1AF367B8000B72EB /* ornate_tiles.png */,
-				0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */,
-				0496EAC41AF2154B000B72EB /* brick.mtl */,
-				0496EAC51AF2154B000B72EB /* brick.png */,
+				1149693C1AF3DCA200FC0A7E /* quad.mtl */,
 				0496EABC1AF15EF3000B72EB /* ball.mtl */,
 				0496EABD1AF15EF3000B72EB /* ball.png */,
-				F87C33241910561A00E8A523 /* guy.obj */,
-				F87C33201910561A00E8A523 /* sphere.obj */,
-				F87C33271910561A00E8A523 /* quad.obj */,
-				04EFD8371AE31B94000DA18A /* paddle.obj */,
+				0496EAC41AF2154B000B72EB /* brick.mtl */,
 				04EFD8391AE382CC000DA18A /* brick.obj */,
+				0496EAC51AF2154B000B72EB /* brick.png */,
+				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
 				1149693A1AF394B700FC0A7E /* field.obj */,
+				F87C33241910561A00E8A523 /* guy.obj */,
+				0496EACB1AF367B8000B72EB /* ornate_tiles.png */,
+				04EFD8371AE31B94000DA18A /* paddle.obj */,
+				F87C33271910561A00E8A523 /* quad.obj */,
+				0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */,
+				F87C33201910561A00E8A523 /* sphere.obj */,
+				0496EAD21AF388EA000B72EB /* wall.mtl */,
+				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -656,6 +658,7 @@
 				11C786581AF11CC800F40E78 /* quad.frag in Resources */,
 				0496EACD1AF367B8000B72EB /* crazy_paving.png in Resources */,
 				0496EABE1AF15EF3000B72EB /* ball.mtl in Resources */,
+				1149693D1AF3DCA200FC0A7E /* quad.mtl in Resources */,
 				F87C33491910561A00E8A523 /* test.mp3 in Resources */,
 				0496EACF1AF367B8000B72EB /* red_shiny_wet_tiles.png in Resources */,
 				283D33F312AEDA3D00C06CB4 /* FrameworkViewController.xib in Resources */,
@@ -672,7 +675,6 @@
 				F87C33371910561A00E8A523 /* sphere.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* wall.mtl in Resources */,
 				0496EAD71AF3894D000B72EB /* wall.vert in Resources */,
-				0496EAD91AF39500000B72EB /* quad.mtl in Resources */,
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
 				0496EAC31AF15FE9000B72EB /* ball.vert in Resources */,
