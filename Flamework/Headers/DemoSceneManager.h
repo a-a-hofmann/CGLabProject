@@ -67,6 +67,8 @@ private:
     MatrixStack _modelMatrixStack;
     vmml::mat4f _modelMatrix;
     vmml::mat4f _viewMatrix;
+    
+    Game _game;
 };
 
 

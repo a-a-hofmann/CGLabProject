@@ -141,9 +141,9 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             shader->setUniform("EyePos", _eyePos);
             
             shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 0.0f, 1.f));
-            shader->setUniform("Ia", vmml::vec3f(1.f));
-            shader->setUniform("Id", vmml::vec3f(1.f));
-            shader->setUniform("Is", vmml::vec3f(1.f));
+            shader->setUniform("Ia", vmml::vec3f(1.1f));
+            shader->setUniform("Id", vmml::vec3f(1.1f));
+            shader->setUniform("Is", vmml::vec3f(1.0f));
         }
         else
         {
@@ -175,7 +175,6 @@ void DemoSceneManager::drawSphere()
     drawModel("sphere");
 }
 
-Game _game;
 
 void DemoSceneManager::draw(double deltaT)
 {
@@ -256,12 +255,12 @@ void DemoSceneManager::startGame()
     
     if(_game._playing)
     {
-        // Autopilot: uncomment for demo
-        //_game.movePaddle(_game._ball._x < _game._paddle._x);
+//         Autopilot: DEMO
+        _game.movePaddle(_game._ball._x < _game._paddle._x);
         
         // touch controls
-        float touchDx = _scrolling.x();
-        _game.movePaddle(touchDx);
+//        float touchDx = _scrolling.x();
+//        _game.movePaddle(touchDx);
         
         drawPaddle();
         

@@ -476,21 +476,21 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1149693C1AF3DCA200FC0A7E /* quad.mtl */,
 				0496EABC1AF15EF3000B72EB /* ball.mtl */,
 				0496EABD1AF15EF3000B72EB /* ball.png */,
 				0496EAC41AF2154B000B72EB /* brick.mtl */,
 				04EFD8391AE382CC000DA18A /* brick.obj */,
 				0496EAC51AF2154B000B72EB /* brick.png */,
 				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
-				1149693A1AF394B700FC0A7E /* walls.obj */,
 				F87C33241910561A00E8A523 /* guy.obj */,
 				0496EACB1AF367B8000B72EB /* ornate_tiles.png */,
 				04EFD8371AE31B94000DA18A /* paddle.obj */,
+				1149693C1AF3DCA200FC0A7E /* quad.mtl */,
 				F87C33271910561A00E8A523 /* quad.obj */,
 				0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */,
 				F87C33201910561A00E8A523 /* sphere.obj */,
 				0496EAD21AF388EA000B72EB /* walls.mtl */,
+				1149693A1AF394B700FC0A7E /* walls.obj */,
 				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
 			);
 			path = Models;
@@ -499,18 +499,18 @@
 		F87C33301910561A00E8A523 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				0496EAD41AF3894D000B72EB /* walls.frag */,
-				0496EAD51AF3894D000B72EB /* walls.vert */,
 				0496EAC01AF15FE9000B72EB /* ball.frag */,
 				0496EAC11AF15FE9000B72EB /* ball.vert */,
+				11C7865D1AF1248300F40E78 /* brick.frag */,
+				11C7865B1AF1247900F40E78 /* brick.vert */,
 				F87C33311910561A00E8A523 /* default.frag */,
 				F87C33321910561A00E8A523 /* default.vert */,
-				11C786531AF1186A00F40E78 /* paddle.vert */,
 				11C786551AF1187300F40E78 /* paddle.frag */,
+				11C786531AF1186A00F40E78 /* paddle.vert */,
 				11C786571AF11CC800F40E78 /* quad.frag */,
 				11C786591AF11CD000F40E78 /* quad.vert */,
-				11C7865B1AF1247900F40E78 /* brick.vert */,
-				11C7865D1AF1248300F40E78 /* brick.frag */,
+				0496EAD41AF3894D000B72EB /* walls.frag */,
+				0496EAD51AF3894D000B72EB /* walls.vert */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
