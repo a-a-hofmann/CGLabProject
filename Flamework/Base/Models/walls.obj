@@ -1,4 +1,4 @@
-mtllib wall.mtl
+mtllib walls.mtl
 o Upper_Cube.004
 v 2.750000 -4.500000 0.500000
 v -2.750000 -4.500000 0.500000
@@ -63,4 +63,4 @@ f 29 31 32 30
 f 31 25 28 32
 f 28 27 30 32
 f 31 29 26 25
-usemtl wall
+usemtl walls
