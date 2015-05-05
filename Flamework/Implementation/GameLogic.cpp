@@ -12,7 +12,7 @@
 Game::Game() :
 _obstacles(),
 _ball(0.0, 0.0, 0.3, 0.0, -0.2),
-_paddle(0.0, -4.5, 4.0, 0.3, 0.1),
+_paddle(0.0, -4.5, 4.5, 0.3, 0.1),
 _velocityDivisor(1),
 _playing(true)
 {
