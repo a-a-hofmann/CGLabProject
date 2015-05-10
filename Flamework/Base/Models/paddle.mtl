@@ -1,11 +1,12 @@
 # Material Count: 1
 
 newmtl paddle
-Ns 96.078431
-Ka 0.200000 0.200000 0.200000
-Kd 0.700000 0.700000 0.700000
-Ks 0.300000 0.300000 0.300000
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.150000 0.150000 0.150000
 # Ni 1.000000
 # d 1.000000
-# illum 1
+# illum 2
 map_Kd metal_texture.png
+map_Bump metal_normal.png

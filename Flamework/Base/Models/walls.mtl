@@ -9,3 +9,4 @@ Ks 0.300000 0.300000 0.300000
 # d 1.000000
 # illum 1
 map_Kd wood_planks_old.png
+map_Bump wood_normal.png

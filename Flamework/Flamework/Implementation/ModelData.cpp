@@ -247,7 +247,7 @@ void ModelDataImpl::genVertex(const IndexData &d)
 //        v.tangent.x = _tangents[index].x();
 //        v.tangent.y = _tangents[index].y();
 //        v.tangent.z = _tangents[index].z();
-//        
+//
 //        v.bitangent.x = _bitangents[index].x();
 //        v.bitangent.y = _bitangents[index].y();
 //        v.bitangent.z = _bitangents[index].z();
@@ -629,14 +629,40 @@ void ModelDataImpl::createFaceNormals()
         const vmml::vec3f &p2 = _vertices[indexV2].position;
         const vmml::vec3f &p3 = _vertices[indexV3].position;
         
-        vmml::vec3f a = p2 - p1;
-        vmml::vec3f b = p3 - p1;
-        face.normal = vmml::normalize(a.cross(b));
+        vmml::vec3f e = p2 - p1;
+        vmml::vec3f f = p3 - p1;
+        face.normal = vmml::normalize(e.cross(f));
         
         // set normal of vertices to face normal
         _vertices[indexV1].normal = face.normal;
         _vertices[indexV2].normal = face.normal;
         _vertices[indexV3].normal = face.normal;
+        
+        // obtain each of this face's texture coordinates
+        const vmml::vec2f &t1 = _texCoords[indexV1];
+        const vmml::vec2f &t2 = _texCoords[indexV2];
+        const vmml::vec2f &t3 = _texCoords[indexV3];
+        
+        // TODO: calculate tangent for face
+        vmml::vec3f u = t2 - t1;
+        vmml::vec3f v = t3 - t1;
+        
+        vmml::matrix<2, 2, float> m1;
+        m1.set_row(0, u);
+        m1.set_row(1, v);
+        
+        vmml::matrix<2, 2, float> mi;
+        vmml::compute_inverse(m1, mi);
+        
+        vmml::matrix<2, 3, float> mat ;
+        mat.set_row(0, e );
+        mat.set_row(1, f );
+        
+        face.tangent = vmml::normalize((mi * mat).get_row(0));
+        
+        _vertices[indexV1].tangent = face.tangent;
+        _vertices[indexV2].tangent = face.tangent;
+        _vertices[indexV3].tangent = face.tangent;
     }
 }
 
@@ -644,11 +670,15 @@ void ModelDataImpl::createVertexNormals()
 {
     for (VertexData &vertex : _vertices)
     {
-        vmml::vec3f sum = vmml::vec3f::ZERO;
+        vmml::vec3f normalSum = vmml::vec3f::ZERO;
+        vmml::vec3f tangentSum = vmml::vec3f::ZERO;
         for (Index &face : vertex.faces)
         {
-            sum += _faces[face].normal;
+            normalSum += _faces[face].normal;
+            tangentSum += _faces[face].tangent;
         }
-        vertex.normal = vmml::normalize(sum);
+        vertex.normal = vmml::normalize(normalSum);
+        vertex.tangent = vmml::normalize(tangentSum);
+        vertex.tangent = vmml::normalize(vertex.tangent - (vertex.normal * vmml::dot(vertex.normal, vertex.tangent)));
     }
 }

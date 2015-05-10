@@ -9,3 +9,4 @@ Ks 0.300000 0.300000 0.300000
 # d 1.000000
 # illum 1
 map_Kd brick.png
+map_Bump brick_normal.png

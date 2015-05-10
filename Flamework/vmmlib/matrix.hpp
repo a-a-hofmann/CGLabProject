@@ -1281,8 +1281,8 @@ template< size_t uM, size_t vM >
 typename enable_if< uM == 3 && vM == 3 && M == N && M == 4 >::type* 
 matrix< M, N, T >::tensor( const vector< uM, T >& u, const vector< vM, T >& v )
 {
-    int i, j;
-    for ( size_t col_index = 0; col_index < 3; ++col_index ) 
+//    int i, j;
+    for ( size_t col_index = 0; col_index < 3; ++col_index )
     {
         for ( size_t row_index = 0; row_index < 3; ++row_index )
             at( row_index, col_index ) = u.array[ col_index ] * v.array[ row_index ];

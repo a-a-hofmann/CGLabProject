@@ -11,9 +11,9 @@
 
 Game::Game() :
 _obstacles(),
-_ball(0.0, 0.0, 0.3, 0.0, -0.2),
-_paddle(0.0, -4.5, 4.5, 0.3, 0.1),
-_velocityDivisor(1),
+_ball(0.0, 0.0, 0.3, 0.0, -0.3),
+_paddle(0.0, -4.5, 4.5, 0.3, 0.3),
+_velocityDivisor(2),
 _playing(true)
 {
     Wall* lowerWall = new Wall(0.0, -19.0, 27.5, 2.0, true);

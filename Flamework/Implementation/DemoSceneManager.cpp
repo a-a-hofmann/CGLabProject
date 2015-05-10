@@ -84,7 +84,7 @@ void DemoSceneManager::initialize(size_t width, size_t height)
 
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
 
-    loadModel("sphere.obj", true, true);
+    loadModel("ball.obj", true, true);
     loadModel("brick.obj", true, true);
     loadModel("paddle.obj", true, true);
     loadModel("walls.obj", true, true);
@@ -132,17 +132,18 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
         {
             shader->setUniform("ProjectionMatrix", getProjectionMatrix());
             shader->setUniform("ViewMatrix", _viewMatrix);
-            shader->setUniform("ModelMatrix", _modelMatrix);
+            shader->setUniform("ModelMatrix", _modelMatrixStack.top());
             
             vmml::mat3f normalMatrix;
-            vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
+            vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrixStack.top())), normalMatrix);
             shader->setUniform("NormalMatrix", normalMatrix);
             
             shader->setUniform("EyePos", _eyePos);
-            
-            shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 0.0f, 1.f));
-            shader->setUniform("Ia", vmml::vec3f(1.1f));
-            shader->setUniform("Id", vmml::vec3f(1.1f));
+//            shader->setUniform("LightPos", vmml::vec4f(0.f, 3.f, 1.f, 1.f));
+            shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 2.0f, 1.f));
+//            shader->setUniform("LightPos", vmml::vec4f(2.0f, 2.0f, 2.0f, 1.f));
+            shader->setUniform("Ia", vmml::vec3f(1.2f));
+            shader->setUniform("Id", vmml::vec3f(1.0f));
             shader->setUniform("Is", vmml::vec3f(1.0f));
         }
         else
@@ -155,18 +156,22 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
 
 void DemoSceneManager::pushModelMatrix()
 {
-    _modelMatrixStack.push(_modelMatrix);
+    if (_modelMatrixStack.size() != 0) {
+        vmml::mat4f tmp = _modelMatrixStack.top();
+        _modelMatrixStack.push(tmp);
+    }
 }
 
 void DemoSceneManager::popModelMatrix()
 {
-    _modelMatrix = _modelMatrixStack.top();
-    _modelMatrixStack.pop();
+    if (_modelMatrixStack.size() > 1) {
+        _modelMatrixStack.pop();
+    }
 }
 
 void DemoSceneManager::transformModelMatrix(const vmml::mat4f &t)
 {
-    _modelMatrix = _modelMatrix * t;
+    _modelMatrixStack.top() =  _modelMatrixStack.top() * t;
 }
 
 // draw sphere at origin of current reference frame
@@ -179,15 +184,15 @@ void DemoSceneManager::drawSphere()
 void DemoSceneManager::draw(double deltaT)
 {
     _time += deltaT;
-    float angle = _time * .1;   // .1 radians per second
     
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
-    
-    glCullFace(GL_BACK);
-    //glEnable(GL_CULL_FACE);
+  
+
+    glCullFace(GL_FRONT);
+    glEnable(GL_CULL_FACE);
     
     Gyro *gyro = Gyro::getInstance();
     gyro->read();
@@ -215,15 +220,13 @@ void DemoSceneManager::drawObstacles()
 
 void DemoSceneManager::drawBall()
 {
-    if(_game._playing) {
-        float angle = _time;
-        pushModelMatrix();
-        transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
-        transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.3)));
-        transformModelMatrix(vmml::create_rotation(angle, vmml::vec3f::UNIT_Z));
-        drawModel(_game._ball.getModelName());
-        popModelMatrix();
-    }
+    float angle = _time;
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.3)));
+    transformModelMatrix(vmml::create_rotation(angle * M_PI_F, vmml::vec3f::UNIT_Z));
+    drawModel("ball");
+    popModelMatrix();
 }
 
 void DemoSceneManager::drawPaddle()
@@ -251,10 +254,10 @@ void DemoSceneManager::drawField(){
 void DemoSceneManager::startGame()
 {
     drawField();
-    
+
     if(_game._playing)
     {
-//         Autopilot: DEMO
+////         Autopilot: DEMO
         _game.movePaddle(_game._ball._x < _game._paddle._x);
         
         // touch controls
@@ -262,7 +265,7 @@ void DemoSceneManager::startGame()
 //        _game.movePaddle(touchDx);
         
         drawPaddle();
-        
+
         _game.moveBall();
         drawBall();
     }

@@ -14,7 +14,6 @@
 		0496EAC61AF2154B000B72EB /* brick.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC41AF2154B000B72EB /* brick.mtl */; };
 		0496EAC71AF2154B000B72EB /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC51AF2154B000B72EB /* brick.png */; };
 		0496EACD1AF367B8000B72EB /* crazy_paving.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EACA1AF367B8000B72EB /* crazy_paving.png */; };
-		0496EACE1AF367B8000B72EB /* ornate_tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EACB1AF367B8000B72EB /* ornate_tiles.png */; };
 		0496EACF1AF367B8000B72EB /* red_shiny_wet_tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */; };
 		0496EAD11AF36EA9000B72EB /* wood_planks_old.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD01AF36EA9000B72EB /* wood_planks_old.png */; };
 		0496EAD31AF388EA000B72EB /* walls.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD21AF388EA000B72EB /* walls.mtl */; };
@@ -25,6 +24,12 @@
 		04EFD8381AE31B94000DA18A /* paddle.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8371AE31B94000DA18A /* paddle.obj */; };
 		04EFD83A1AE382CC000DA18A /* brick.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8391AE382CC000DA18A /* brick.obj */; };
 		11148C441AE90928003DCC59 /* glm in Resources */ = {isa = PBXBuildFile; fileRef = 11148C431AE90928003DCC59 /* glm */; };
+		11209B3B1AFE889100D055CB /* brick_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 11209B3A1AFE889100D055CB /* brick_normal.png */; };
+		11209B3D1AFE88B600D055CB /* crazy_paving_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 11209B3C1AFE88B600D055CB /* crazy_paving_normal.png */; };
+		11209B3F1AFE890400D055CB /* metal_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 11209B3E1AFE890400D055CB /* metal_normal.png */; };
+		11209B411AFE8AD300D055CB /* metal_texture2.png in Resources */ = {isa = PBXBuildFile; fileRef = 11209B401AFE8AD300D055CB /* metal_texture2.png */; };
+		11209B431AFE8B4900D055CB /* wood_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 11209B421AFE8B4900D055CB /* wood_normal.png */; };
+		11209B451AFE907100D055CB /* red_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 11209B441AFE907100D055CB /* red_normal.png */; };
 		1149693B1AF394B700FC0A7E /* walls.obj in Resources */ = {isa = PBXBuildFile; fileRef = 1149693A1AF394B700FC0A7E /* walls.obj */; };
 		1149693D1AF3DCA200FC0A7E /* quad.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 1149693C1AF3DCA200FC0A7E /* quad.mtl */; };
 		11A40F7E1AEF93310059154D /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A40F7B1AEF93310059154D /* Ball.cpp */; };
@@ -76,7 +81,7 @@
 		F87C33171910554000E8A523 /* ShaderData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F87C33031910554000E8A523 /* ShaderData.cpp */; };
 		F87C33181910554000E8A523 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F87C33041910554000E8A523 /* Texture.cpp */; };
 		F87C331D1910557D00E8A523 /* DemoSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */; };
-		F87C33371910561A00E8A523 /* sphere.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33201910561A00E8A523 /* sphere.obj */; };
+		F87C33371910561A00E8A523 /* ball.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33201910561A00E8A523 /* ball.obj */; };
 		F87C333A1910561A00E8A523 /* guy.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33241910561A00E8A523 /* guy.obj */; };
 		F87C333D1910561A00E8A523 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33271910561A00E8A523 /* quad.obj */; };
 		F87C33451910561A00E8A523 /* default.frag in Sources */ = {isa = PBXBuildFile; fileRef = F87C33311910561A00E8A523 /* default.frag */; };
@@ -97,7 +102,6 @@
 		0496EAC41AF2154B000B72EB /* brick.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.mtl; sourceTree = "<group>"; };
 		0496EAC51AF2154B000B72EB /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
 		0496EACA1AF367B8000B72EB /* crazy_paving.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crazy_paving.png; sourceTree = "<group>"; };
-		0496EACB1AF367B8000B72EB /* ornate_tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ornate_tiles.png; sourceTree = "<group>"; };
 		0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_shiny_wet_tiles.png; sourceTree = "<group>"; };
 		0496EAD01AF36EA9000B72EB /* wood_planks_old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood_planks_old.png; sourceTree = "<group>"; };
 		0496EAD21AF388EA000B72EB /* walls.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = walls.mtl; sourceTree = "<group>"; };
@@ -109,6 +113,12 @@
 		04EFD8371AE31B94000DA18A /* paddle.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paddle.obj; sourceTree = "<group>"; };
 		04EFD8391AE382CC000DA18A /* brick.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.obj; sourceTree = "<group>"; };
 		11148C431AE90928003DCC59 /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
+		11209B3A1AFE889100D055CB /* brick_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick_normal.png; sourceTree = "<group>"; };
+		11209B3C1AFE88B600D055CB /* crazy_paving_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crazy_paving_normal.png; sourceTree = "<group>"; };
+		11209B3E1AFE890400D055CB /* metal_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal_normal.png; sourceTree = "<group>"; };
+		11209B401AFE8AD300D055CB /* metal_texture2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal_texture2.png; sourceTree = "<group>"; };
+		11209B421AFE8B4900D055CB /* wood_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood_normal.png; sourceTree = "<group>"; };
+		11209B441AFE907100D055CB /* red_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red_normal.png; sourceTree = "<group>"; };
 		1149693A1AF394B700FC0A7E /* walls.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = walls.obj; sourceTree = "<group>"; };
 		1149693C1AF3DCA200FC0A7E /* quad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quad.mtl; sourceTree = "<group>"; };
 		11A40F781AEF93280059154D /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ball.h; path = Implementation/Ball.h; sourceTree = SOURCE_ROOT; };
@@ -202,7 +212,7 @@
 		F87C33041910554000E8A523 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		F87C331A1910557D00E8A523 /* DemoSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSceneManager.h; sourceTree = "<group>"; };
 		F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoSceneManager.cpp; sourceTree = "<group>"; };
-		F87C33201910561A00E8A523 /* sphere.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sphere.obj; sourceTree = "<group>"; };
+		F87C33201910561A00E8A523 /* ball.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball.obj; sourceTree = "<group>"; };
 		F87C33241910561A00E8A523 /* guy.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = guy.obj; path = guy/guy.obj; sourceTree = "<group>"; };
 		F87C33271910561A00E8A523 /* quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quad.obj; sourceTree = "<group>"; };
 		F87C33311910561A00E8A523 /* default.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.frag; sourceTree = "<group>"; };
@@ -280,6 +290,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		111D19DB1AFFA28C0017111E /* ball */ = {
+			isa = PBXGroup;
+			children = (
+				0496EABC1AF15EF3000B72EB /* ball.mtl */,
+				F87C33201910561A00E8A523 /* ball.obj */,
+				0496EABD1AF15EF3000B72EB /* ball.png */,
+				11209B441AFE907100D055CB /* red_normal.png */,
+				0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */,
+			);
+			name = ball;
+			sourceTree = "<group>";
+		};
+		111D19DC1AFFA29D0017111E /* brick */ = {
+			isa = PBXGroup;
+			children = (
+				11209B3A1AFE889100D055CB /* brick_normal.png */,
+				0496EAC41AF2154B000B72EB /* brick.mtl */,
+				04EFD8391AE382CC000DA18A /* brick.obj */,
+				0496EAC51AF2154B000B72EB /* brick.png */,
+			);
+			name = brick;
+			sourceTree = "<group>";
+		};
+		111D19DD1AFFA2A90017111E /* quad */ = {
+			isa = PBXGroup;
+			children = (
+				11209B3C1AFE88B600D055CB /* crazy_paving_normal.png */,
+				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
+				1149693C1AF3DCA200FC0A7E /* quad.mtl */,
+				F87C33271910561A00E8A523 /* quad.obj */,
+			);
+			name = quad;
+			sourceTree = "<group>";
+		};
+		111D19DE1AFFA2C00017111E /* paddle */ = {
+			isa = PBXGroup;
+			children = (
+				11209B3E1AFE890400D055CB /* metal_normal.png */,
+				0496EADA1AF900FC000B72EB /* metal_texture.png */,
+				11209B401AFE8AD300D055CB /* metal_texture2.png */,
+				4380AE0A1AF8CF6B00818ABB /* paddle.mtl */,
+				04EFD8371AE31B94000DA18A /* paddle.obj */,
+			);
+			name = paddle;
+			sourceTree = "<group>";
+		};
+		111D19DF1AFFA2ED0017111E /* wall */ = {
+			isa = PBXGroup;
+			children = (
+				0496EAD21AF388EA000B72EB /* walls.mtl */,
+				1149693A1AF394B700FC0A7E /* walls.obj */,
+				11209B421AFE8B4900D055CB /* wood_normal.png */,
+				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
+			);
+			name = wall;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,24 +547,12 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0496EADA1AF900FC000B72EB /* metal_texture.png */,
-				0496EABC1AF15EF3000B72EB /* ball.mtl */,
-				0496EABD1AF15EF3000B72EB /* ball.png */,
-				0496EAC41AF2154B000B72EB /* brick.mtl */,
-				04EFD8391AE382CC000DA18A /* brick.obj */,
-				0496EAC51AF2154B000B72EB /* brick.png */,
-				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
+				111D19DB1AFFA28C0017111E /* ball */,
+				111D19DC1AFFA29D0017111E /* brick */,
+				111D19DD1AFFA2A90017111E /* quad */,
 				F87C33241910561A00E8A523 /* guy.obj */,
-				0496EACB1AF367B8000B72EB /* ornate_tiles.png */,
-				04EFD8371AE31B94000DA18A /* paddle.obj */,
-				1149693C1AF3DCA200FC0A7E /* quad.mtl */,
-				F87C33271910561A00E8A523 /* quad.obj */,
-				0496EACC1AF367B8000B72EB /* red_shiny_wet_tiles.png */,
-				F87C33201910561A00E8A523 /* sphere.obj */,
-				0496EAD21AF388EA000B72EB /* walls.mtl */,
-				1149693A1AF394B700FC0A7E /* walls.obj */,
-				0496EAD01AF36EA9000B72EB /* wood_planks_old.png */,
-				4380AE0A1AF8CF6B00818ABB /* paddle.mtl */,
+				111D19DE1AFFA2C00017111E /* paddle */,
+				111D19DF1AFFA2ED0017111E /* wall */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -657,11 +712,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0496EACE1AF367B8000B72EB /* ornate_tiles.png in Resources */,
+				11209B431AFE8B4900D055CB /* wood_normal.png in Resources */,
+				11209B451AFE907100D055CB /* red_normal.png in Resources */,
+				11209B3D1AFE88B600D055CB /* crazy_paving_normal.png in Resources */,
 				F8757CA119107FA000B62379 /* default.vert in Resources */,
 				F8757CA019107F9800B62379 /* default.frag in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				11C786581AF11CC800F40E78 /* quad.frag in Resources */,
+				11209B3F1AFE890400D055CB /* metal_normal.png in Resources */,
 				0496EACD1AF367B8000B72EB /* crazy_paving.png in Resources */,
 				0496EABE1AF15EF3000B72EB /* ball.mtl in Resources */,
 				1149693D1AF3DCA200FC0A7E /* quad.mtl in Resources */,
@@ -673,12 +731,14 @@
 				11C7865C1AF1247900F40E78 /* brick.vert in Resources */,
 				F8ED69F416E64F7400E6D6CA /* Default.png in Resources */,
 				0496EAD61AF3894D000B72EB /* walls.frag in Resources */,
+				11209B411AFE8AD300D055CB /* metal_texture2.png in Resources */,
 				F87C333D1910561A00E8A523 /* quad.obj in Resources */,
 				0496EAC71AF2154B000B72EB /* brick.png in Resources */,
 				F8ED69F516E64F7400E6D6CA /* Default@2x.png in Resources */,
 				F8ED6AD016E652B800E6D6CA /* ACKNOWLEDGEMENTS in Resources */,
+				11209B3B1AFE889100D055CB /* brick_normal.png in Resources */,
 				11C786561AF1187300F40E78 /* paddle.frag in Resources */,
-				F87C33371910561A00E8A523 /* sphere.obj in Resources */,
+				F87C33371910561A00E8A523 /* ball.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* walls.mtl in Resources */,
 				4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */,
 				0496EAD71AF3894D000B72EB /* walls.vert in Resources */,
