@@ -238,35 +238,26 @@ void ModelDataImpl::genVertex(const IndexData &d)
     
     if (NORMAL)
     {
-        auto index = d.vertexIndex;
-        
-        v.normal.x = _normals[index].x();
-        v.normal.y = _normals[index].y();
-        v.normal.z = _normals[index].z();
-        
-//        v.tangent.x = _tangents[index].x();
-//        v.tangent.y = _tangents[index].y();
-//        v.tangent.z = _tangents[index].z();
-//
-//        v.bitangent.x = _bitangents[index].x();
-//        v.bitangent.y = _bitangents[index].y();
-//        v.bitangent.z = _bitangents[index].z();
+        v.normal.x = _normals[d.normalIndex].x();
+        v.normal.y = _normals[d.normalIndex].y();
+        v.normal.z = _normals[d.normalIndex].z();
+        _vertices[d.vertexIndex].normal = _normals[d.normalIndex];
     }
     else
     {
         v.normal.x = 0;
         v.normal.y = 0;
         v.normal.z = 0;
-        
-        v.tangent.x = 0.0;
-        v.tangent.y = 0.0;
-        v.tangent.z = 0.0;
-        
-        v.bitangent.x = 0.0;
-        v.bitangent.y = 0.0;
-        v.bitangent.z = 0.0;
+        _vertices[d.vertexIndex].normal = vmml::vec3f::ZERO;
     }
-
+    
+    v.tangent.x = 0.0;
+    v.tangent.y = 0.0;
+    v.tangent.z = 0.0;
+    v.bitangent.x = 0.0;
+    v.bitangent.y = 0.0;
+    v.bitangent.z = 0.0;
+    
     _group->vboVertices.push_back(v);
     _group->vboIndices.push_back(_group->vboIndices.size());
 }
@@ -336,9 +327,9 @@ void ModelDataImpl::triangular_face_geometric_vertices_vertex_normals_callback(c
     _group->indices.push_back(d2);
     _group->indices.push_back(d3);
     
-    genVertex< true, true, true >(d1);
-    genVertex< true, true, true >(d2);
-    genVertex< true, true, true >(d3);
+    genVertex< true, false, true >(d1);
+    genVertex< true, false, true >(d2);
+    genVertex< true, false, true >(d3);
 }
 
 void ModelDataImpl::triangular_face_geometric_vertices_texture_vertices_vertex_normals_callback(const obj::index_3_tuple_type& v1_vt1_vn1, const obj::index_3_tuple_type& v2_vt2_vn2, const obj::index_3_tuple_type& v3_vt3_vn3)
@@ -535,18 +526,18 @@ void ModelDataImpl::loadObjMtl(const std::string &mtlFile)
     std::ifstream inFile(file.c_str(), std::ifstream::in);
     
     std::string line, key;
-	std::string materialName;
+    std::string materialName;
     
-	while(inFile.good() && !inFile.eof() && std::getline(inFile, line))
-	{
-		key = "";
-		std::stringstream ss(line);
-		ss>>key>>std::ws;
+    while(inFile.good() && !inFile.eof() && std::getline(inFile, line))
+    {
+        key = "";
+        std::stringstream ss(line);
+        ss>>key>>std::ws;
         
-		if (key  == "newmtl")
+        if (key  == "newmtl")
         {
             ss >> materialName >> std::ws;
-		}
+        }
         else if (key  == "Ka")
         {
             vmml::vec3f kA;
@@ -604,7 +595,7 @@ void ModelDataImpl::loadObjMtl(const std::string &mtlFile)
             auto &mat = _materials[materialName].textures["NormalMap"];
             ss >> mat >> std::ws;
         }
-	}
+    }
 }
 
 void ModelDataImpl::createFaceNormals()
@@ -631,38 +622,34 @@ void ModelDataImpl::createFaceNormals()
         
         vmml::vec3f e = p2 - p1;
         vmml::vec3f f = p3 - p1;
-        face.normal = vmml::normalize(e.cross(f));
+        face.normal = vmml::normalize(e.cross(f));  // set face normal
         
-        // set normal of vertices to face normal
-        _vertices[indexV1].normal = face.normal;
-        _vertices[indexV2].normal = face.normal;
-        _vertices[indexV3].normal = face.normal;
-        
-        // obtain each of this face's texture coordinates
-        const vmml::vec2f &t1 = _texCoords[indexV1];
-        const vmml::vec2f &t2 = _texCoords[indexV2];
-        const vmml::vec2f &t3 = _texCoords[indexV3];
-        
-        // TODO: calculate tangent for face
-        vmml::vec3f u = t2 - t1;
-        vmml::vec3f v = t3 - t1;
-        
-        vmml::matrix<2, 2, float> m1;
-        m1.set_row(0, u);
-        m1.set_row(1, v);
-        
-        vmml::matrix<2, 2, float> mi;
-        vmml::compute_inverse(m1, mi);
-        
-        vmml::matrix<2, 3, float> mat ;
-        mat.set_row(0, e );
-        mat.set_row(1, f );
-        
-        face.tangent = vmml::normalize((mi * mat).get_row(0));
-        
-        _vertices[indexV1].tangent = face.tangent;
-        _vertices[indexV2].tangent = face.tangent;
-        _vertices[indexV3].tangent = face.tangent;
+        // if texture coordinates for this face exist
+        size_t nT = _texCoords.size();
+        if (nT > indexV1 && nT > indexV2 && nT > indexV3)
+        {
+            // obtain each of this face's texture coordinates
+            const vmml::vec2f &t1 = _texCoords[indexV1];
+            const vmml::vec2f &t2 = _texCoords[indexV2];
+            const vmml::vec2f &t3 = _texCoords[indexV3];
+            
+            vmml::vec2f u = t2 - t1;
+            vmml::vec3f v = t3 - t1;
+            vmml::mat2f uv;
+            uv.set_row(0, u);
+            uv.set_row(1, v);
+            
+            vmml::mat2f uvInv = vmml::mat2f::IDENTITY;
+            uvInv.inverse(uvInv);
+            
+            vmml::matrix<2, 3, float> ef;
+            ef.set_row(0, e);
+            ef.set_row(1, f);
+            
+            vmml::matrix<2, 3, float> bt;
+            bt = uvInv * ef;
+            face.tangent = vmml::normalize(bt.get_row(0));  // set face tangent
+        }
     }
 }
 
@@ -670,15 +657,30 @@ void ModelDataImpl::createVertexNormals()
 {
     for (VertexData &vertex : _vertices)
     {
-        vmml::vec3f normalSum = vmml::vec3f::ZERO;
+        // only calculate vertex normal if not present
+        vmml::vec3f n = vmml::vec3f::ZERO;
+        if (vertex.normal.squared_length() < std::numeric_limits< float >::epsilon())
+        {
+            vmml::vec3f normalSum = vmml::vec3f::ZERO;
+            for (Index &face : vertex.faces)
+            {
+                normalSum += _faces[face].normal;
+            }
+            n = vmml::normalize(normalSum);
+        }
+        else
+        {
+            n = vmml::normalize(vertex.normal);
+        }
+        
         vmml::vec3f tangentSum = vmml::vec3f::ZERO;
         for (Index &face : vertex.faces)
         {
-            normalSum += _faces[face].normal;
             tangentSum += _faces[face].tangent;
         }
-        vertex.normal = vmml::normalize(normalSum);
-        vertex.tangent = vmml::normalize(tangentSum);
-        vertex.tangent = vmml::normalize(vertex.tangent - (vertex.normal * vmml::dot(vertex.normal, vertex.tangent)));
+        
+        vmml::vec3f t = vmml::normalize(tangentSum - n * n.dot(tangentSum));
+        vertex.normal = n;
+        vertex.tangent = t;
     }
 }
