@@ -6,6 +6,7 @@
 //
 //
 
+#include <math.h>
 #include "Cuboid.h"
 
 Cuboid::Cuboid(float x, float y, float width, float height) : Obstacle(x, y)
@@ -46,13 +47,13 @@ bool Cuboid::detectCollision(Ball& ball)
         float ballMaxY = _y2 - ball._r;
         float ballMinY = _y1 + ball._r;
         
-        if(ball._y < _y2 && ball._y > ballMaxY)
+        if(ball._oldY-ball._r < _y2 && ball._y > ballMaxY)
         {
             ball._y = ballMaxY;
             ball._vy = -ball._vy;
             return true;
         }
-        else if(ball._y > _y1 && ball._y < ballMinY)
+        else if(ball._oldY+ball._r > _y1 && ball._y < ballMinY)
         {
             ball._y = ballMinY;
             ball._vy = -ball._vy;
@@ -65,13 +66,13 @@ bool Cuboid::detectCollision(Ball& ball)
         float ballMaxX = _x1 - ball._r;
         float ballMinX = _x2 + ball._r;
         
-        if(ball._x < _x1 && ball._x > ballMaxX)
+        if(ball._oldX-ball._r < _x1 && ball._x > ballMaxX)
         {
             ball._x = ballMaxX;
             ball._vx = -ball._vx;
             return true;
         }
-        else if(ball._x > _x2 && ball._x < ballMinX)
+        else if(ball._oldX+ball._r > _x2 && ball._x < ballMinX)
         {
             ball._x = ballMinX;
             ball._vx = -ball._vx;

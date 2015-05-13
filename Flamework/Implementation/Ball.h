@@ -17,6 +17,7 @@ class Ball : public Entity
 public:
     unit _r;        // redius
     unit _vx, _vy;  // velocity
+    unit _oldX, _oldY;  // previous coordinates
     
     // Construct ball
     // x, y: position (center of circle)

@@ -12,9 +12,9 @@
 Game::Game() :
 _obstacles(),
 _particleSystems(),
-_ball(0.0, 0.0, 0.3, 0.0, -0.3),
+_ball(0.0, 0.0, 0.5, 0.0, -0.3),
 _paddle(0.0, -4.5, 4.5, 0.3, 0.5),
-_velocityDivisor(2),
+_velocityDivisor(1),
 _playing(true)
 {
     Wall* lowerWall = new Wall(0.0, -19.0, 27.5, 2.0, true);
@@ -58,13 +58,15 @@ void Game::moveBall()
 
 void Game::moveBall2()
 {
+    _ball._oldX = _ball._x;
+    _ball._oldY = _ball._y;
+    
     _ball._x += _ball._vx/_velocityDivisor;
     _ball._y += _ball._vy/_velocityDivisor;
 
     _paddle.detectCollision(_ball);
     
     ObstacleList toDestroy;
-    
     
     for(Cuboid* obstacle : _obstacles) {
         if(obstacle -> detectCollision(_ball)) {
