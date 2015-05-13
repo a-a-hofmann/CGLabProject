@@ -18,8 +18,11 @@
 #include "Wall.h"
 #include "Brick.h"
 #include "Paddle.h"
+#include "ParticleSystem.h"
 
 typedef std::list<Cuboid*> ObstacleList;
+typedef std::list<ParticleSystem*> ParticleSystemList;
+
 // The game
 class Game
 {
@@ -29,6 +32,7 @@ protected:
     
 public:
     ObstacleList _obstacles;    // list of obstacles (i.e. bricks and walls)
+    ParticleSystemList _particleSystems;    // list of particle systems
     Paddle _paddle; // the paddle
     Ball _ball;     // the ball
     bool _playing;  // true if the game round has not ended yet
@@ -48,6 +52,9 @@ public:
     
     // Move paddle: touchscreen
     void movePaddle(float dx);
+    
+    // Move particles of all particle systems
+    void moveParticles();
     
     // returns true if the game is won (i.e. all bricks have been destroyed)
     bool isWon();

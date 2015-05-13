@@ -11,8 +11,9 @@
 
 Game::Game() :
 _obstacles(),
+_particleSystems(),
 _ball(0.0, 0.0, 0.3, 0.0, -0.3),
-_paddle(0.0, -4.5, 4.5, 0.3, 0.3),
+_paddle(0.0, -4.5, 4.5, 0.3, 0.5),
 _velocityDivisor(2),
 _playing(true)
 {
@@ -38,6 +39,13 @@ Game::~Game()
     for(ObstacleList::iterator it = _obstacles.begin(); it != _obstacles.end(); ++it) {
         delete *it;
     }
+    _obstacles.clear();
+    
+    for(ParticleSystem* particleSystem : _particleSystems)
+    {
+        delete particleSystem;
+    }
+    _particleSystems.clear();
 }
 
 
@@ -66,6 +74,7 @@ void Game::moveBall2()
             }
             else if(obstacle -> destroyOnCollision()) {
                 toDestroy.insert(toDestroy.begin(), obstacle);
+                _particleSystems.insert(_particleSystems.begin(), new ParticleSystem(obstacle->_x, obstacle->_y, 0.0));
             }
         }
     }
@@ -105,6 +114,24 @@ void Game::movePaddle(float dx){
             _paddle._x = paddleOldX;
             break;
         }
+    }
+}
+
+void Game::moveParticles()
+{
+    ParticleSystemList toDestroy;
+    for(ParticleSystem* particleSystem : _particleSystems)
+    {
+        if(!particleSystem->moveParticles())
+        {
+            toDestroy.insert(toDestroy.begin(), particleSystem);
+        }
+    }
+    
+    for(ParticleSystem* particleSystem : toDestroy)
+    {
+        _particleSystems.remove(particleSystem);
+        delete particleSystem;
     }
 }
 

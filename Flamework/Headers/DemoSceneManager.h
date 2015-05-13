@@ -52,6 +52,7 @@ public:
     void drawBall();
     void drawPaddle();
     void drawField();
+    void drawParticleSystems();
     void startGame();
     
 private:

@@ -20,6 +20,7 @@
 		0496EAD61AF3894D000B72EB /* walls.frag in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD41AF3894D000B72EB /* walls.frag */; };
 		0496EAD71AF3894D000B72EB /* walls.vert in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAD51AF3894D000B72EB /* walls.vert */; };
 		0496EADB1AF900FD000B72EB /* metal_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EADA1AF900FC000B72EB /* metal_texture.png */; };
+		0496EADE1B0377F2000B72EB /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0496EADD1B0377F2000B72EB /* ParticleSystem.cpp */; };
 		04EFD8301ADEB6A9000DA18A /* GameLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */; };
 		04EFD8381AE31B94000DA18A /* paddle.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8371AE31B94000DA18A /* paddle.obj */; };
 		04EFD83A1AE382CC000DA18A /* brick.obj in Resources */ = {isa = PBXBuildFile; fileRef = 04EFD8391AE382CC000DA18A /* brick.obj */; };
@@ -108,6 +109,9 @@
 		0496EAD41AF3894D000B72EB /* walls.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = walls.frag; sourceTree = "<group>"; };
 		0496EAD51AF3894D000B72EB /* walls.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = walls.vert; sourceTree = "<group>"; };
 		0496EADA1AF900FC000B72EB /* metal_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal_texture.png; sourceTree = "<group>"; };
+		0496EADC1B035A41000B72EB /* ParticleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleSystem.h; sourceTree = "<group>"; };
+		0496EADD1B0377F2000B72EB /* ParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem.cpp; sourceTree = "<group>"; };
+		0496EADF1B039D63000B72EB /* Particle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLogic.cpp; sourceTree = "<group>"; };
 		04EFD82F1ADEB6A9000DA18A /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = ../Implementation/GameLogic.h; sourceTree = "<group>"; };
 		04EFD8371AE31B94000DA18A /* paddle.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paddle.obj; sourceTree = "<group>"; };
@@ -514,6 +518,8 @@
 				11C786511AF1143E00F40E78 /* Paddle.h */,
 				04EFD82F1ADEB6A9000DA18A /* GameLogic.h */,
 				F87C331A1910557D00E8A523 /* DemoSceneManager.h */,
+				0496EADC1B035A41000B72EB /* ParticleSystem.h */,
+				0496EADF1B039D63000B72EB /* Particle.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -530,6 +536,7 @@
 				11C7864A1AF1139300F40E78 /* Brick.cpp */,
 				11C7864D1AF113FD00F40E78 /* Wall.cpp */,
 				11C786501AF1143E00F40E78 /* Paddle.cpp */,
+				0496EADD1B0377F2000B72EB /* ParticleSystem.cpp */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -768,6 +775,7 @@
 			files = (
 				11A40F7E1AEF93310059154D /* Ball.cpp in Sources */,
 				F87C33131910554000E8A523 /* PhysicalObject.cpp in Sources */,
+				0496EADE1B0377F2000B72EB /* ParticleSystem.cpp in Sources */,
 				F87C330B1910554000E8A523 /* main.m in Sources */,
 				F87C330F1910554000E8A523 /* Geometry.cpp in Sources */,
 				F87C330D1910554000E8A523 /* TextureData.mm in Sources */,

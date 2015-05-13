@@ -249,6 +249,20 @@ void DemoSceneManager::drawField(){
     popModelMatrix();
 }
 
+void DemoSceneManager::drawParticleSystems()
+{
+    for(ParticleSystem* particleSystem : _game._particleSystems)
+    {
+        for(Particle* particle : particleSystem->_particles)
+        {
+            pushModelMatrix();
+            transformModelMatrix(vmml::create_translation(vmml::vec3f(particle->_x, particle->_y, particle->_z)));
+            transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.1)));
+            drawModel(particle->getModelName());
+            popModelMatrix();
+        }
+    }
+}
 
 
 void DemoSceneManager::startGame()
@@ -268,6 +282,9 @@ void DemoSceneManager::startGame()
 
         _game.moveBall();
         drawBall();
+        
+        _game.moveParticles();
+        drawParticleSystems();
     }
     else
     {
