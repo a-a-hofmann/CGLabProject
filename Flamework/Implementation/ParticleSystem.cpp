@@ -16,7 +16,7 @@ _particles(),
 _x(x), _y(y), _z(z),
 step(0)
 {
-    unit maxV = 0.03;
+    unit maxV = 0.05;
     for (int i = 0; i < NUM_PARTICLES; i++)
     {
         _particles.insert(_particles.begin(), new Particle(_x, _y, _z,
