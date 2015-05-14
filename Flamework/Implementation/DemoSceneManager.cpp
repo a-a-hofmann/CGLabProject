@@ -225,7 +225,8 @@ void DemoSceneManager::drawBall()
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
-    transformModelMatrix(vmml::create_rotation(angle * M_PI_F, vmml::vec3f::UNIT_Z));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     drawModel("ball");
     popModelMatrix();
 }

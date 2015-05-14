@@ -20,7 +20,7 @@ step(0)
     for (int i = 0; i < NUM_PARTICLES; i++)
     {
         _particles.insert(_particles.begin(), new Particle(_x, _y, _z,
-                    rand()*2*maxV/RAND_MAX - maxV, rand()*2*maxV/RAND_MAX - maxV, rand()*2*maxV/RAND_MAX));
+                    rand()*2*maxV/RAND_MAX - maxV, rand()*2*maxV/RAND_MAX - maxV, rand()*4*maxV/RAND_MAX));
     }
 }
 
