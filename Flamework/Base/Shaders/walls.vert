@@ -42,12 +42,12 @@ void main()
     gl_Position = ProjectionMatrix * ViewMatrix * posVarying;
     
     
-    
+    //
     // Ambient component
     ambientVarying = vec4(Ka * Ia, 1.0);
     
     // Diffuse component
-    mediump vec3 l = normalize(LightPos - posVarying).xyz;
+    mediump vec3 l = normalize(LightPos.xyz - posVarying.xyz);
     lowp float intensity = dot(normalVarying, l);
     lowp vec3 diffuse = Kd * clamp(intensity, 0.0, 1.0) * Id;
     diffuseVarying = vec4(clamp(diffuse, 0.0, 1.0), 1.0);
@@ -61,5 +61,4 @@ void main()
         mediump vec3 specular = Ks * pow(max(0.0, dot( normalVarying, h )), Ns) * Is;
         specularVarying = vec4(clamp(specular, 0.0, 1.0), 1.0);
     }
-
 }

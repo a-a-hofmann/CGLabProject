@@ -5,8 +5,8 @@ uniform mediump mat4 ProjectionMatrix;
 
 uniform mediump mat3 NormalMatrix;
 
-uniform highp vec4 LightPos;
-uniform highp vec4 EyePos;
+uniform mediump vec4 LightPos;
+uniform mediump vec4 EyePos;
 
 uniform lowp vec3 Ka;   // ambient material coefficient
 uniform lowp vec3 Kd;   // diffuse material coefficient
@@ -28,7 +28,7 @@ varying lowp vec4 diffuseVarying;
 varying lowp vec4 specularVarying;
 varying lowp vec4 texCoordVarying;
 
-varying highp vec4 posVarying;       // pos in world space
+varying mediump vec4 posVarying;       // pos in world space
 varying mediump vec3 normalVarying;    // normal in world space
 varying mediump vec3 tangentVarying;
 
@@ -42,11 +42,12 @@ void main()
     gl_Position = ProjectionMatrix * ViewMatrix * posVarying;
     
     
+    //
     // Ambient component
     ambientVarying = vec4(Ka * Ia, 1.0);
     
     // Diffuse component
-    mediump vec3 l = normalize(LightPos - posVarying).xyz;
+    mediump vec3 l = normalize(LightPos.xyz - posVarying.xyz);
     lowp float intensity = dot(normalVarying, l);
     lowp vec3 diffuse = Kd * clamp(intensity, 0.0, 1.0) * Id;
     diffuseVarying = vec4(clamp(diffuse, 0.0, 1.0), 1.0);
