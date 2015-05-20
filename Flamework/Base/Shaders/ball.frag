@@ -28,7 +28,7 @@ void main()
 {
     mediump vec4 p = posVarying;
     mediump vec3 n = normalize(normalVarying);
-    mediump vec3 l = normalize(LightPos - p).xyz;
+    mediump vec3 l = normalize(LightPos.xyz - p.xyz);
     mediump vec3 t = normalize(tangentVarying);
     
     t = normalize(t - (n * dot(t, n)));
@@ -53,7 +53,7 @@ void main()
     lowp vec4 specularResult = vec4(0.0);
     if (intensity > 0.0)
     {
-        mediump vec3 eyeVec = normalize(EyePos - p).xyz;
+        mediump vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
         mediump vec3 h = normalize(l + eyeVec);
         mediump vec3 specular = Ks * pow(max(0.0, dot(n, h)), Ns) * Is;
         specularResult = vec4(clamp(specular, 0.0, 1.0), 1.0);

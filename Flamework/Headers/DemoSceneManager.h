@@ -42,6 +42,7 @@ public:
     virtual void draw(double deltaT);
     
     void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES);
+    void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
 
     void pushModelMatrix();
     void popModelMatrix();
@@ -53,6 +54,7 @@ public:
     void drawPaddle();
     void drawField();
     void drawParticleSystems();
+    void drawSkybox();
     void startGame();
     
 private:

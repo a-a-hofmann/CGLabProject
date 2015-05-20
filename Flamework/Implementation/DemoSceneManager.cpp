@@ -90,6 +90,8 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("walls.obj", true, true);
     loadModel("quad.obj", true, true);
     
+    loadModel("skybox.obj", true, true);
+    
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
 
@@ -141,8 +143,8 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             shader->setUniform("EyePos", _eyePos);
 //            shader->setUniform("LightPos", vmml::vec4f(0.f, 3.f, 1.f, 1.f));
             //shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 2.0f, 1.f));
-            shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 5.0f, 1.f));
-//            shader->setUniform("LightPos", vmml::vec4f(2.0f, 2.0f, 2.0f, 1.f));
+//            shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 5.0f, 1.f));
+            shader->setUniform("LightPos", _eyePos);
             shader->setUniform("Ia", vmml::vec3f(1.2f));
             shader->setUniform("Id", vmml::vec3f(1.0f));
             shader->setUniform("Is", vmml::vec3f(1.0f));
@@ -150,6 +152,25 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
         else
         {
             util::log("No shader available.", util::LM_WARNING);
+        }
+        geometry.draw(mode);
+    }
+}
+
+void DemoSceneManager::drawSkyboxModel(GLenum mode)
+{
+    Model::GroupMap &groups = getModel("skybox")->getGroups();
+    for (auto i = groups.begin(); i != groups.end(); ++i) {
+        Geometry & geometry = i->second;
+        MaterialPtr material = geometry.getMaterial();
+        ShaderPtr shader = material->getShader();
+        if (shader.get()) {
+            shader->setUniform("ProjectionMatrix", getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _viewMatrix);
+            shader->setUniform("ModelMatrix", _modelMatrixStack.top());
+        }
+        else{
+            util::log("No skybox shader available", util::LM_WARNING);
         }
         geometry.draw(mode);
     }
@@ -192,8 +213,8 @@ void DemoSceneManager::draw(double deltaT)
     glDepthFunc(GL_LEQUAL);
   
 
-    glCullFace(GL_FRONT);
-    glEnable(GL_CULL_FACE);
+//    glCullFace(GL_FRONT);
+//    glEnable(GL_CULL_FACE);
     
     Gyro *gyro = Gyro::getInstance();
     gyro->read();
@@ -266,9 +287,19 @@ void DemoSceneManager::drawParticleSystems()
     }
 }
 
+void DemoSceneManager::drawSkybox()
+{
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_rotation(29.9f, vmml::vec3f::UNIT_X) * vmml::create_rotation(46.0f, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.0f)));
+    drawSkyboxModel();
+    popModelMatrix();
+}
 
 void DemoSceneManager::startGame()
 {
+    drawSkybox();
+    
     drawField();
 
     if(_game._playing)

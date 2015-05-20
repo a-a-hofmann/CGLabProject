@@ -49,7 +49,7 @@ void main()
     mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
     
     bumpMap = 2.0 * bumpMap - 1.0;
-    //    n = normalize(tbn * bumpMap);
+//    n = normalize(tbn * bumpMap);
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
