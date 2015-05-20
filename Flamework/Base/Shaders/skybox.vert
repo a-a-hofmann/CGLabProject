@@ -10,7 +10,6 @@ attribute vec3 Normal;
 attribute vec3 Tangent;
 attribute vec4 TexCoord;
 
-varying mediump vec4 posVarying;       // pos in world space
 varying lowp vec4 texCoordVarying;
 
 void main()
