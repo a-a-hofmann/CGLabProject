@@ -43,6 +43,7 @@ public:
     
     void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES);
     void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
+    void drawDebug();
 
     void pushModelMatrix();
     void popModelMatrix();
@@ -66,6 +67,7 @@ private:
     vmml::vec2f _lScale;
     
     vmml::vec3f _eyePos;
+    vmml::vec4f _lightPos;
     
     MatrixStack _modelMatrixStack;
     vmml::mat4f _modelMatrix;

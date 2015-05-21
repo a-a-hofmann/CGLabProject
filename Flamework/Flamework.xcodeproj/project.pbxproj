@@ -56,6 +56,7 @@
 		A068791D1B0B4549002EAD50 /* skybox.frag in Resources */ = {isa = PBXBuildFile; fileRef = A068791C1B0B4549002EAD50 /* skybox.frag */; };
 		A068791F1B0B4550002EAD50 /* skybox.vert in Resources */ = {isa = PBXBuildFile; fileRef = A068791E1B0B4550002EAD50 /* skybox.vert */; };
 		A06879211B0B8C85002EAD50 /* rsz_skybox.png in Resources */ = {isa = PBXBuildFile; fileRef = A06879201B0B8C85002EAD50 /* rsz_skybox.png */; };
+		A0BB1C231B0E48ED0033BD96 /* debug.obj in Resources */ = {isa = PBXBuildFile; fileRef = A0BB1C221B0E48ED0033BD96 /* debug.obj */; };
 		F814A6161716A0E000A2A910 /* obj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814A6121716A0E000A2A910 /* obj.cpp */; };
 		F814A6171716A0E000A2A910 /* obj_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814A6141716A0E000A2A910 /* obj_parser.cpp */; };
 		F81D4CAB16DABE50001FA5DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81D4CAA16DABE50001FA5DD /* CoreGraphics.framework */; };
@@ -165,6 +166,7 @@
 		A068791C1B0B4549002EAD50 /* skybox.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.frag; sourceTree = "<group>"; };
 		A068791E1B0B4550002EAD50 /* skybox.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.vert; sourceTree = "<group>"; };
 		A06879201B0B8C85002EAD50 /* rsz_skybox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_skybox.png; sourceTree = "<group>"; };
+		A0BB1C221B0E48ED0033BD96 /* debug.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.obj; sourceTree = "<group>"; };
 		F814A6121716A0E000A2A910 /* obj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = obj.cpp; sourceTree = "<group>"; };
 		F814A6131716A0E000A2A910 /* obj.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = obj.hpp; sourceTree = "<group>"; };
 		F814A6141716A0E000A2A910 /* obj_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = obj_parser.cpp; sourceTree = "<group>"; };
@@ -575,6 +577,7 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A0BB1C221B0E48ED0033BD96 /* debug.obj */,
 				A00F60541B0A62A2007432C3 /* skybox */,
 				111D19DB1AFFA28C0017111E /* ball */,
 				111D19DC1AFFA29D0017111E /* brick */,
@@ -744,6 +747,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11209B431AFE8B4900D055CB /* wood_normal.png in Resources */,
+				A0BB1C231B0E48ED0033BD96 /* debug.obj in Resources */,
 				11209B451AFE907100D055CB /* red_normal.png in Resources */,
 				11209B3D1AFE88B600D055CB /* crazy_paving_normal.png in Resources */,
 				F8757CA119107FA000B62379 /* default.vert in Resources */,

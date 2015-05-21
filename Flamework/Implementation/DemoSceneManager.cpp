@@ -89,8 +89,9 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("paddle.obj", true, true);
     loadModel("walls.obj", true, true);
     loadModel("quad.obj", true, true);
-    
     loadModel("skybox.obj", true, true);
+    
+    loadModel("debug.obj", true, true);
     
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
@@ -141,11 +142,8 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             shader->setUniform("NormalMatrix", normalMatrix);
             
             shader->setUniform("EyePos", _eyePos);
-//            shader->setUniform("LightPos", vmml::vec4f(0.f, 3.f, 1.f, 1.f));
-            //shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 2.0f, 1.f));
-//            shader->setUniform("LightPos", vmml::vec4f(7.0f, 10.0f, 5.0f, 1.f));
-            shader->setUniform("LightPos", _eyePos);
-            shader->setUniform("Ia", vmml::vec3f(1.2f));
+            shader->setUniform("LightPos", _lightPos);
+            shader->setUniform("Ia", vmml::vec3f(1.0f));
             shader->setUniform("Id", vmml::vec3f(1.0f));
             shader->setUniform("Is", vmml::vec3f(1.0f));
         }
@@ -222,6 +220,7 @@ void DemoSceneManager::draw(double deltaT)
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
     _eyePos = vmml::vec3f(0.0, -5.0, -7.0);
+    _lightPos = vmml::vec4f(5.0f, 20.0f, 20.0f, 1.0);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * _eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
@@ -296,8 +295,17 @@ void DemoSceneManager::drawSkybox()
     popModelMatrix();
 }
 
+void DemoSceneManager::drawDebug()
+{
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(-5.0, 20.0, -5.0)));
+    drawModel("debug");
+    popModelMatrix();
+}
+
 void DemoSceneManager::startGame()
 {
+    drawDebug();
     drawSkybox();
     
     drawField();

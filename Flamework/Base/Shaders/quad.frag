@@ -38,8 +38,8 @@ void main()
 {
     // Phong Shading (per-fragment lighting)
     mediump vec4 p = posVarying;
-    mediump vec3 n = normalize(NormalMatrix * normalVarying);
-    mediump vec3 l = normalize(LightPos - p).xyz;
+    mediump vec3 n = normalize(normalVarying);
+    mediump vec3 l = normalize(LightPos.xyz - p.xyz);
     mediump vec3 t = normalize(tangentVarying);
     
     t = normalize(t - n * dot(n, t));
