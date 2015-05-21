@@ -211,8 +211,10 @@ void DemoSceneManager::draw(double deltaT)
     glDepthFunc(GL_LEQUAL);
   
 
-//    glCullFace(GL_FRONT);
-//    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+    glEnable(GL_CULL_FACE);
+
+    
     
     Gyro *gyro = Gyro::getInstance();
     gyro->read();
@@ -260,6 +262,7 @@ void DemoSceneManager::drawPaddle()
 }
 
 void DemoSceneManager::drawField(){
+
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, 2.0)));
     drawModel("quad");
@@ -269,6 +272,7 @@ void DemoSceneManager::drawField(){
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
     drawModel("walls");
     popModelMatrix();
+    
 }
 
 void DemoSceneManager::drawParticleSystems()
@@ -288,25 +292,31 @@ void DemoSceneManager::drawParticleSystems()
 
 void DemoSceneManager::drawSkybox()
 {
+    glDisable(GL_DEPTH_TEST);
+    
     pushModelMatrix();
     transformModelMatrix(vmml::create_rotation(29.9f, vmml::vec3f::UNIT_X) * vmml::create_rotation(46.0f, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.0f)));
     drawSkyboxModel();
     popModelMatrix();
+    
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
 }
 
 void DemoSceneManager::drawDebug()
 {
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(-5.0, 20.0, -5.0)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(-5.0, 50.0, -5.0)));
     drawModel("debug");
     popModelMatrix();
 }
 
 void DemoSceneManager::startGame()
 {
-    drawDebug();
     drawSkybox();
+    
+//    drawDebug();
     
     drawField();
 
