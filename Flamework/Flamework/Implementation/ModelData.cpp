@@ -634,13 +634,15 @@ void ModelDataImpl::createFaceNormals()
             const vmml::vec2f &t3 = _texCoords[indexV3];
             
             vmml::vec2f u = t2 - t1;
-            vmml::vec3f v = t3 - t1;
+            vmml::vec2f v = t3 - t1;
+            
             vmml::mat2f uv;
             uv.set_row(0, u);
             uv.set_row(1, v);
             
             vmml::mat2f uvInv = vmml::mat2f::IDENTITY;
-            uvInv.inverse(uvInv);
+//            uvInv.inverse(uvInv);
+            vmml::compute_inverse(uv, uvInv);
             
             vmml::matrix<2, 3, float> ef;
             ef.set_row(0, e);

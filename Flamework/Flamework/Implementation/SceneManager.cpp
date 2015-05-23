@@ -118,7 +118,7 @@ ShaderPtr SceneManager::createShader(const std::string &name, const ShaderData &
     ShaderPtr &shader = _shaders[name];
     if (shader) return shader;
     
-    if (!name.compare("skybox") && shaderData.isValid()) {
+    if ((!name.compare("skybox")) && shaderData.isValid()) {
         util::log("Created shader 'skybox'.", util::LM_INFO);
         shader = ShaderPtr(new Shader(shaderData));
         shader->registerAttrib("Position", 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, position));
@@ -133,7 +133,6 @@ ShaderPtr SceneManager::createShader(const std::string &name, const ShaderData &
         shader->registerAttrib("Position", 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, position));
         shader->registerAttrib("Normal", 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, normal));
          shader->registerAttrib("Tangent", 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, tangent));
-        // shader->registerAttrib("Bitangent", 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, bitangent));
         shader->registerAttrib("TexCoord", 2, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, texCoord));
         return shader;
     }

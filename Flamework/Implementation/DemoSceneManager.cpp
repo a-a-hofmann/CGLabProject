@@ -143,9 +143,9 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             
             shader->setUniform("EyePos", _eyePos);
             shader->setUniform("LightPos", _lightPos);
-            shader->setUniform("Ia", vmml::vec3f(1.0f));
-            shader->setUniform("Id", vmml::vec3f(1.0f));
-            shader->setUniform("Is", vmml::vec3f(1.0f));
+            shader->setUniform("Ia", vmml::vec3f(1.3f));
+            shader->setUniform("Id", vmml::vec3f(1.3f));
+            shader->setUniform("Is", vmml::vec3f(1.3f));
         }
         else
         {
@@ -209,9 +209,11 @@ void DemoSceneManager::draw(double deltaT)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
+    
+    glFrontFace(GL_CW);
   
 
-    glCullFace(GL_FRONT);
+    glCullFace(GL_BACK);
     glEnable(GL_CULL_FACE);
 
     
@@ -221,8 +223,9 @@ void DemoSceneManager::draw(double deltaT)
     
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
-    _eyePos = vmml::vec3f(0.0, -5.0, -7.0);
-    _lightPos = vmml::vec4f(5.0f, 20.0f, 20.0f, 1.0);
+    
+    _eyePos = vmml::vec3f(0.0, -5.0, 7.0);
+    _lightPos = vmml::vec4f(0.0, -5.0, 10.0, 1.0);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * _eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
@@ -264,12 +267,13 @@ void DemoSceneManager::drawPaddle()
 void DemoSceneManager::drawField(){
 
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, 2.0)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, -3.0)));
     drawModel("quad");
     popModelMatrix();
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
+    transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
     drawModel("walls");
     popModelMatrix();
     
@@ -295,7 +299,6 @@ void DemoSceneManager::drawSkybox()
     glDisable(GL_DEPTH_TEST);
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_rotation(29.9f, vmml::vec3f::UNIT_X) * vmml::create_rotation(46.0f, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.0f)));
     drawSkyboxModel();
     popModelMatrix();
@@ -307,7 +310,7 @@ void DemoSceneManager::drawSkybox()
 void DemoSceneManager::drawDebug()
 {
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(-5.0, 50.0, -5.0)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_lightPos)));
     drawModel("debug");
     popModelMatrix();
 }
@@ -316,8 +319,8 @@ void DemoSceneManager::startGame()
 {
     drawSkybox();
     
-//    drawDebug();
-    
+    drawDebug();
+
     drawField();
 
     if(_game._playing)
@@ -327,7 +330,7 @@ void DemoSceneManager::startGame()
         
         // touch controls
 //        float touchDx = _scrolling.x();
-//        _game.movePaddle(touchDx);
+//        _game.movePaddle(-touchDx);
         
         drawPaddle();
 

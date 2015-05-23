@@ -75,5 +75,4 @@ void main()
     lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
     
     gl_FragColor = phongColor;
-    
 }

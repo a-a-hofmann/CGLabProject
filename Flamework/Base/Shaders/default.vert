@@ -10,16 +10,16 @@ attribute vec3 Normal;
 attribute vec4 TexCoord;
 
 varying vec4 colorVarying;
-varying vec4 texCoordVarying;
-varying mediump vec3 normalVarying;
+//varying vec4 texCoordVarying;
+//varying mediump vec3 normalVarying;
 
 void main()
 {
     vec4 pos = ModelMatrix * Position;
-    normalVarying = normalize(NormalMatrix * Normal);
-    texCoordVarying = TexCoord;
+    vec3 n = normalize(NormalMatrix * Normal);
+//    texCoordVarying = TexCoord;
     
-    colorVarying = vec4(vec3(0.5) + normalVarying * 0.5, 1.0);
+    colorVarying = vec4(vec3(0.5) + n * 0.5, 1.0);
     
     gl_Position = ProjectionMatrix * ViewMatrix * pos;
 }

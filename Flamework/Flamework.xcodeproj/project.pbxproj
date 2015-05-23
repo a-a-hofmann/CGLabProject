@@ -53,6 +53,7 @@
 		4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 4380AE0A1AF8CF6B00818ABB /* paddle.mtl */; };
 		A00F60521B0A629C007432C3 /* skybox.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A00F604F1B0A629C007432C3 /* skybox.mtl */; };
 		A00F60531B0A629C007432C3 /* skybox.obj in Resources */ = {isa = PBXBuildFile; fileRef = A00F60501B0A629C007432C3 /* skybox.obj */; };
+		A0371AB41B10C3CD00647311 /* ice-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0371AB31B10C3CD00647311 /* ice-texture.jpg */; };
 		A068791D1B0B4549002EAD50 /* skybox.frag in Resources */ = {isa = PBXBuildFile; fileRef = A068791C1B0B4549002EAD50 /* skybox.frag */; };
 		A068791F1B0B4550002EAD50 /* skybox.vert in Resources */ = {isa = PBXBuildFile; fileRef = A068791E1B0B4550002EAD50 /* skybox.vert */; };
 		A06879211B0B8C85002EAD50 /* rsz_skybox.png in Resources */ = {isa = PBXBuildFile; fileRef = A06879201B0B8C85002EAD50 /* rsz_skybox.png */; };
@@ -163,6 +164,7 @@
 		8D1107310486CEB800E47090 /* Flamework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Flamework-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A00F604F1B0A629C007432C3 /* skybox.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.mtl; sourceTree = "<group>"; };
 		A00F60501B0A629C007432C3 /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
+		A0371AB31B10C3CD00647311 /* ice-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ice-texture.jpg"; sourceTree = "<group>"; };
 		A068791C1B0B4549002EAD50 /* skybox.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.frag; sourceTree = "<group>"; };
 		A068791E1B0B4550002EAD50 /* skybox.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.vert; sourceTree = "<group>"; };
 		A06879201B0B8C85002EAD50 /* rsz_skybox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_skybox.png; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 		111D19DE1AFFA2C00017111E /* paddle */ = {
 			isa = PBXGroup;
 			children = (
+				A0371AB31B10C3CD00647311 /* ice-texture.jpg */,
 				11209B3E1AFE890400D055CB /* metal_normal.png */,
 				0496EADA1AF900FC000B72EB /* metal_texture.png */,
 				11209B401AFE8AD300D055CB /* metal_texture2.png */,
@@ -780,6 +783,7 @@
 				F87C33371910561A00E8A523 /* ball.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* walls.mtl in Resources */,
 				4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */,
+				A0371AB41B10C3CD00647311 /* ice-texture.jpg in Resources */,
 				0496EAD71AF3894D000B72EB /* walls.vert in Resources */,
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
