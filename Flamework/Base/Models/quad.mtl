@@ -1,12 +1,8 @@
-# Material Count: 1
-
 newmtl quad
 Ns 96.078431
 Ka 0.200000 0.200000 0.200000
 Kd 0.700000 0.700000 0.700000
 Ks 0.300000 0.300000 0.300000
-# Ni 1.000000
-# d 1.000000
-# illum 1
-map_Kd crazy_paving.png
+map_Kd iceTexture.jpg
 map_Bump crazy_paving_normal.png
+map_Env skyDome.png

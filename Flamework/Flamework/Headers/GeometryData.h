@@ -61,6 +61,42 @@ struct Vector3
 
 struct Vertex
 {
+    Vertex()
+    {
+        position.x = 0;
+        position.y = 0;
+        position.z = 0;
+        normal.x = 0;
+        normal.y = 0;
+        normal.z = 0;
+        tangent.x = 0;
+        tangent.y = 0;
+        tangent.z = 0;
+        bitangent.x = 0;
+        bitangent.y = 0;
+        bitangent.z = 0;
+        texCoord.s = 0;
+        texCoord.t = 0;
+    }
+    
+    Vertex(GLfloat pX, GLfloat pY, GLfloat pZ, GLfloat tS, GLfloat tT)
+    {
+        position.x = pX;
+        position.y = pY;
+        position.z = pZ;
+        normal.x = 0;
+        normal.y = 0;
+        normal.z = 0;
+        tangent.x = 0;
+        tangent.y = 0;
+        tangent.z = 0;
+        bitangent.x = 0;
+        bitangent.y = 0;
+        bitangent.z = 0;
+        texCoord.s = tS;
+        texCoord.t = tT;
+    }
+    
     Point3      position;
     Vector3     normal;
     Vector3     tangent;

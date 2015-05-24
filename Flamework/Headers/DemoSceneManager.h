@@ -41,13 +41,12 @@ public:
     virtual void initialize(size_t width, size_t height);
     virtual void draw(double deltaT);
     
-    void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES);
-    void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
-    void drawDebug();
-
     void pushModelMatrix();
     void popModelMatrix();
     void transformModelMatrix(const vmml::mat4f &t);
+    
+    void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES);
+    void drawSkyModel(const std::string &name, GLenum mode = GL_TRIANGLES);
     
     void drawSphere();
     void drawObstacles();
@@ -56,7 +55,12 @@ public:
     void drawField();
     void drawParticleSystems();
     void drawSkybox();
+    void drawSkydome();
+    
+    
     void startGame();
+    void drawDebug(vmml::vec3f position = vmml::vec3f(0.0f, 0.0f, 0.0f));
+
     
 private:
     double _time;

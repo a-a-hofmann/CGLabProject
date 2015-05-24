@@ -17,48 +17,35 @@ void Geometry::initialize(GeometryDataPtr geometryData)
     initializeVertexBuffer();
 }
 
-Geometry::VertexDataPtr Geometry::allocVertexData(size_t nVertices)
+void Geometry::copyVertexData(const GeometryData::VboVertices &arg)
 {
-    _nVertices  = nVertices;
-    _vertexData = VertexDataPtr(new Vertex[_nVertices]);
-    
-    return _vertexData;
+    _vertexData = arg;
 }
 
-Geometry::IndexDataPtr Geometry::allocIndexData(size_t nIndices)
+void Geometry::copyIndexData(const GeometryData::VboIndices &arg)
 {
-    _nIndices  = nIndices;
-    _indexData = IndexDataPtr(new GLushort[_nIndices]);
-    
-    return _indexData;
-}
-
-Geometry::VertexDataPtr Geometry::copyVertexData(const GeometryData::VboVertices &arg)
-{
-    allocVertexData(arg.size());
-    memcpy(_vertexData.get(), &arg[0], sizeof(Vertex) * _nVertices);
-    return _vertexData;
-}
-
-Geometry::IndexDataPtr Geometry::copyIndexData(const GeometryData::VboIndices &arg)
-{
-    allocIndexData(arg.size());
-    memcpy(_indexData.get(), &arg[0], sizeof(Index) * _nIndices);
-    return _indexData;
+    _indexData = arg;
 }
 
 void Geometry::initializeVertexBuffer()
 {
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, _nVertices*sizeof(Vertex), _vertexData.get(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, _vertexData.size() * sizeof(Vertex), &_vertexData[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Geometry::updateVertexBuffer()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, _vertexData.size() * sizeof(Vertex), &_vertexData[0], GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Geometry::draw(GLenum mode)
 {
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-
+    
 #ifndef USE_GL_ES2
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
@@ -70,7 +57,7 @@ void Geometry::draw(GLenum mode)
 #endif
     if (_material) _material->bind();
     
-    glDrawElements(mode, _nIndices, GL_UNSIGNED_SHORT, _indexData.get());
+    glDrawElements(mode, _indexData.size(), GL_UNSIGNED_SHORT, &_indexData[0]);
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     

@@ -49,14 +49,20 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		283D33F312AEDA3D00C06CB4 /* FrameworkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283D33F212AEDA3D00C06CB4 /* FrameworkViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
+		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 4380AE0A1AF8CF6B00818ABB /* paddle.mtl */; };
 		A00F60521B0A629C007432C3 /* skybox.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A00F604F1B0A629C007432C3 /* skybox.mtl */; };
 		A00F60531B0A629C007432C3 /* skybox.obj in Resources */ = {isa = PBXBuildFile; fileRef = A00F60501B0A629C007432C3 /* skybox.obj */; };
-		A0371AB41B10C3CD00647311 /* ice-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0371AB31B10C3CD00647311 /* ice-texture.jpg */; };
 		A068791D1B0B4549002EAD50 /* skybox.frag in Resources */ = {isa = PBXBuildFile; fileRef = A068791C1B0B4549002EAD50 /* skybox.frag */; };
 		A068791F1B0B4550002EAD50 /* skybox.vert in Resources */ = {isa = PBXBuildFile; fileRef = A068791E1B0B4550002EAD50 /* skybox.vert */; };
 		A06879211B0B8C85002EAD50 /* rsz_skybox.png in Resources */ = {isa = PBXBuildFile; fileRef = A06879201B0B8C85002EAD50 /* rsz_skybox.png */; };
+		A0AB4CA51B11ED4000AD22D6 /* skyDome.png in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA41B11ED4000AD22D6 /* skyDome.png */; };
+		A0AB4CA71B11EFE200AD22D6 /* iceTexture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA61B11EFE200AD22D6 /* iceTexture.jpg */; };
+		A0AB4CAA1B11F3DA00AD22D6 /* skydome.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA81B11F3DA00AD22D6 /* skydome.mtl */; };
+		A0AB4CAB1B11F3DA00AD22D6 /* skydome.obj in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA91B11F3DA00AD22D6 /* skydome.obj */; };
+		A0AB4CAE1B11F52B00AD22D6 /* skydome.frag in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CAD1B11F52B00AD22D6 /* skydome.frag */; };
+		A0AB4CB01B11F53700AD22D6 /* skydome.vert in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CAF1B11F53700AD22D6 /* skydome.vert */; };
+		A0AB4CB21B12395700AD22D6 /* ice-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CB11B12395700AD22D6 /* ice-texture.jpg */; };
 		A0BB1C231B0E48ED0033BD96 /* debug.obj in Resources */ = {isa = PBXBuildFile; fileRef = A0BB1C221B0E48ED0033BD96 /* debug.obj */; };
 		F814A6161716A0E000A2A910 /* obj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814A6121716A0E000A2A910 /* obj.cpp */; };
 		F814A6171716A0E000A2A910 /* obj_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814A6141716A0E000A2A910 /* obj_parser.cpp */; };
@@ -90,7 +96,6 @@
 		F87C33181910554000E8A523 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F87C33041910554000E8A523 /* Texture.cpp */; };
 		F87C331D1910557D00E8A523 /* DemoSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */; };
 		F87C33371910561A00E8A523 /* ball.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33201910561A00E8A523 /* ball.obj */; };
-		F87C333A1910561A00E8A523 /* guy.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33241910561A00E8A523 /* guy.obj */; };
 		F87C333D1910561A00E8A523 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = F87C33271910561A00E8A523 /* quad.obj */; };
 		F87C33451910561A00E8A523 /* default.frag in Sources */ = {isa = PBXBuildFile; fileRef = F87C33311910561A00E8A523 /* default.frag */; };
 		F87C33461910561A00E8A523 /* default.vert in Sources */ = {isa = PBXBuildFile; fileRef = F87C33321910561A00E8A523 /* default.vert */; };
@@ -164,10 +169,16 @@
 		8D1107310486CEB800E47090 /* Flamework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Flamework-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A00F604F1B0A629C007432C3 /* skybox.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.mtl; sourceTree = "<group>"; };
 		A00F60501B0A629C007432C3 /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
-		A0371AB31B10C3CD00647311 /* ice-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ice-texture.jpg"; sourceTree = "<group>"; };
 		A068791C1B0B4549002EAD50 /* skybox.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.frag; sourceTree = "<group>"; };
 		A068791E1B0B4550002EAD50 /* skybox.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.vert; sourceTree = "<group>"; };
 		A06879201B0B8C85002EAD50 /* rsz_skybox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_skybox.png; sourceTree = "<group>"; };
+		A0AB4CA41B11ED4000AD22D6 /* skyDome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyDome.png; sourceTree = "<group>"; };
+		A0AB4CA61B11EFE200AD22D6 /* iceTexture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iceTexture.jpg; sourceTree = "<group>"; };
+		A0AB4CA81B11F3DA00AD22D6 /* skydome.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skydome.mtl; sourceTree = "<group>"; };
+		A0AB4CA91B11F3DA00AD22D6 /* skydome.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skydome.obj; sourceTree = "<group>"; };
+		A0AB4CAD1B11F52B00AD22D6 /* skydome.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skydome.frag; sourceTree = "<group>"; };
+		A0AB4CAF1B11F53700AD22D6 /* skydome.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skydome.vert; sourceTree = "<group>"; };
+		A0AB4CB11B12395700AD22D6 /* ice-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ice-texture.jpg"; sourceTree = "<group>"; };
 		A0BB1C221B0E48ED0033BD96 /* debug.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.obj; sourceTree = "<group>"; };
 		F814A6121716A0E000A2A910 /* obj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = obj.cpp; sourceTree = "<group>"; };
 		F814A6131716A0E000A2A910 /* obj.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = obj.hpp; sourceTree = "<group>"; };
@@ -231,7 +242,6 @@
 		F87C331A1910557D00E8A523 /* DemoSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoSceneManager.h; sourceTree = "<group>"; };
 		F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoSceneManager.cpp; sourceTree = "<group>"; };
 		F87C33201910561A00E8A523 /* ball.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball.obj; sourceTree = "<group>"; };
-		F87C33241910561A00E8A523 /* guy.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = guy.obj; path = guy/guy.obj; sourceTree = "<group>"; };
 		F87C33271910561A00E8A523 /* quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quad.obj; sourceTree = "<group>"; };
 		F87C33311910561A00E8A523 /* default.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.frag; sourceTree = "<group>"; };
 		F87C33321910561A00E8A523 /* default.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.vert; sourceTree = "<group>"; };
@@ -334,6 +344,8 @@
 		111D19DD1AFFA2A90017111E /* quad */ = {
 			isa = PBXGroup;
 			children = (
+				A0AB4CB11B12395700AD22D6 /* ice-texture.jpg */,
+				A0AB4CA61B11EFE200AD22D6 /* iceTexture.jpg */,
 				11209B3C1AFE88B600D055CB /* crazy_paving_normal.png */,
 				0496EACA1AF367B8000B72EB /* crazy_paving.png */,
 				1149693C1AF3DCA200FC0A7E /* quad.mtl */,
@@ -345,7 +357,6 @@
 		111D19DE1AFFA2C00017111E /* paddle */ = {
 			isa = PBXGroup;
 			children = (
-				A0371AB31B10C3CD00647311 /* ice-texture.jpg */,
 				11209B3E1AFE890400D055CB /* metal_normal.png */,
 				0496EADA1AF900FC000B72EB /* metal_texture.png */,
 				11209B401AFE8AD300D055CB /* metal_texture2.png */,
@@ -441,6 +452,16 @@
 				A00F60501B0A629C007432C3 /* skybox.obj */,
 			);
 			name = skybox;
+			sourceTree = "<group>";
+		};
+		A0AB4CAC1B11F3E000AD22D6 /* skydome */ = {
+			isa = PBXGroup;
+			children = (
+				A0AB4CA81B11F3DA00AD22D6 /* skydome.mtl */,
+				A0AB4CA91B11F3DA00AD22D6 /* skydome.obj */,
+				A0AB4CA41B11ED4000AD22D6 /* skyDome.png */,
+			);
+			name = skydome;
 			sourceTree = "<group>";
 		};
 		F814A6111716A0E000A2A910 /* obj */ = {
@@ -580,12 +601,12 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A0AB4CAC1B11F3E000AD22D6 /* skydome */,
 				A0BB1C221B0E48ED0033BD96 /* debug.obj */,
 				A00F60541B0A62A2007432C3 /* skybox */,
 				111D19DB1AFFA28C0017111E /* ball */,
 				111D19DC1AFFA29D0017111E /* brick */,
 				111D19DD1AFFA2A90017111E /* quad */,
-				F87C33241910561A00E8A523 /* guy.obj */,
 				111D19DE1AFFA2C00017111E /* paddle */,
 				111D19DF1AFFA2ED0017111E /* wall */,
 			);
@@ -609,6 +630,8 @@
 				0496EAD51AF3894D000B72EB /* walls.vert */,
 				A068791C1B0B4549002EAD50 /* skybox.frag */,
 				A068791E1B0B4550002EAD50 /* skybox.vert */,
+				A0AB4CAD1B11F52B00AD22D6 /* skydome.frag */,
+				A0AB4CAF1B11F53700AD22D6 /* skydome.vert */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -754,7 +777,10 @@
 				11209B451AFE907100D055CB /* red_normal.png in Resources */,
 				11209B3D1AFE88B600D055CB /* crazy_paving_normal.png in Resources */,
 				F8757CA119107FA000B62379 /* default.vert in Resources */,
+				A0AB4CA71B11EFE200AD22D6 /* iceTexture.jpg in Resources */,
+				A0AB4CAE1B11F52B00AD22D6 /* skydome.frag in Resources */,
 				F8757CA019107F9800B62379 /* default.frag in Resources */,
+				A0AB4CA51B11ED4000AD22D6 /* skyDome.png in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				11C786581AF11CC800F40E78 /* quad.frag in Resources */,
 				11209B3F1AFE890400D055CB /* metal_normal.png in Resources */,
@@ -780,15 +806,16 @@
 				F8ED6AD016E652B800E6D6CA /* ACKNOWLEDGEMENTS in Resources */,
 				11209B3B1AFE889100D055CB /* brick_normal.png in Resources */,
 				11C786561AF1187300F40E78 /* paddle.frag in Resources */,
+				A0AB4CAB1B11F3DA00AD22D6 /* skydome.obj in Resources */,
 				F87C33371910561A00E8A523 /* ball.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* walls.mtl in Resources */,
 				4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */,
-				A0371AB41B10C3CD00647311 /* ice-texture.jpg in Resources */,
 				0496EAD71AF3894D000B72EB /* walls.vert in Resources */,
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
-				F87C333A1910561A00E8A523 /* guy.obj in Resources */,
+				A0AB4CB01B11F53700AD22D6 /* skydome.vert in Resources */,
 				0496EAC31AF15FE9000B72EB /* ball.vert in Resources */,
 				0496EAC61AF2154B000B72EB /* brick.mtl in Resources */,
+				A0AB4CAA1B11F3DA00AD22D6 /* skydome.mtl in Resources */,
 				11C7865A1AF11CD000F40E78 /* quad.vert in Resources */,
 				11148C441AE90928003DCC59 /* glm in Resources */,
 				11C786541AF1186A00F40E78 /* paddle.vert in Resources */,
@@ -798,6 +825,7 @@
 				A00F60521B0A629C007432C3 /* skybox.mtl in Resources */,
 				04EFD8381AE31B94000DA18A /* paddle.obj in Resources */,
 				0496EADB1AF900FD000B72EB /* metal_texture.png in Resources */,
+				A0AB4CB21B12395700AD22D6 /* ice-texture.jpg in Resources */,
 				04EFD83A1AE382CC000DA18A /* brick.obj in Resources */,
 				11C7865E1AF1248300F40E78 /* brick.frag in Resources */,
 			);

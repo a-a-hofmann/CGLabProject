@@ -17,9 +17,6 @@
 #include "Shader.h"
 #include "Util.h"
 
-#include <glm/glm/glm.hpp>
-#include <glm/glm/gtc/matrix_transform.hpp>
-
 using boost::lexical_cast;
 
 
@@ -30,12 +27,16 @@ Shader::Shader(const ShaderData &shaderData)
     // Create shader program.
     _programID = glCreateProgram();
     
-    if(!compile(&vertShader, GL_VERTEX_SHADER, shaderData.getVertShaderSrc())) {
+    if(!compile(&vertShader, GL_VERTEX_SHADER, shaderData.getVertShaderSrc()))
+    {
         util::log("Failed to compile vertex shader");
+        exit(-1);
     }
     
-    if (!compile(&fragShader, GL_FRAGMENT_SHADER, shaderData.getFragShaderSrc())) {
+    if (!compile(&fragShader, GL_FRAGMENT_SHADER, shaderData.getFragShaderSrc()))
+    {
         util::log("Failed to compile fragment shader");
+        exit(-1);
     }
     
     // Attach vertex shader to program.
@@ -112,16 +113,6 @@ void Shader::setUniform(const std::string &name, const vmml::mat4f &arg)
     if (loc > -1)
     {
         glUniformMatrix4fv(loc, 1, false, arg.begin());
-    }
-}
-void Shader::setUniform(const std::string &name, const glm::mat4 &arg)
-{
-    glUseProgram(_programID);
-    
-    GLint loc = findUniformLocation(name);
-    if (loc > -1)
-    {
-        glUniformMatrix4fv(loc, 1, false, &arg[0][0]);
     }
 }
 
