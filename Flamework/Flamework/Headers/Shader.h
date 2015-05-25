@@ -16,7 +16,6 @@
 #include "Framework_GL.h"
 #include "Texture.h"
 
-#include <glm/glm/glm.hpp>
 
 class ShaderData;
 
@@ -37,7 +36,6 @@ public:
     
     virtual void bind();
     
-    virtual void setUniform(const std::string &name, const glm::mat4 &arg);
     virtual void setUniform(const std::string &name, const vmml::mat4f &arg);
     virtual void setUniform(const std::string &name, const vmml::mat3f &arg);
     virtual void setUniform(const std::string &name, const vmml::vec4f &arg);

@@ -62,7 +62,14 @@ public:
     virtual SoundPtr    getSound(const std::string &name);
     
     virtual Application *getApplication();
-    
+
+protected:
+    Shaders   &getShaders()   { return _shaders;   }
+    Textures  &getTextures()  { return _textures;  }
+    Materials &getMaterials() { return _materials; }
+    Models    &getModels()    { return _models;    }
+    Sounds    &getSounds()    { return _sounds;    }
+
 private:
     Shaders     _shaders;
     Textures    _textures;

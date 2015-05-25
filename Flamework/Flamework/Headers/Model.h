@@ -28,8 +28,8 @@ public:
     explicit Model(SceneManager *sceneManager, const ModelData &modelData);
     ~Model();
     
-    void draw(GLenum mode = GL_TRIANGLES);
-    void draw(const std::string &groupName, GLenum mode = GL_TRIANGLES);
+    virtual void draw(GLenum mode = GL_TRIANGLES);
+    virtual void draw(const std::string &groupName, GLenum mode = GL_TRIANGLES);
     
     typedef std::map< std::string, Geometry > GroupMap;
     

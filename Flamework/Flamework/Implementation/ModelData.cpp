@@ -257,7 +257,7 @@ void ModelDataImpl::genVertex(const IndexData &d)
     v.bitangent.x = 0.0;
     v.bitangent.y = 0.0;
     v.bitangent.z = 0.0;
-    
+
     _group->vboVertices.push_back(v);
     _group->vboIndices.push_back(_group->vboIndices.size());
 }
@@ -526,18 +526,18 @@ void ModelDataImpl::loadObjMtl(const std::string &mtlFile)
     std::ifstream inFile(file.c_str(), std::ifstream::in);
     
     std::string line, key;
-    std::string materialName;
+	std::string materialName;
     
-    while(inFile.good() && !inFile.eof() && std::getline(inFile, line))
-    {
-        key = "";
-        std::stringstream ss(line);
-        ss>>key>>std::ws;
+	while(inFile.good() && !inFile.eof() && std::getline(inFile, line))
+	{
+		key = "";
+		std::stringstream ss(line);
+		ss>>key>>std::ws;
         
-        if (key  == "newmtl")
+		if (key  == "newmtl")
         {
             ss >> materialName >> std::ws;
-        }
+		}
         else if (key  == "Ka")
         {
             vmml::vec3f kA;
@@ -595,7 +595,12 @@ void ModelDataImpl::loadObjMtl(const std::string &mtlFile)
             auto &mat = _materials[materialName].textures["NormalMap"];
             ss >> mat >> std::ws;
         }
-    }
+        else if (key == "map_Env")
+        {
+            auto &mat = _materials[materialName].textures["EnvironmentMap"];
+            ss >> mat >> std::ws;
+        }
+	}
 }
 
 void ModelDataImpl::createFaceNormals()
@@ -623,7 +628,7 @@ void ModelDataImpl::createFaceNormals()
         vmml::vec3f e = p2 - p1;
         vmml::vec3f f = p3 - p1;
         face.normal = vmml::normalize(e.cross(f));  // set face normal
-        
+
         // if texture coordinates for this face exist
         size_t nT = _texCoords.size();
         if (nT > indexV1 && nT > indexV2 && nT > indexV3)
@@ -635,7 +640,6 @@ void ModelDataImpl::createFaceNormals()
             
             vmml::vec2f u = t2 - t1;
             vmml::vec2f v = t3 - t1;
-            
             vmml::mat2f uv;
             uv.set_row(0, u);
             uv.set_row(1, v);
@@ -643,6 +647,7 @@ void ModelDataImpl::createFaceNormals()
             vmml::mat2f uvInv = vmml::mat2f::IDENTITY;
 //            uvInv.inverse(uvInv);
             vmml::compute_inverse(uv, uvInv);
+            
             
             vmml::matrix<2, 3, float> ef;
             ef.set_row(0, e);
@@ -680,7 +685,7 @@ void ModelDataImpl::createVertexNormals()
         {
             tangentSum += _faces[face].tangent;
         }
-        
+
         vmml::vec3f t = vmml::normalize(tangentSum - n * n.dot(tangentSum));
         vertex.normal = n;
         vertex.tangent = t;

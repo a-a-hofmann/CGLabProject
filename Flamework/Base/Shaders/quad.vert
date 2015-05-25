@@ -34,6 +34,8 @@ varying mediump vec4 posVarying;       // pos in world space
 varying mediump vec3 normalVarying;    // normal in world space
 varying mediump vec3 tangentVarying;
 
+varying mediump vec2 vN;
+
 void main()
 {
     posVarying = ModelMatrix * Position;
@@ -43,8 +45,6 @@ void main()
     
     gl_Position = ProjectionMatrix * ViewMatrix * posVarying;
     
-    
-    //
     // Ambient component
     ambientVarying = vec4(Ka * Ia, 1.0);
     

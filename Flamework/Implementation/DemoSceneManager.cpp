@@ -165,9 +165,9 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode, bool isRe
     }
 }
 
-void DemoSceneManager::drawSkyboxModel(GLenum mode)
+void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
 {
-    Model::GroupMap &groups = getModel("skybox")->getGroups();
+    Model::GroupMap &groups = getModel(name)->getGroups();
     for (auto i = groups.begin(); i != groups.end(); ++i) {
         Geometry & geometry = i->second;
         MaterialPtr material = geometry.getMaterial();
@@ -238,7 +238,7 @@ void DemoSceneManager::draw(double deltaT)
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
     
     _eyePos = vmml::vec3f(0.0, -5.0, 7.0);
-    _lightPos = vmml::vec4f(0.0, -5.0, 10.0, 1.0);
+    _lightPos = vmml::vec4f(-2.0, 15.0, 15.0, 1.0);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * _eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
@@ -308,17 +308,28 @@ void DemoSceneManager::drawSkybox()
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5.0f)));
-    drawSkyboxModel();
+    drawSkyModel("skybox");
     popModelMatrix();
     
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 }
 
-void DemoSceneManager::drawDebug()
+void DemoSceneManager::drawSkydome()
+{
+    glDisable(GL_DEPTH_TEST);
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(10.0f)));
+    drawSkyModel("skydome");
+    popModelMatrix();
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    
+}
+void DemoSceneManager::drawDebug(vmml::vec3f position)
 {
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_lightPos)));
+    transformModelMatrix(vmml::create_translation(position));
     drawModel("debug");
     popModelMatrix();
 }
@@ -328,21 +339,22 @@ void DemoSceneManager::startGame()
     drawSkybox();
    // drawDebug();
     drawField();
-
+    drawObstacles();
+    
     if(_game._playing)
     {
-////         Autopilot: DEMO
+//      Autopilot: DEMO
         _game.movePaddle(_game._ball._x < _game._paddle._x);
-        
-        // touch controls
+//
+//        // touch controls
 //        float touchDx = _scrolling.x();
 //        _game.movePaddle(-touchDx);
-        
+//
         drawPaddle();
 
         _game.moveBall();
         drawBall();
-        
+
         _game.moveParticles();
         drawParticleSystems();
     }

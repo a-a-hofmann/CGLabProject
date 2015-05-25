@@ -118,14 +118,6 @@ ShaderPtr SceneManager::createShader(const std::string &name, const ShaderData &
     ShaderPtr &shader = _shaders[name];
     if (shader) return shader;
     
-    if ((!name.compare("skybox")) && shaderData.isValid()) {
-        util::log("Created shader 'skybox'.", util::LM_INFO);
-        shader = ShaderPtr(new Shader(shaderData));
-        shader->registerAttrib("Position", 3, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, position));
-        shader->registerAttrib("TexCoord", 2, GL_FLOAT, sizeof(Vertex), offsetof(Vertex, texCoord));
-        return shader;
-    }
-    
     if (shaderData.isValid())
     {
         util::log("Created shader '" + name + "'.", util::LM_INFO);
@@ -145,7 +137,7 @@ TexturePtr SceneManager::createTexture(const std::string &name, const TextureDat
     TexturePtr &texture = _textures[name];
     if (texture) return texture;
     
-    texture = TexturePtr(new Texture(textureData));
+    texture = std::make_shared<Texture>(textureData);
     
     return texture;
 }

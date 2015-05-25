@@ -22,6 +22,7 @@ uniform lowp vec3 OverrideColor;
 
 uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
+uniform sampler2D EnvironmentMap;
 
 varying lowp vec4 ambientVarying;
 varying lowp vec4 diffuseVarying;
@@ -36,22 +37,40 @@ lowp vec4 ambientV;
 lowp vec4 diffuseV;
 lowp vec4 specularV;
 
+
+varying mediump vec2 vN;
+
+
+
 void main()
 {
-    // Phong Shading (per-fragment lighting)
+
     mediump vec4 p = posVarying;
     mediump vec3 n = normalize(normalVarying);
     mediump vec3 l = normalize(LightPos.xyz - p.xyz);
     mediump vec3 t = normalize(tangentVarying);
     
+    // Bump mapping
     t = normalize(t - n * dot(n, t));
-    
     mediump vec3 b = cross(n, t);
     mediump mat3 tbn = mat3(t, b, n);
     mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
-    
     bumpMap = 2.0 * bumpMap - 1.0;
 //    n = normalize(tbn * bumpMap);
+    
+    
+    // Environment mapping
+    mediump vec3 e = normalize(p.xyz);
+    mediump vec3 r = reflect(e, n);
+    mediump float m = 2.0 * sqrt(
+                         pow(r.x, 2.0) +
+                         pow(r.y, 2.0) +
+                         pow(r.z + 1.0, 2.0)
+                         );
+    mediump vec2 reflection = r.xy/m + 0.5;
+
+    lowp vec4 rColor = texture2D(EnvironmentMap, reflection);
+
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
@@ -65,7 +84,7 @@ void main()
     specularV = vec4(0.0);
     if (intensity > 0.0)
     {
-        mediump vec3 eyeVec = normalize(EyePos - p).xyz;
+        mediump vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
         mediump vec3 h = normalize(l + eyeVec);
         mediump vec3 specular = Ks * pow(max(0.0, dot( n, h )), Ns) * Is;
         specularV = vec4(clamp(specular, 0.0, 1.0), 1.0);
@@ -76,6 +95,8 @@ void main()
     lowp vec4 gouraudColor = (ambientVarying + diffuseVarying) * color + specularVarying;
     lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
     
+    
     gl_FragColor = phongColor;
     
+    gl_FragColor = vec4(mix(phongColor, rColor, 0.7).rgb, 1.0);
 }

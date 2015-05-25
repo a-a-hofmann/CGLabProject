@@ -49,6 +49,9 @@ public:
     void popModelMatrix();
     void transformModelMatrix(const vmml::mat4f &t);
     
+    void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES);
+    void drawSkyModel(const std::string &name, GLenum mode = GL_TRIANGLES);
+    
     void drawSphere();
     void drawObstacles();
     void drawBall();
@@ -56,6 +59,9 @@ public:
     void drawField();
     void drawParticleSystems();
     void drawSkybox();
+    void drawSkydome();
+    
+    
     void startGame();
     void drawMirrorFloor();
     void drawFloorReflections();

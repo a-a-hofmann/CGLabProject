@@ -2,9 +2,9 @@
 //  Geometry.h
 //  Framework
 /*
-    Stores geometry data for one model group(or part).
-    Initializes the buffer and renders the geometry.
-*/
+ Stores geometry data for one model group(or part).
+ Initializes the buffer and renders the geometry.
+ */
 //  Created by Rahul Mukhi on 1/16/13.
 //  Reworked by David Steiner
 //
@@ -26,34 +26,44 @@ class Geometry
 public:
     typedef std::shared_ptr< Vertex >   VertexDataPtr;
     typedef std::shared_ptr< GLushort > IndexDataPtr;
-
+    
     void draw(GLenum mode = GL_TRIANGLES);
     
     void initialize(GeometryDataPtr geometryData);
     
     void initializeVertexBuffer();
     
-    VertexDataPtr   allocVertexData(size_t nVertices);
-    IndexDataPtr    allocIndexData(size_t nIndices);
-    
-    VertexDataPtr   copyVertexData(const GeometryData::VboVertices &arg);
-    IndexDataPtr    copyIndexData(const GeometryData::VboIndices &arg);
+    void updateVertexBuffer();
 
-    VertexDataPtr   getVertexData()                     { return _vertexData;   }
-    IndexDataPtr    getIndexData()                      { return _indexData;    }
+    void copyVertexData(const GeometryData::VboVertices &arg);
+    void copyIndexData(const GeometryData::VboIndices &arg);
     
-    void            setVertexData(VertexDataPtr arg)    { _vertexData   = arg;  }
-    void            setIndexData(IndexDataPtr arg)      { _indexData    = arg;  }
+    template <class InputIterator>
+    void copyVertexData(InputIterator first, InputIterator last)
+    {
+        _vertexData.assign(first, last);
+    }
+    
+    template <class InputIterator>
+    void copyIndexData(InputIterator first, InputIterator last)
+    {
+        _indexData.assign(first, last);
+    }
+
+    GeometryData::VboVertices   &getVertexData()        { return _vertexData;   }
+    GeometryData::VboIndices    &getIndexData()         { return _indexData;    }
     
     MaterialPtr     getMaterial()                       { return _material;     }
     void            setMaterial(MaterialPtr arg)        { _material     = arg;  }
-
+    
+    size_t          getNumVertices()                    { return _vertexData.size(); }
+    size_t          getNumIndices()                     { return _indexData.size();  }
+    
 private:
     GLuint _indexBuffer, _vertexBuffer;
-    size_t _nIndices, _nVertices;
     
-    VertexDataPtr   _vertexData;
-    IndexDataPtr    _indexData;
+    GeometryData::VboVertices   _vertexData;
+    GeometryData::VboIndices    _indexData;
     
     MaterialPtr _material;
 };
