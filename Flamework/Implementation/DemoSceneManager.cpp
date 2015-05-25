@@ -91,8 +91,9 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("quad.obj", true, true);
     loadModel("skybox.obj", true, true);
     loadModel("rfloor.obj", true, true);
-    
+
     //loadModel("debug.obj", true, true);
+    loadModel("skydome.obj", true, true);
     
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
@@ -207,7 +208,7 @@ void DemoSceneManager::transformModelMatrix(const vmml::mat4f &t)
 // draw sphere at origin of current reference frame
 void DemoSceneManager::drawSphere()
 {
-    drawModel("sphere", false);
+    drawModel("sphere");
 }
 
 
@@ -277,16 +278,6 @@ void DemoSceneManager::drawPaddle()
     popModelMatrix();
 }
 
-void DemoSceneManager::drawField(){
-    
-//    pushModelMatrix();
-//    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
-//    transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
-//    drawModel("walls");
-//    popModelMatrix();
-    
-}
-
 void DemoSceneManager::drawParticleSystems()
 {
     for(ParticleSystem* particleSystem : _game._particleSystems)
@@ -326,24 +317,25 @@ void DemoSceneManager::drawSkydome()
     glEnable(GL_DEPTH_TEST);
     
 }
-void DemoSceneManager::drawDebug(vmml::vec3f position)
-{
-    pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(position));
-    drawModel("debug");
-    popModelMatrix();
-}
+//void DemoSceneManager::drawDebug(vmml::vec3f position)
+//{
+//    pushModelMatrix();
+//    transformModelMatrix(vmml::create_translation(position));
+//    drawModel("debug");
+//    popModelMatrix();
+//}
 
 void DemoSceneManager::startGame()
 {
     drawSkybox();
    // drawDebug();
-    drawField();
     drawObstacles();
     
     if(_game._playing)
     {
-//      Autopilot: DEMO
+        drawSkydome();
+    
+
         _game.movePaddle(_game._ball._x < _game._paddle._x);
 //
 //        // touch controls
@@ -390,6 +382,7 @@ void DemoSceneManager::drawMirrorFloor()
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, -1.5)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(2.0, 1.0, 1.0)));
     drawModel("quad");
     popModelMatrix();
     

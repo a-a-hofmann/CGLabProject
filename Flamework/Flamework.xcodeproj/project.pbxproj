@@ -622,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				438331C41B12448F0000BF74 /* rfloor */,
+				A0AB4CAC1B11F3E000AD22D6 /* skydome */,
 				A0BB1C221B0E48ED0033BD96 /* debug.obj */,
 				A00F60541B0A62A2007432C3 /* skybox */,
 				111D19DB1AFFA28C0017111E /* ball */,
@@ -652,6 +653,8 @@
 				A068791E1B0B4550002EAD50 /* skybox.vert */,
 				438331CB1B12462F0000BF74 /* rfloor.vert */,
 				438331CD1B1246440000BF74 /* rfloor.frag */,
+				A0AB4CAD1B11F52B00AD22D6 /* skydome.frag */,
+				A0AB4CAF1B11F53700AD22D6 /* skydome.vert */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
