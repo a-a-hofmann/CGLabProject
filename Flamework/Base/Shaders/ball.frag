@@ -15,6 +15,8 @@ uniform lowp vec3 Is;   // specular light intensity
 uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
 
+uniform lowp vec3 OverrideColor;
+
 varying mediump vec4 posVarying;       // pos in world space
 varying mediump vec3 normalVarying;    // normal in world space
 varying mediump vec3 tangentVarying;
@@ -63,6 +65,13 @@ void main()
     
     lowp vec4 gouraudColor = (ambientVarying + diffuseVarying) * color + specularVarying;
     lowp vec4 phongColor = (ambientResult + diffuseResult) * color + specularResult;
+    
+    lowp float f = OverrideColor.z;
+    if (f != 0.0)
+    {
+        phongColor = vec4(OverrideColor, 0.1) * phongColor;
+        phongColor.a = 0.5;
+    }
     
     gl_FragColor = phongColor;
 }

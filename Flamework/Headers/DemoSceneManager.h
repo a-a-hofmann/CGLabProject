@@ -41,7 +41,7 @@ public:
     virtual void initialize(size_t width, size_t height);
     virtual void draw(double deltaT);
     
-    void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES);
+    void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES, bool isReflection = false);
     void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
     void drawDebug();
 
@@ -57,6 +57,10 @@ public:
     void drawParticleSystems();
     void drawSkybox();
     void startGame();
+    void drawMirrorFloor();
+    void drawFloorReflections();
+    void drawMirrorWall();
+    void drawWallReflections();
     
 private:
     double _time;

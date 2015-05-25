@@ -1,5 +1,4 @@
 
-
 uniform mediump mat4 ViewMatrix;
 uniform mediump mat4 ModelMatrix;
 uniform mediump mat4 ProjectionMatrix;
@@ -50,7 +49,7 @@ void main()
     ambientVarying = vec4(Ka * Ia, 1.0);
     
     // Diffuse component
-    mediump vec3 l = normalize(LightPos - posVarying).xyz;
+    mediump vec3 l = normalize(LightPos.xyz - posVarying.xyz);
     lowp float intensity = dot(normalVarying, l);
     lowp vec3 diffuse = Kd * clamp(intensity, 0.0, 1.0) * Id;
     diffuseVarying = vec4(clamp(diffuse, 0.0, 1.0), 1.0);

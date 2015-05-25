@@ -18,6 +18,8 @@ uniform lowp vec3 Ia;   // ambient light intensity
 uniform lowp vec3 Id;   // diffuse light intensity
 uniform lowp vec3 Is;   // specular light intensity
 
+uniform lowp vec3 OverrideColor;
+
 uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
 

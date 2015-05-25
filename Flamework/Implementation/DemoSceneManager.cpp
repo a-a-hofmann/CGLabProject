@@ -90,8 +90,9 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("walls.obj", true, true);
     loadModel("quad.obj", true, true);
     loadModel("skybox.obj", true, true);
+    loadModel("rfloor.obj", true, true);
     
-    loadModel("debug.obj", true, true);
+    //loadModel("debug.obj", true, true);
     
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
@@ -123,7 +124,7 @@ vmml::mat4f getProjectionMatrix()
     return projection;
 }
 
-void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
+void DemoSceneManager::drawModel(const std::string &name, GLenum mode, bool isReflection)
 {
     Model::GroupMap &groups = getModel(name)->getGroups();
     for (auto i = groups.begin(); i != groups.end(); ++i)
@@ -146,6 +147,15 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode)
             shader->setUniform("Ia", vmml::vec3f(1.3f));
             shader->setUniform("Id", vmml::vec3f(1.3f));
             shader->setUniform("Is", vmml::vec3f(1.3f));
+            
+            if (isReflection)
+            {
+                shader->setUniform("OverrideColor", vmml::vec3f(1.67f, 1.9f, 1.9f));
+            }
+            else
+            {
+                shader->setUniform("OverrideColor", vmml::vec3f(0.0f));
+            }
         }
         else
         {
@@ -197,7 +207,7 @@ void DemoSceneManager::transformModelMatrix(const vmml::mat4f &t)
 // draw sphere at origin of current reference frame
 void DemoSceneManager::drawSphere()
 {
-    drawModel("sphere");
+    drawModel("sphere", false);
 }
 
 
@@ -209,6 +219,9 @@ void DemoSceneManager::draw(double deltaT)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     glFrontFace(GL_CW);
   
@@ -237,7 +250,7 @@ void DemoSceneManager::drawObstacles()
     for (Cuboid *obstacle : _game._obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
-            transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0)));
+            transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0.5)));
             drawModel(obstacle->getModelName());
             popModelMatrix();
         }
@@ -265,17 +278,12 @@ void DemoSceneManager::drawPaddle()
 }
 
 void DemoSceneManager::drawField(){
-
-    pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, -3.0)));
-    drawModel("quad");
-    popModelMatrix();
     
-    pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
-    transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
-    drawModel("walls");
-    popModelMatrix();
+//    pushModelMatrix();
+//    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
+//    transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
+//    drawModel("walls");
+//    popModelMatrix();
     
 }
 
@@ -318,9 +326,7 @@ void DemoSceneManager::drawDebug()
 void DemoSceneManager::startGame()
 {
     drawSkybox();
-    
-    drawDebug();
-
+   // drawDebug();
     drawField();
 
     if(_game._playing)
@@ -350,4 +356,133 @@ void DemoSceneManager::startGame()
     
     drawObstacles();
     
+    drawMirrorFloor();
+    
+    drawFloorReflections();
+    
+    drawMirrorWall();
+    
+    drawWallReflections();
+}
+
+void DemoSceneManager::drawMirrorFloor()
+{
+    glEnable(GL_STENCIL_TEST);
+    
+    glStencilFunc(GL_ALWAYS, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilMask(0xFF);
+    glDepthMask(GL_FALSE);
+    
+    glClear(GL_STENCIL_BUFFER_BIT);
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(0.0, 0.0, -1.5)));
+    drawModel("quad");
+    popModelMatrix();
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(0, 0.0, -0.5)));
+    transformModelMatrix(vmml::create_rotation(0.5f * M_PI_F, vmml::vec3f::UNIT_X));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.67f, 1.0f, 1.0f)));
+    drawModel("rfloor");
+    popModelMatrix();
+    
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
+    glStencilMask(0x00);
+    
+    glDepthMask(GL_TRUE);
+}
+
+void DemoSceneManager::drawMirrorWall()
+{
+    glEnable(GL_STENCIL_TEST);
+    
+    glStencilFunc(GL_ALWAYS, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilMask(0xFF);
+    glDepthMask(GL_FALSE);
+    
+    glClear(GL_STENCIL_BUFFER_BIT);
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
+    transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
+    drawModel("walls");
+    popModelMatrix();
+    
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
+    glStencilMask(0x00);
+    
+    glDepthMask(GL_TRUE);
+}
+
+void DemoSceneManager::drawFloorReflections()
+{
+    float angle = _time;
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, -1)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    drawModel("ball", GL_TRIANGLES, true);
+    popModelMatrix();
+    
+    for (Cuboid *obstacle : _game._obstacles){
+        if (strcmp(obstacle->getModelName(), "field")) {
+            pushModelMatrix();
+            transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, -1.5)));
+            drawModel(obstacle->getModelName(), GL_TRIANGLES, true);
+            popModelMatrix();
+        }
+    }
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, -1)));
+    drawModel(_game._paddle.getModelName(), GL_TRIANGLES, true);
+    popModelMatrix();
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
+    transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(0, 0, 0.5)));
+    drawModel("walls", GL_TRIANGLES, true);
+    popModelMatrix();
+    
+    glDisable(GL_STENCIL_TEST);
+}
+
+void DemoSceneManager::drawWallReflections()
+{
+    float angle = _time;
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x - 1.4, _game._ball._y - 0.7, 0.5)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    drawModel("ball", GL_TRIANGLES, true);
+    popModelMatrix();
+    
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x - 1.5, _game._paddle._y, 0.5)));
+    drawModel(_game._paddle.getModelName(), GL_TRIANGLES, true);
+    popModelMatrix();
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x + 1.5, _game._ball._y -2.5, 0.5)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    drawModel("ball", GL_TRIANGLES, true);
+    popModelMatrix();
+    
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x + 1.5, _game._paddle._y, 0.5)));
+    drawModel(_game._paddle.getModelName(), GL_TRIANGLES, true);
+    popModelMatrix();
+
+    
+    glDisable(GL_STENCIL_TEST);
 }

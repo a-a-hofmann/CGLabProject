@@ -4,6 +4,7 @@ uniform mediump mat4 ModelMatrix;
 uniform mediump mat4 ProjectionMatrix;
 
 uniform mediump mat3 NormalMatrix;
+uniform lowp vec3 OverrideColor;
 
 attribute vec4 Position;
 attribute vec3 Normal;

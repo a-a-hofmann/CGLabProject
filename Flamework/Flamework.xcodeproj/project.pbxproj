@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0496EABE1AF15EF3000B72EB /* ball.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EABC1AF15EF3000B72EB /* ball.mtl */; };
 		0496EABF1AF15EF3000B72EB /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EABD1AF15EF3000B72EB /* ball.png */; };
-		0496EAC21AF15FE9000B72EB /* ball.frag in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC01AF15FE9000B72EB /* ball.frag */; };
 		0496EAC31AF15FE9000B72EB /* ball.vert in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC11AF15FE9000B72EB /* ball.vert */; };
 		0496EAC61AF2154B000B72EB /* brick.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC41AF2154B000B72EB /* brick.mtl */; };
 		0496EAC71AF2154B000B72EB /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 0496EAC51AF2154B000B72EB /* brick.png */; };
@@ -51,6 +50,12 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28FD15000DC6FC520079059D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28FD14FF0DC6FC520079059D /* OpenGLES.framework */; };
 		4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 4380AE0A1AF8CF6B00818ABB /* paddle.mtl */; };
+		438331C71B1244AD0000BF74 /* rfloor.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 438331C51B1244AD0000BF74 /* rfloor.mtl */; };
+		438331C81B1244AD0000BF74 /* rfloor.obj in Resources */ = {isa = PBXBuildFile; fileRef = 438331C61B1244AD0000BF74 /* rfloor.obj */; };
+		438331CA1B1245C10000BF74 /* ice-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 438331C91B1245C10000BF74 /* ice-texture.jpg */; };
+		438331CC1B12462F0000BF74 /* rfloor.vert in Resources */ = {isa = PBXBuildFile; fileRef = 438331CB1B12462F0000BF74 /* rfloor.vert */; };
+		438331CE1B1246440000BF74 /* rfloor.frag in Resources */ = {isa = PBXBuildFile; fileRef = 438331CD1B1246440000BF74 /* rfloor.frag */; };
+		438331D01B1265190000BF74 /* ball.frag in Resources */ = {isa = PBXBuildFile; fileRef = 438331CF1B1265190000BF74 /* ball.frag */; };
 		A00F60521B0A629C007432C3 /* skybox.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A00F604F1B0A629C007432C3 /* skybox.mtl */; };
 		A00F60531B0A629C007432C3 /* skybox.obj in Resources */ = {isa = PBXBuildFile; fileRef = A00F60501B0A629C007432C3 /* skybox.obj */; };
 		A0371AB41B10C3CD00647311 /* ice-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0371AB31B10C3CD00647311 /* ice-texture.jpg */; };
@@ -105,7 +110,6 @@
 /* Begin PBXFileReference section */
 		0496EABC1AF15EF3000B72EB /* ball.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball.mtl; sourceTree = "<group>"; };
 		0496EABD1AF15EF3000B72EB /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
-		0496EAC01AF15FE9000B72EB /* ball.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ball.frag; sourceTree = "<group>"; };
 		0496EAC11AF15FE9000B72EB /* ball.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ball.vert; sourceTree = "<group>"; };
 		0496EAC41AF2154B000B72EB /* brick.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = brick.mtl; sourceTree = "<group>"; };
 		0496EAC51AF2154B000B72EB /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
@@ -161,6 +165,12 @@
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* Flamework_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flamework_Prefix.pch; sourceTree = "<group>"; };
 		4380AE0A1AF8CF6B00818ABB /* paddle.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = paddle.mtl; sourceTree = "<group>"; };
+		438331C51B1244AD0000BF74 /* rfloor.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rfloor.mtl; sourceTree = "<group>"; };
+		438331C61B1244AD0000BF74 /* rfloor.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rfloor.obj; sourceTree = "<group>"; };
+		438331C91B1245C10000BF74 /* ice-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ice-texture.jpg"; sourceTree = "<group>"; };
+		438331CB1B12462F0000BF74 /* rfloor.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rfloor.vert; sourceTree = "<group>"; };
+		438331CD1B1246440000BF74 /* rfloor.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = rfloor.frag; sourceTree = "<group>"; };
+		438331CF1B1265190000BF74 /* ball.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ball.frag; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Flamework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Flamework-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A00F604F1B0A629C007432C3 /* skybox.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.mtl; sourceTree = "<group>"; };
 		A00F60501B0A629C007432C3 /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
@@ -433,6 +443,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		438331C41B12448F0000BF74 /* rfloor */ = {
+			isa = PBXGroup;
+			children = (
+				438331C91B1245C10000BF74 /* ice-texture.jpg */,
+				438331C51B1244AD0000BF74 /* rfloor.mtl */,
+				438331C61B1244AD0000BF74 /* rfloor.obj */,
+			);
+			name = rfloor;
+			sourceTree = "<group>";
+		};
 		A00F60541B0A62A2007432C3 /* skybox */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +600,7 @@
 		F87C331F1910561A00E8A523 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				438331C41B12448F0000BF74 /* rfloor */,
 				A0BB1C221B0E48ED0033BD96 /* debug.obj */,
 				A00F60541B0A62A2007432C3 /* skybox */,
 				111D19DB1AFFA28C0017111E /* ball */,
@@ -595,7 +616,7 @@
 		F87C33301910561A00E8A523 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				0496EAC01AF15FE9000B72EB /* ball.frag */,
+				438331CF1B1265190000BF74 /* ball.frag */,
 				0496EAC11AF15FE9000B72EB /* ball.vert */,
 				11C7865D1AF1248300F40E78 /* brick.frag */,
 				11C7865B1AF1247900F40E78 /* brick.vert */,
@@ -609,6 +630,8 @@
 				0496EAD51AF3894D000B72EB /* walls.vert */,
 				A068791C1B0B4549002EAD50 /* skybox.frag */,
 				A068791E1B0B4550002EAD50 /* skybox.vert */,
+				438331CB1B12462F0000BF74 /* rfloor.vert */,
+				438331CD1B1246440000BF74 /* rfloor.frag */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -769,7 +792,6 @@
 				283D33F312AEDA3D00C06CB4 /* FrameworkViewController.xib in Resources */,
 				F8ED69F316E64F7400E6D6CA /* Default-568h@2x.png in Resources */,
 				A00F60531B0A629C007432C3 /* skybox.obj in Resources */,
-				0496EAC21AF15FE9000B72EB /* ball.frag in Resources */,
 				11C7865C1AF1247900F40E78 /* brick.vert in Resources */,
 				F8ED69F416E64F7400E6D6CA /* Default.png in Resources */,
 				0496EAD61AF3894D000B72EB /* walls.frag in Resources */,
@@ -777,8 +799,12 @@
 				F87C333D1910561A00E8A523 /* quad.obj in Resources */,
 				0496EAC71AF2154B000B72EB /* brick.png in Resources */,
 				F8ED69F516E64F7400E6D6CA /* Default@2x.png in Resources */,
+				438331CC1B12462F0000BF74 /* rfloor.vert in Resources */,
+				438331CE1B1246440000BF74 /* rfloor.frag in Resources */,
 				F8ED6AD016E652B800E6D6CA /* ACKNOWLEDGEMENTS in Resources */,
+				438331C71B1244AD0000BF74 /* rfloor.mtl in Resources */,
 				11209B3B1AFE889100D055CB /* brick_normal.png in Resources */,
+				438331C81B1244AD0000BF74 /* rfloor.obj in Resources */,
 				11C786561AF1187300F40E78 /* paddle.frag in Resources */,
 				F87C33371910561A00E8A523 /* ball.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* walls.mtl in Resources */,
@@ -790,11 +816,13 @@
 				0496EAC31AF15FE9000B72EB /* ball.vert in Resources */,
 				0496EAC61AF2154B000B72EB /* brick.mtl in Resources */,
 				11C7865A1AF11CD000F40E78 /* quad.vert in Resources */,
+				438331CA1B1245C10000BF74 /* ice-texture.jpg in Resources */,
 				11148C441AE90928003DCC59 /* glm in Resources */,
 				11C786541AF1186A00F40E78 /* paddle.vert in Resources */,
 				1149693B1AF394B700FC0A7E /* walls.obj in Resources */,
 				0496EAD11AF36EA9000B72EB /* wood_planks_old.png in Resources */,
 				0496EABF1AF15EF3000B72EB /* ball.png in Resources */,
+				438331D01B1265190000BF74 /* ball.frag in Resources */,
 				A00F60521B0A629C007432C3 /* skybox.mtl in Resources */,
 				04EFD8381AE31B94000DA18A /* paddle.obj in Resources */,
 				0496EADB1AF900FD000B72EB /* metal_texture.png in Resources */,
