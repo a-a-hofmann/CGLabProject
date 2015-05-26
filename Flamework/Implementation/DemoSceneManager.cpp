@@ -185,6 +185,56 @@ void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
     }
 }
 
+void DemoSceneManager::drawOutlinedModel(const std::string &name, bool isOutlined, GLenum mode)
+{
+    float outlineFactor = 10.0;
+    Model::GroupMap &groups = getModel(name)->getGroups();
+    for (auto i = groups.begin(); i != groups.end(); ++i)
+    {
+        Geometry &geometry = i->second;
+        GeometryData::VboVertices &vertexData = geometry.getVertexData();
+        
+        if (isOutlined) {
+            extrudeVertex(vertexData, outlineFactor);
+            geometry.updateVertexBuffer();
+        }
+        
+        
+        MaterialPtr material = geometry.getMaterial();
+        ShaderPtr shader = material->getShader();
+        if (shader.get())
+        {
+            shader->setUniform("ProjectionMatrix", getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _viewMatrix);
+            shader->setUniform("ModelMatrix", _modelMatrixStack.top());
+            
+            vmml::mat3f normalMatrix;
+            vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
+            shader->setUniform("NormalMatrix", normalMatrix);
+            
+            shader->setUniform("EyePos", _eyePos);
+            
+            shader->setUniform("LightPos", _lightPos);
+            shader->setUniform("Outlined", float(isOutlined));
+            shader->setUniform("Ia", vmml::vec3f(1.f));
+            shader->setUniform("Id", vmml::vec3f(1.f));
+            shader->setUniform("Is", vmml::vec3f(1.f));
+        }
+        else
+        {
+            util::log("No shader available.", util::LM_WARNING);
+        }
+        geometry.draw(mode);
+        
+        
+        
+        if (isOutlined) {
+            resetVertex(vertexData, outlineFactor);
+            geometry.updateVertexBuffer();
+        }
+    }
+}
+
 void DemoSceneManager::pushModelMatrix()
 {
     if (_modelMatrixStack.size() != 0) {
@@ -239,7 +289,7 @@ void DemoSceneManager::draw(double deltaT)
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
     
     _eyePos = vmml::vec3f(0.0, -5.0, 7.0);
-    _lightPos = vmml::vec4f(-2.0, 15.0, 15.0, 1.0);
+    _lightPos = vmml::vec4f(10.0, -3.0, 15.0, 1.0);
     vmml::vec3f eyeUp = vmml::vec3f::UP;
     _viewMatrix = lookAt(rotation * _eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
@@ -317,25 +367,46 @@ void DemoSceneManager::drawSkydome()
     glEnable(GL_DEPTH_TEST);
     
 }
-//void DemoSceneManager::drawDebug(vmml::vec3f position)
-//{
-//    pushModelMatrix();
-//    transformModelMatrix(vmml::create_translation(position));
-//    drawModel("debug");
-//    popModelMatrix();
-//}
+
+void DemoSceneManager::extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
+{
+    for (Vertex &v : vertexData)
+    {
+        Point3 &p = v.position;
+        p.x += v.normal.x/outlineFactor;
+        p.y += v.normal.y/outlineFactor;
+        p.z += v.normal.z/outlineFactor;
+    }
+}
+
+void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
+{
+    for (Vertex &v : vertexData)
+    {
+        Point3 &p = v.position;
+        p.x -= v.normal.x/outlineFactor;
+        p.y -= v.normal.y/outlineFactor;
+        p.z -= v.normal.z/outlineFactor;
+    }
+}
+
+void DemoSceneManager::drawDebug(vmml::vec3f position)
+{
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_translation(position));
+    drawModel("debug");
+    popModelMatrix();
+}
 
 void DemoSceneManager::startGame()
 {
-    drawSkybox();
-   // drawDebug();
+    drawSkydome();
+    
     drawObstacles();
     
     if(_game._playing)
     {
-        drawSkydome();
     
-
         _game.movePaddle(_game._ball._x < _game._paddle._x);
 //
 //        // touch controls
@@ -358,7 +429,6 @@ void DemoSceneManager::startGame()
             std::cout << "LOST!" << std::endl;
     }
     
-    drawObstacles();
     
     drawMirrorFloor();
     

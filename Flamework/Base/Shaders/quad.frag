@@ -22,7 +22,6 @@ uniform lowp vec3 OverrideColor;
 
 uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
-uniform sampler2D EnvironmentMap;
 
 varying lowp vec4 ambientVarying;
 varying lowp vec4 diffuseVarying;
@@ -36,10 +35,6 @@ varying mediump vec3 tangentVarying;
 lowp vec4 ambientV;
 lowp vec4 diffuseV;
 lowp vec4 specularV;
-
-
-varying mediump vec2 vN;
-
 
 
 void main()
@@ -57,20 +52,6 @@ void main()
     mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
     bumpMap = 2.0 * bumpMap - 1.0;
 //    n = normalize(tbn * bumpMap);
-    
-    
-    // Environment mapping
-    mediump vec3 e = normalize(p.xyz);
-    mediump vec3 r = reflect(e, n);
-    mediump float m = 2.0 * sqrt(
-                         pow(r.x, 2.0) +
-                         pow(r.y, 2.0) +
-                         pow(r.z + 1.0, 2.0)
-                         );
-    mediump vec2 reflection = r.xy/m + 0.5;
-
-    lowp vec4 rColor = texture2D(EnvironmentMap, reflection);
-
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
@@ -97,6 +78,4 @@ void main()
     
     
     gl_FragColor = phongColor;
-    
-    gl_FragColor = vec4(mix(phongColor, rColor, 0.7).rgb, 1.0);
 }

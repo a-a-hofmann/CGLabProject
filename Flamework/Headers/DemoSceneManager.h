@@ -42,8 +42,9 @@ public:
     virtual void draw(double deltaT);
     
     void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES, bool isReflection = false);
+    void drawOutlinedModel(const std::string &name, bool isOutlined, GLenum mode = GL_TRIANGLES);
     void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
-    void drawDebug();
+    void drawDebug(vmml::vec3f position);
 
     void pushModelMatrix();
     void popModelMatrix();
@@ -65,6 +66,12 @@ public:
     void drawFloorReflections();
     void drawMirrorWall();
     void drawWallReflections();
+    
+    
+    
+    void extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
+    void resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
+    
     
 private:
     double _time;

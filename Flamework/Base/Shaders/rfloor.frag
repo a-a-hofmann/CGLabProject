@@ -20,6 +20,7 @@ uniform lowp vec3 Is;   // specular light intensity
 
 uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
+uniform sampler2D EnvironmentMap;
 
 uniform lowp vec3 OverrideColor;
 
@@ -42,16 +43,31 @@ void main()
     mediump vec4 p = posVarying;
     mediump vec3 n = normalize(normalVarying);
     mediump vec3 l = normalize(LightPos.xyz - p.xyz);
+    mediump vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
+    
+    
+    // Bump mapping
     mediump vec3 t = normalize(tangentVarying);
-    
     t = normalize(t - n * dot(n, t));
-    
     mediump vec3 b = cross(n, t);
     mediump mat3 tbn = mat3(t, b, n);
     mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
     
     bumpMap = 2.0 * bumpMap - 1.0;
-    //    n = normalize(tbn * bumpMap);
+//        n = normalize(tbn * bumpMap);
+    
+    
+    // Environment mapping
+    // "stretch" coefficient - to better simulate the sky being infinitely far
+    mediump vec3 stretch = vec3(0.0, 0.0, 4.0);
+    mediump vec3 e = normalize(p.xyz - stretch);
+    mediump vec3 r = normalize(reflect(e, n));
+    r.z += 1.0;
+    mediump float m = 2.0 * sqrt(dot(r, r));
+    mediump vec2 reflection = r.xy/m + vec2(0.5);
+    
+    lowp vec4 rColor = texture2D(EnvironmentMap, -reflection);
+
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
@@ -65,7 +81,6 @@ void main()
     specularV = vec4(0.0);
     if (intensity > 0.0)
     {
-        mediump vec3 eyeVec = normalize(EyePos - p).xyz;
         mediump vec3 h = normalize(l + eyeVec);
         mediump vec3 specular = Ks * pow(max(0.0, dot( n, h )), Ns) * Is;
         specularV = vec4(clamp(specular, 0.0, 1.0), 1.0);
@@ -78,4 +93,6 @@ void main()
     phongColor = vec4(phongColor.x, phongColor.y, phongColor.z, 0.45);
     
     gl_FragColor = phongColor;
+//    gl_FragColor = rColor;
+        gl_FragColor = vec4(mix(phongColor, rColor, 0.4).rgb, 1.0);
 }

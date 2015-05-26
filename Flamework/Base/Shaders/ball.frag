@@ -16,6 +16,7 @@ uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
 
 uniform lowp vec3 OverrideColor;
+uniform lowp float Outlined;
 
 varying mediump vec4 posVarying;       // pos in world space
 varying mediump vec3 normalVarying;    // normal in world space
@@ -40,7 +41,7 @@ void main()
     mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.xy).xyz;
     
     bumpMap = 2.0 * bumpMap - 1.0;
-    n = normalize(tbn * bumpMap);
+//    n = normalize(tbn * bumpMap);
 
     
     // Ambient component
@@ -74,4 +75,9 @@ void main()
     }
     
     gl_FragColor = phongColor;
+    
+    // FIXME
+    if (Outlined == 1.0) {
+        gl_FragColor = vec4(0.0);
+    }
 }

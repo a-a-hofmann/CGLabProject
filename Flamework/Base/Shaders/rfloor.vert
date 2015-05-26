@@ -18,7 +18,6 @@ uniform lowp vec3 Ia;   // ambient light intensity
 uniform lowp vec3 Id;   // diffuse light intensity
 uniform lowp vec3 Is;   // specular light intensity
 
-uniform lowp vec3 OverrideColor;
 
 attribute vec4 Position;
 attribute vec3 Normal;

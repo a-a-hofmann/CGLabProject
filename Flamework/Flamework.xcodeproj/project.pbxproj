@@ -402,9 +402,9 @@
 				F87C331E1910561A00E8A523 /* Base */,
 				F86CA081171FEB6200DD23CA /* boost */,
 				F814A6111716A0E000A2A910 /* obj */,
-				F8ED69E716E64F7400E6D6CA /* Default-568h@2x.png */,
 				F8ED69E816E64F7400E6D6CA /* Default.png */,
 				F8ED69E916E64F7400E6D6CA /* Default@2x.png */,
+				F8ED69E716E64F7400E6D6CA /* Default-568h@2x.png */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -576,6 +576,7 @@
 		F87C33191910557D00E8A523 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				F87C331A1910557D00E8A523 /* DemoSceneManager.h */,
 				11A40F781AEF93280059154D /* Ball.h */,
 				11A40F791AEF93280059154D /* Entity.h */,
 				11A40F7A1AEF93280059154D /* Obstacle.h */,
@@ -584,7 +585,6 @@
 				11C7864E1AF113FD00F40E78 /* Wall.h */,
 				11C786511AF1143E00F40E78 /* Paddle.h */,
 				04EFD82F1ADEB6A9000DA18A /* GameLogic.h */,
-				F87C331A1910557D00E8A523 /* DemoSceneManager.h */,
 				0496EADC1B035A41000B72EB /* ParticleSystem.h */,
 				0496EADF1B039D63000B72EB /* Particle.h */,
 			);
@@ -594,10 +594,10 @@
 		F87C331B1910557D00E8A523 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */,
 				11A40F7B1AEF93310059154D /* Ball.cpp */,
 				11A40F7C1AEF93310059154D /* Entity.cpp */,
 				11A40F7D1AEF93310059154D /* Obstacle.cpp */,
-				F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */,
 				04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */,
 				11C786471AF1132300F40E78 /* Cuboid.cpp */,
 				11C7864A1AF1139300F40E78 /* Brick.cpp */,
