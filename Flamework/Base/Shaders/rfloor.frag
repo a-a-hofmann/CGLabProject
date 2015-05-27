@@ -37,6 +37,7 @@ lowp vec4 ambientV;
 lowp vec4 diffuseV;
 lowp vec4 specularV;
 
+
 void main()
 {
     // Phong Shading (per-fragment lighting)
@@ -58,6 +59,7 @@ void main()
     
     
     // Environment mapping
+    
     // "stretch" coefficient - to better simulate the sky being infinitely far
     mediump vec3 stretch = vec3(0.0, 0.0, 4.0);
     mediump vec3 e = normalize(p.xyz - stretch);
@@ -67,6 +69,7 @@ void main()
     mediump vec2 reflection = r.xy/m + vec2(0.5);
     
     lowp vec4 rColor = texture2D(EnvironmentMap, -reflection);
+    
 
     
     // Ambient component
@@ -92,7 +95,5 @@ void main()
     lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
     phongColor = vec4(phongColor.x, phongColor.y, phongColor.z, 0.45);
     
-    gl_FragColor = phongColor;
-//    gl_FragColor = rColor;
-        gl_FragColor = vec4(mix(phongColor, rColor, 0.4).rgb, 1.0);
+    gl_FragColor = vec4(mix(phongColor, rColor, 0.4).rgb, 1.0) + vec4(OverrideColor * 0.0, 1.0);
 }

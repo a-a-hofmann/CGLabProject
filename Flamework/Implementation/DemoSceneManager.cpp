@@ -81,6 +81,8 @@ void DemoSceneManager::initialize(size_t width, size_t height)
 {
     getApplication()->addTouchHandler(this);
     getApplication()->addScaleHandler(this);
+    
+    _camera = std::make_shared<Camera>();
 
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
 
@@ -98,32 +100,6 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
 
-vmml::mat4f lookAt(vmml::vec3f eye, vmml::vec3f target, vmml::vec3f up)
-{
-    vmml::vec3f zaxis = vmml::normalize(eye - target);
-    vmml::vec3f xaxis = vmml::normalize(vmml::cross<3>(up, zaxis));
-    vmml::vec3f yaxis = vmml::cross<3>(zaxis, xaxis);
-    
-    vmml::mat4f view;
-    view.set_row(0, vmml::vec4f(xaxis.x(), xaxis.y(), xaxis.z(), -vmml::dot(xaxis, eye)));
-    view.set_row(1, vmml::vec4f(yaxis.x(), yaxis.y(), yaxis.z(), -vmml::dot(yaxis, eye)));
-    view.set_row(2, vmml::vec4f(zaxis.x(), zaxis.y(), zaxis.z(), -vmml::dot(zaxis, eye)));
-    view.set_row(3, vmml::vec4f(0, 0, 0, 1.0));
-    
-    return view;
-}
-
-vmml::mat4f getProjectionMatrix()
-{
-    glm::mat4 proj = glm::perspective(40.0f, 1.0f, 0.1f, 100.0f);
-    
-    vmml::mat4f projection = vmml::mat4f::IDENTITY;
-    projection.set_column(0, (vmml::vec4f(proj[0][0], proj[0][1], proj[0][2], proj[0][3])));
-    projection.set_column(1, (vmml::vec4f(proj[1][0], proj[1][1], proj[1][2], proj[1][3])));
-    projection.set_column(2, (vmml::vec4f(proj[2][0], proj[2][1], proj[2][2], proj[2][3])));
-    
-    return projection;
-}
 
 void DemoSceneManager::drawModel(const std::string &name, GLenum mode, bool isReflection)
 {
@@ -135,8 +111,8 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode, bool isRe
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            shader->setUniform("ProjectionMatrix", getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _viewMatrix);
+            shader->setUniform("ProjectionMatrix", _camera->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _camera->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
             
             vmml::mat3f normalMatrix;
@@ -174,8 +150,8 @@ void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
         MaterialPtr material = geometry.getMaterial();
         ShaderPtr shader = material->getShader();
         if (shader.get()) {
-            shader->setUniform("ProjectionMatrix", getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _viewMatrix);
+            shader->setUniform("ProjectionMatrix", _camera->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _camera->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
         }
         else{
@@ -204,8 +180,8 @@ void DemoSceneManager::drawOutlinedModel(const std::string &name, bool isOutline
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            shader->setUniform("ProjectionMatrix", getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _viewMatrix);
+            shader->setUniform("ProjectionMatrix", _camera->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _camera->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
             
             vmml::mat3f normalMatrix;
@@ -288,10 +264,11 @@ void DemoSceneManager::draw(double deltaT)
     vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
     
-    _eyePos = vmml::vec3f(0.0, -5.0, 7.0);
+    
+    _camera->moveCamera(vmml::vec3f(0.0, -5.0, 7.0));
+    _camera->rotateCamera(rotation);
+    _camera->lookAt(vmml::vec3f::UNIT_Y);
     _lightPos = vmml::vec4f(10.0, -3.0, 15.0, 1.0);
-    vmml::vec3f eyeUp = vmml::vec3f::UP;
-    _viewMatrix = lookAt(rotation * _eyePos, vmml::vec3f::UNIT_Y, eyeUp);
     
     startGame();
 }
@@ -408,11 +385,11 @@ void DemoSceneManager::startGame()
     {
     
         _game.movePaddle(_game._ball._x < _game._paddle._x);
-//
-//        // touch controls
+
+        // touch controls
 //        float touchDx = _scrolling.x();
 //        _game.movePaddle(-touchDx);
-//
+
         drawPaddle();
 
         _game.moveBall();
@@ -428,10 +405,10 @@ void DemoSceneManager::startGame()
         else
             std::cout << "LOST!" << std::endl;
     }
-    
+
     
     drawMirrorFloor();
-    
+
     drawFloorReflections();
     
     drawMirrorWall();

@@ -89,6 +89,8 @@ private:
     vmml::mat4f _viewMatrix;
     
     Game _game;
+    
+    CameraPtr _camera;
 };
 
 
