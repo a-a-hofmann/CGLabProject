@@ -9,6 +9,8 @@
 #ifndef __Flamework__Entity__
 #define __Flamework__Entity__
 
+#include <iostream>
+
 typedef float unit;
 
 // An object of the game

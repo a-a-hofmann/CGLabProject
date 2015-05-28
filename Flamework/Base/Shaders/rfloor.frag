@@ -59,9 +59,8 @@ void main()
     
     
     // Environment mapping
-    
     // "stretch" coefficient - to better simulate the sky being infinitely far
-    mediump vec3 stretch = vec3(0.0, 0.0, 4.0);
+    mediump vec3 stretch = vec3(0.0, 0.0, 8.0);
     mediump vec3 e = normalize(p.xyz - stretch);
     mediump vec3 r = normalize(reflect(e, n));
     r.z += 1.0;

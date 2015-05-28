@@ -11,6 +11,7 @@
 
 #include "Cuboid.h"
 
+
 // The paddle
 class Paddle : public Cuboid
 {
@@ -22,8 +23,11 @@ public:
     // x, y: position (i.e. center of paddle)
     // width, height: width and height of paddle
     // dvx: change of horizontal velocity on movement
+    Paddle();
     Paddle(unit x, unit y, unit width, unit height, unit dvx);
+    ~Paddle();
     bool detectCollision(Ball& ball);
 };
 
+typedef std::shared_ptr<Paddle> PaddlePtr;
 #endif /* defined(__Flamework__Paddle__) */

@@ -291,7 +291,7 @@ void DemoSceneManager::draw(double deltaT)
 
 vmml::vec3f DemoSceneManager::getPaddlePos() const
 {
-    return vmml::vec3f(_game._paddle._x, _game._paddle._y, 0.0);
+    return vmml::vec3f(_game._paddle->_x, _game._paddle->_y, 0.0);
 }
 
 void DemoSceneManager::drawObstacles()
@@ -322,7 +322,7 @@ void DemoSceneManager::drawPaddle()
 {
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(getPaddlePos()));
-    drawModel(_game._paddle.getModelName());
+    drawModel("paddle");
     popModelMatrix();
 }
 
@@ -390,9 +390,17 @@ void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float 
 
 void DemoSceneManager::drawDebug(vmml::vec3f position)
 {
+//    pushModelMatrix();
+//    transformModelMatrix(vmml::create_translation(position));
+//    drawModel("debug");
+//    popModelMatrix();
+    
+    glCullFace(GL_FRONT);
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(position));
-    drawModel("debug");
+    drawOutlinedModel("debug", 1.0);
+    glCullFace(GL_BACK);
+    drawOutlinedModel("debug", 0.0);
     popModelMatrix();
 }
 
@@ -402,10 +410,12 @@ void DemoSceneManager::startGame()
     
     drawObstacles();
     
+//    drawDebug(vmml::vec3f(0.0, 0.0, 5.0));
+    
     if(_game._playing)
     {
     
-        _game.movePaddle(_game._ball._x < _game._paddle._x);
+        _game.movePaddle(_game._ball._x < _game._paddle->_x);
 
         // touch controls
 //        float touchDx = _scrolling.x();
@@ -511,8 +521,8 @@ void DemoSceneManager::drawFloorReflections()
     }
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, -1)));
-    drawModel(_game._paddle.getModelName(), GL_TRIANGLES, true);
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x, _game._paddle->_y, -1)));
+    drawModel(_game._paddle->getModelName(), GL_TRIANGLES, true);
     popModelMatrix();
     
     pushModelMatrix();
@@ -538,8 +548,8 @@ void DemoSceneManager::drawWallReflections()
     
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x - 1.5, _game._paddle._y, 0.5)));
-    drawModel(_game._paddle.getModelName(), GL_TRIANGLES, true);
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x - 1.5, _game._paddle->_y, 0.5)));
+    drawModel(_game._paddle->getModelName(), GL_TRIANGLES, true);
     popModelMatrix();
     
     pushModelMatrix();
@@ -552,8 +562,8 @@ void DemoSceneManager::drawWallReflections()
     
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x + 1.5, _game._paddle._y, 0.5)));
-    drawModel(_game._paddle.getModelName(), GL_TRIANGLES, true);
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x + 1.5, _game._paddle->_y, 0.5)));
+    drawModel(_game._paddle->getModelName(), GL_TRIANGLES, true);
     popModelMatrix();
 
     

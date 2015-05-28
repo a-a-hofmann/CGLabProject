@@ -33,7 +33,8 @@ protected:
 public:
     ObstacleList _obstacles;    // list of obstacles (i.e. bricks and walls)
     ParticleSystemList _particleSystems;    // list of particle systems
-    Paddle _paddle; // the paddle
+//    Paddle _paddle; // the paddle
+    PaddlePtr _paddle;
     Ball _ball;     // the ball
     bool _playing;  // true if the game round has not ended yet
     

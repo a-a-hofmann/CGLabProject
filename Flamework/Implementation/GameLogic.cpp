@@ -13,10 +13,11 @@ Game::Game() :
 _obstacles(),
 _particleSystems(),
 _ball(0.0, 0.0, 0.5, 0.0, -0.2),
-_paddle(0.0, -4.5, 4.5, 0.3, 0.5),
 _velocityDivisor(1),
 _playing(true)
 {
+    _paddle = std::make_shared<Paddle>();
+    
     Wall* lowerWall = new Wall(0.0, -19.0, 27.5, 2.0, true);
     Wall* upperWall = new Wall(0.0, 19.0, 27.5, 2.0, false);
     Wall* leftWall = new Wall(-13.75, 0.0, 1.25, 40.0, false);
@@ -64,7 +65,7 @@ void Game::moveBall2()
     _ball._x += _ball._vx/_velocityDivisor;
     _ball._y += _ball._vy/_velocityDivisor;
 
-    _paddle.detectCollision(_ball);
+    _paddle->detectCollision(_ball);
     
     ObstacleList toDestroy;
     
@@ -90,30 +91,30 @@ void Game::moveBall2()
 
 void Game::movePaddle(bool left)
 {
-    unit paddleOldX = _paddle._x;
+    unit paddleOldX = _paddle->_x;
     if(left)
-        _paddle._vx -= _paddle._dvx;
+        _paddle->_vx -= _paddle->_dvx;
     else
-        _paddle._vx += _paddle._dvx;
+        _paddle->_vx += _paddle->_dvx;
         
-    _paddle._x += _paddle._vx;
+    _paddle->_x += _paddle->_vx;
     
     for (Cuboid* obstacle : _obstacles){
-        if (obstacle -> detectCollision(_paddle)) {
-            _paddle._x = paddleOldX;
+        if (obstacle -> detectCollision(*_paddle)) {
+            _paddle->_x = paddleOldX;
             break;
         }
     }
 }
 
 void Game::movePaddle(float dx){
-    unit paddleOldX = _paddle._x;
-    _paddle._x -= dx;
-    _paddle._vx += _paddle._dvx;
+    unit paddleOldX = _paddle->_x;
+    _paddle->_x -= dx;
+    _paddle->_vx += _paddle->_dvx;
     
     for (Cuboid* obstacle : _obstacles){
-        if (obstacle -> detectCollision(_paddle)) {
-            _paddle._x = paddleOldX;
+        if (obstacle -> detectCollision(*_paddle)) {
+            _paddle->_x = paddleOldX;
             break;
         }
     }
