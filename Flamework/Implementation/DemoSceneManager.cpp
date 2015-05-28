@@ -83,6 +83,7 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     getApplication()->addScaleHandler(this);
     
     _camera = std::make_shared<Camera>();
+    _cameraAlt = std::make_shared<Camera>();
 
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
 
@@ -91,11 +92,11 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("paddle.obj", true, true);
     loadModel("walls.obj", true, true);
     loadModel("quad.obj", true, true);
-    loadModel("skybox.obj", true, true);
     loadModel("rfloor.obj", true, true);
-
-    //loadModel("debug.obj", true, true);
     loadModel("skydome.obj", true, true);
+    loadModel("skybox.obj", true, true);
+    
+    loadModel("debug.obj", true, true);
     
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
@@ -111,15 +112,15 @@ void DemoSceneManager::drawModel(const std::string &name, GLenum mode, bool isRe
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            shader->setUniform("ProjectionMatrix", _camera->getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _camera->getViewMatrix());
+            shader->setUniform("ProjectionMatrix", _currentCamera->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _currentCamera->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
             
             vmml::mat3f normalMatrix;
             vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrixStack.top())), normalMatrix);
             shader->setUniform("NormalMatrix", normalMatrix);
-            
-            shader->setUniform("EyePos", _eyePos);
+        
+            shader->setUniform("EyePos", _currentCamera->getPosition());
             shader->setUniform("LightPos", _lightPos);
             shader->setUniform("Ia", vmml::vec3f(1.3f));
             shader->setUniform("Id", vmml::vec3f(1.3f));
@@ -150,8 +151,8 @@ void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
         MaterialPtr material = geometry.getMaterial();
         ShaderPtr shader = material->getShader();
         if (shader.get()) {
-            shader->setUniform("ProjectionMatrix", _camera->getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _camera->getViewMatrix());
+            shader->setUniform("ProjectionMatrix", _currentCamera->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _currentCamera->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
         }
         else{
@@ -161,9 +162,9 @@ void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
     }
 }
 
-void DemoSceneManager::drawOutlinedModel(const std::string &name, bool isOutlined, GLenum mode)
+void DemoSceneManager::drawOutlinedModel(const std::string &name, float isOutlined, GLenum mode)
 {
-    float outlineFactor = 10.0;
+    float outlineFactor = 5.0;
     Model::GroupMap &groups = getModel(name)->getGroups();
     for (auto i = groups.begin(); i != groups.end(); ++i)
     {
@@ -180,18 +181,18 @@ void DemoSceneManager::drawOutlinedModel(const std::string &name, bool isOutline
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            shader->setUniform("ProjectionMatrix", _camera->getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _camera->getViewMatrix());
+            shader->setUniform("ProjectionMatrix", _currentCamera->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _currentCamera->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
             
             vmml::mat3f normalMatrix;
             vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
             shader->setUniform("NormalMatrix", normalMatrix);
             
-            shader->setUniform("EyePos", _eyePos);
+            shader->setUniform("EyePos", _currentCamera->getPosition());
             
             shader->setUniform("LightPos", _lightPos);
-            shader->setUniform("Outlined", float(isOutlined));
+            shader->setUniform("Outlined", isOutlined);
             shader->setUniform("Ia", vmml::vec3f(1.f));
             shader->setUniform("Id", vmml::vec3f(1.f));
             shader->setUniform("Is", vmml::vec3f(1.f));
@@ -265,12 +266,32 @@ void DemoSceneManager::draw(double deltaT)
                                 vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
     
     
+    // set second camera
+    vmml::vec3f pos = getPaddlePos() + vmml::vec3f(0.0, -2.0, 1.0);
+    _cameraAlt->moveCamera(pos);
+    _cameraAlt->rotateCamera(rotation);
+    _cameraAlt->lookAt(vmml::vec3f::UNIT_Y + vmml::vec3f(pos.x(), pos.y(), 0.0));
+    
+    // set first camera
     _camera->moveCamera(vmml::vec3f(0.0, -5.0, 7.0));
     _camera->rotateCamera(rotation);
     _camera->lookAt(vmml::vec3f::UNIT_Y);
+    
+    // set Projection matrix
+    _camera->setProjection();
+    
+    // set active camera
+    _currentCamera = _camera;
+    
+    
     _lightPos = vmml::vec4f(10.0, -3.0, 15.0, 1.0);
     
     startGame();
+}
+
+vmml::vec3f DemoSceneManager::getPaddlePos() const
+{
+    return vmml::vec3f(_game._paddle._x, _game._paddle._y, 0.0);
 }
 
 void DemoSceneManager::drawObstacles()
@@ -300,7 +321,7 @@ void DemoSceneManager::drawBall()
 void DemoSceneManager::drawPaddle()
 {
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle._x, _game._paddle._y, 0)));
+    transformModelMatrix(vmml::create_translation(getPaddlePos()));
     drawModel(_game._paddle.getModelName());
     popModelMatrix();
 }

@@ -42,7 +42,7 @@ public:
     virtual void draw(double deltaT);
     
     void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES, bool isReflection = false);
-    void drawOutlinedModel(const std::string &name, bool isOutlined, GLenum mode = GL_TRIANGLES);
+    void drawOutlinedModel(const std::string &name, float isOutlined, GLenum mode = GL_TRIANGLES);
     void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
     void drawDebug(vmml::vec3f position);
 
@@ -73,6 +73,9 @@ public:
     void resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
     
     
+    
+    vmml::vec3f getPaddlePos() const;
+    
 private:
     double _time;
 
@@ -90,7 +93,8 @@ private:
     
     Game _game;
     
-    CameraPtr _camera;
+    CameraPtr _camera, _cameraAlt;
+    CameraPtr _currentCamera;
 };
 
 

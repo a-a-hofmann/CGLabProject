@@ -12,6 +12,8 @@
 Camera::Camera()
 {
     _position = vmml::vec3f::ZERO;
+    _viewMatrix = vmml::mat4f::IDENTITY;
+    _projectionMatrix = vmml::mat4f::IDENTITY;
 }
 
 Camera::~Camera()
@@ -47,6 +49,15 @@ void Camera::rotateCamera(const vmml::mat3f &rotation)
     _position = rotation * _position;
 }
 
+void Camera::setProjection(const float fov, const float aspect)
+{
+    glm::mat4 proj = glm::perspective(fov, aspect, 0.1f, 100.0f);
+    
+    _projectionMatrix.set_column(0, (vmml::vec4f(proj[0][0], proj[0][1], proj[0][2], proj[0][3])));
+    _projectionMatrix.set_column(1, (vmml::vec4f(proj[1][0], proj[1][1], proj[1][2], proj[1][3])));
+    _projectionMatrix.set_column(2, (vmml::vec4f(proj[2][0], proj[2][1], proj[2][2], proj[2][3])));
+}
+
 vmml::mat4f Camera::getViewMatrix() const
 {
     return _viewMatrix;
@@ -54,12 +65,10 @@ vmml::mat4f Camera::getViewMatrix() const
 
 vmml::mat4f Camera::getProjectionMatrix() const
 {
-    glm::mat4 proj = glm::perspective(40.0f, 1.0f, 0.1f, 100.0f);
-    
-    vmml::mat4f projection = vmml::mat4f::IDENTITY;
-    projection.set_column(0, (vmml::vec4f(proj[0][0], proj[0][1], proj[0][2], proj[0][3])));
-    projection.set_column(1, (vmml::vec4f(proj[1][0], proj[1][1], proj[1][2], proj[1][3])));
-    projection.set_column(2, (vmml::vec4f(proj[2][0], proj[2][1], proj[2][2], proj[2][3])));
-    
-    return projection;
+    return _projectionMatrix;
+}
+
+vmml::vec3f Camera::getPosition() const
+{
+    return _position;
 }

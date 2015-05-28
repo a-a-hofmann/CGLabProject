@@ -10,13 +10,10 @@
 
 #include "addendum.hpp"
 #include <memory>
-#include <iostream>	
 #include <glm/glm/glm.hpp>
 #include <glm/glm/gtc/matrix_transform.hpp>
 #include <glm/glm/gtc/matrix_access.hpp>
 
-//#include "vector.hpp"
-//#include "matrix.hpp"
 
 class Camera
 {
@@ -29,15 +26,20 @@ public:
     void moveCamera(const vmml::vec3f &translation);
     void rotateCamera(const vmml::vec3f &axis, float rotation);
     void rotateCamera(const vmml::mat3f &rotation);
+    void setProjection(const float fov = 2.3f, const float aspect = 1.0f);
     
     vmml::mat4f getViewMatrix() const;
     vmml::mat4f getProjectionMatrix() const;
+    vmml::vec3f getPosition() const;
+    
+
     
     
 private:
     
-    vmml::vec3f _position, _view;
-    vmml::mat4f _viewMatrix, _projection;
+    vmml::vec3f _position;
+    vmml::mat4f _viewMatrix, _projectionMatrix;
+    
     float _speed;
 };
 
