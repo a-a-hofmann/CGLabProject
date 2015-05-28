@@ -107,9 +107,10 @@ void Game::movePaddle(bool left)
     }
 }
 
-void Game::movePaddle(float dx){
+void Game::movePaddle(float dx)
+{
     unit paddleOldX = _paddle->_x;
-    _paddle->_x -= dx;
+    _paddle->_x += dx;
     _paddle->_vx += _paddle->_dvx;
     
     for (Cuboid* obstacle : _obstacles){
@@ -119,6 +120,16 @@ void Game::movePaddle(float dx){
         }
     }
 }
+
+void Game::movePaddle(Gyro *g)
+{
+    g->read();
+    float dx = g->getRoll() * M_PI_F;
+    
+    movePaddle(dx);
+}
+
+
 
 void Game::moveParticles()
 {

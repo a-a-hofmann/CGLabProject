@@ -18,14 +18,10 @@ uniform lowp vec3 Ia;   // ambient light intensity
 uniform lowp vec3 Id;   // diffuse light intensity
 uniform lowp vec3 Is;   // specular light intensity
 
-uniform lowp vec3 OverrideColor;
 
 uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
 
-varying lowp vec4 ambientVarying;
-varying lowp vec4 diffuseVarying;
-varying lowp vec4 specularVarying;
 varying lowp vec4 texCoordVarying;
 
 varying mediump vec4 posVarying;       // pos in world space
@@ -52,6 +48,7 @@ void main()
     mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
     bumpMap = 2.0 * bumpMap - 1.0;
 //    n = normalize(tbn * bumpMap);
+    mediump vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
@@ -73,9 +70,9 @@ void main()
     
     lowp vec4 color = texture2D(DiffuseMap, texCoordVarying.st);
     
-    lowp vec4 gouraudColor = (ambientVarying + diffuseVarying) * color + specularVarying;
     lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
     
+    gl_FragColor = phongColor;
+
     
-    gl_FragColor = phongColor + 0.0 * vec4(OverrideColor, 1.0);
 }

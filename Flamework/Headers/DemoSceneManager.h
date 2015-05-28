@@ -14,6 +14,7 @@
 #include "IScaleHandler.h"
 
 #include <stack>
+#include <queue>
 
 #include "GameLogic.h"
 
@@ -26,6 +27,7 @@ class DemoSceneManager: public SceneManager, public ITouchHandler, public IScale
 {
 public:
     typedef std::stack< vmml::mat4f >   MatrixStack;
+    typedef std::queue<CameraPtr>       CameraQueue;
 
     DemoSceneManager(Application *application);
     virtual ~DemoSceneManager();
@@ -41,17 +43,15 @@ public:
     virtual void initialize(size_t width, size_t height);
     virtual void draw(double deltaT);
     
-    void drawModel(const std::string &name, GLenum mode = GL_TRIANGLES, bool isReflection = false);
-    void drawOutlinedModel(const std::string &name, float isOutlined, GLenum mode = GL_TRIANGLES);
+    
+    void drawModel(const std::string &name, bool isOutlined = false, bool isReflection = false,  GLenum mode = GL_TRIANGLES);
     void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
-    void drawDebug(vmml::vec3f position);
 
     void pushModelMatrix();
     void popModelMatrix();
     void transformModelMatrix(const vmml::mat4f &t);
     
     void drawSkyModel(const std::string &name, GLenum mode = GL_TRIANGLES);
-    
     void drawSphere();
     void drawObstacles();
     void drawBall();
@@ -59,25 +59,26 @@ public:
     void drawParticleSystems();
     void drawSkybox();
     void drawSkydome();
+    void drawDebug(vmml::vec3f position);
     
-    
-    void startGame();
     void drawMirrorFloor();
     void drawFloorReflections();
     void drawMirrorWall();
     void drawWallReflections();
-    
-    
-    
+
     void extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
     void resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
     
+    void startGame();
     
+    void setCameras();
+    void swapCameras();
     
     vmml::vec3f getPaddlePos() const;
     
 private:
     double _time;
+    int _tapCount;
 
     vmml::vec2f _scrolling;
     vmml::vec2f _lScrollPos;
@@ -93,8 +94,7 @@ private:
     
     Game _game;
     
-    CameraPtr _camera, _cameraAlt;
-    CameraPtr _currentCamera;
+    CameraQueue _cameras;
 };
 
 

@@ -82,8 +82,8 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     getApplication()->addTouchHandler(this);
     getApplication()->addScaleHandler(this);
     
-    _camera = std::make_shared<Camera>();
-    _cameraAlt = std::make_shared<Camera>();
+    _cameras.push(std::make_shared<Camera>());
+    _cameras.push(std::make_shared<Camera>());
 
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
 
@@ -96,75 +96,16 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("skydome.obj", true, true);
     loadModel("skybox.obj", true, true);
     
-    loadModel("debug.obj", true, true);
+//    loadModel("debug.obj", true, true);
     
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
 
 
-void DemoSceneManager::drawModel(const std::string &name, GLenum mode, bool isReflection)
+void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool isReflection, GLenum mode)
 {
-    Model::GroupMap &groups = getModel(name)->getGroups();
-    for (auto i = groups.begin(); i != groups.end(); ++i)
-    {
-        Geometry &geometry = i->second;
-        MaterialPtr material = geometry.getMaterial();
-        ShaderPtr shader = material->getShader();
-        if (shader.get())
-        {
-            shader->setUniform("ProjectionMatrix", _currentCamera->getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _currentCamera->getViewMatrix());
-            shader->setUniform("ModelMatrix", _modelMatrixStack.top());
-            
-            vmml::mat3f normalMatrix;
-            vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrixStack.top())), normalMatrix);
-            shader->setUniform("NormalMatrix", normalMatrix);
-        
-            shader->setUniform("EyePos", _currentCamera->getPosition());
-            shader->setUniform("LightPos", _lightPos);
-            shader->setUniform("Ia", vmml::vec3f(1.3f));
-            shader->setUniform("Id", vmml::vec3f(1.3f));
-            shader->setUniform("Is", vmml::vec3f(1.3f));
-            
-            if (isReflection)
-            {
-                shader->setUniform("OverrideColor", vmml::vec3f(1.67f, 1.9f, 1.9f));
-            }
-            else
-            {
-                shader->setUniform("OverrideColor", vmml::vec3f(0.0f));
-            }
-        }
-        else
-        {
-            util::log("No shader available.", util::LM_WARNING);
-        }
-        geometry.draw(mode);
-    }
-}
+    float outlineFactor = 7.0;
 
-void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
-{
-    Model::GroupMap &groups = getModel(name)->getGroups();
-    for (auto i = groups.begin(); i != groups.end(); ++i) {
-        Geometry & geometry = i->second;
-        MaterialPtr material = geometry.getMaterial();
-        ShaderPtr shader = material->getShader();
-        if (shader.get()) {
-            shader->setUniform("ProjectionMatrix", _currentCamera->getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _currentCamera->getViewMatrix());
-            shader->setUniform("ModelMatrix", _modelMatrixStack.top());
-        }
-        else{
-            util::log("No skybox shader available", util::LM_WARNING);
-        }
-        geometry.draw(mode);
-    }
-}
-
-void DemoSceneManager::drawOutlinedModel(const std::string &name, float isOutlined, GLenum mode)
-{
-    float outlineFactor = 5.0;
     Model::GroupMap &groups = getModel(name)->getGroups();
     for (auto i = groups.begin(); i != groups.end(); ++i)
     {
@@ -181,21 +122,33 @@ void DemoSceneManager::drawOutlinedModel(const std::string &name, float isOutlin
         ShaderPtr shader = material->getShader();
         if (shader.get())
         {
-            shader->setUniform("ProjectionMatrix", _currentCamera->getProjectionMatrix());
-            shader->setUniform("ViewMatrix", _currentCamera->getViewMatrix());
+            shader->setUniform("ProjectionMatrix", _cameras.front()->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _cameras.front()->getViewMatrix());
             shader->setUniform("ModelMatrix", _modelMatrixStack.top());
             
             vmml::mat3f normalMatrix;
-            vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrix)), normalMatrix);
+            vmml::compute_inverse(vmml::transpose(vmml::mat3f(_modelMatrixStack.top())), normalMatrix);
             shader->setUniform("NormalMatrix", normalMatrix);
-            
-            shader->setUniform("EyePos", _currentCamera->getPosition());
-            
+        
+            shader->setUniform("EyePos", _cameras.front()->getPosition());
             shader->setUniform("LightPos", _lightPos);
-            shader->setUniform("Outlined", isOutlined);
-            shader->setUniform("Ia", vmml::vec3f(1.f));
-            shader->setUniform("Id", vmml::vec3f(1.f));
-            shader->setUniform("Is", vmml::vec3f(1.f));
+            shader->setUniform("Ia", vmml::vec3f(1.3f));
+            shader->setUniform("Id", vmml::vec3f(1.3f));
+            shader->setUniform("Is", vmml::vec3f(1.3f));
+            
+            if (name.compare("quad") && name.compare("rfloor"))
+            {
+                shader->setUniform("isOutlined", isOutlined);
+
+                if (isReflection)
+                {
+                    shader->setUniform("OverrideColor", vmml::vec3f(1.67f, 1.9f, 1.9f));
+                }
+                else
+                {
+                    shader->setUniform("OverrideColor", vmml::vec3f(0.0f));
+                }
+            }
         }
         else
         {
@@ -203,12 +156,30 @@ void DemoSceneManager::drawOutlinedModel(const std::string &name, float isOutlin
         }
         geometry.draw(mode);
         
-        
-        
         if (isOutlined) {
             resetVertex(vertexData, outlineFactor);
             geometry.updateVertexBuffer();
         }
+    }
+}
+
+
+void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
+{
+    Model::GroupMap &groups = getModel(name)->getGroups();
+    for (auto i = groups.begin(); i != groups.end(); ++i) {
+        Geometry & geometry = i->second;
+        MaterialPtr material = geometry.getMaterial();
+        ShaderPtr shader = material->getShader();
+        if (shader.get()) {
+            shader->setUniform("ProjectionMatrix", _cameras.front()->getProjectionMatrix());
+            shader->setUniform("ViewMatrix", _cameras.front()->getViewMatrix());
+            shader->setUniform("ModelMatrix", _modelMatrixStack.top());
+        }
+        else{
+            util::log("No skybox shader available", util::LM_WARNING);
+        }
+        geometry.draw(mode);
     }
 }
 
@@ -238,6 +209,14 @@ void DemoSceneManager::drawSphere()
     drawModel("sphere");
 }
 
+void DemoSceneManager::swapCameras()
+{
+    // sets current camera to last in queue and "selects" the newest camera
+    if (_cameras.size() > 1) {
+        _cameras.push(_cameras.front());
+        _cameras.pop();
+    }
+}
 
 void DemoSceneManager::draw(double deltaT)
 {
@@ -253,40 +232,38 @@ void DemoSceneManager::draw(double deltaT)
     
     glFrontFace(GL_CW);
   
-
     glCullFace(GL_BACK);
     glEnable(GL_CULL_FACE);
 
     
-    
-    Gyro *gyro = Gyro::getInstance();
-    gyro->read();
-    
-    vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
-                                vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
-    
-    
-    // set second camera
-    vmml::vec3f pos = getPaddlePos() + vmml::vec3f(0.0, -2.0, 1.0);
-    _cameraAlt->moveCamera(pos);
-    _cameraAlt->rotateCamera(rotation);
-    _cameraAlt->lookAt(vmml::vec3f::UNIT_Y + vmml::vec3f(pos.x(), pos.y(), 0.0));
-    
-    // set first camera
-    _camera->moveCamera(vmml::vec3f(0.0, -5.0, 7.0));
-    _camera->rotateCamera(rotation);
-    _camera->lookAt(vmml::vec3f::UNIT_Y);
-    
-    // set Projection matrix
-    _camera->setProjection();
-    
-    // set active camera
-    _currentCamera = _camera;
-    
+    setCameras();
     
     _lightPos = vmml::vec4f(10.0, -3.0, 15.0, 1.0);
     
     startGame();
+}
+
+void DemoSceneManager::setCameras()
+{
+    Gyro *gyro = Gyro::getInstance();
+    gyro->read();
+    
+    vmml::mat3f rotation = vmml::create_rotation(gyro->getRoll() * -M_PI_F, vmml::vec3f::UNIT_Y) *
+    vmml::create_rotation(gyro->getPitch() * -M_PI_F, vmml::vec3f::UNIT_X);
+    rotation = vmml::mat3f::IDENTITY;
+
+    // set first camera
+    _cameras.front()->moveCamera(vmml::vec3f(0.0, -5.0, 7.0));
+    _cameras.front()->rotateCamera(rotation);
+    _cameras.front()->lookAt(vmml::vec3f::UNIT_Y);
+    _cameras.front()->setProjection();
+    
+    // set second camera
+    vmml::vec3f pos = getPaddlePos() + vmml::vec3f(0.0, -9.0, 3.0);
+    _cameras.back()->moveCamera(pos);
+    _cameras.back()->rotateCamera(rotation);
+    _cameras.back()->lookAt(vmml::vec3f::UNIT_Y * 10.f + vmml::vec3f(pos.x(), pos.y(), 0.0));
+    _cameras.back()->setProjection(0.6f);
 }
 
 vmml::vec3f DemoSceneManager::getPaddlePos() const
@@ -296,11 +273,21 @@ vmml::vec3f DemoSceneManager::getPaddlePos() const
 
 void DemoSceneManager::drawObstacles()
 {
+    glCullFace(GL_FRONT);
     for (Cuboid *obstacle : _game._obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0.5)));
-            drawModel(obstacle->getModelName());
+            drawModel(obstacle->getModelName(), true);
+            popModelMatrix();
+        }
+    }
+    glCullFace(GL_BACK);
+    for (Cuboid *obstacle : _game._obstacles){
+        if (strcmp(obstacle->getModelName(), "field")) {
+            pushModelMatrix();
+            transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0.5)));
+            drawModel(obstacle->getModelName(), false);
             popModelMatrix();
         }
     }
@@ -314,7 +301,11 @@ void DemoSceneManager::drawBall()
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
-    drawModel("ball");
+    
+    glCullFace(GL_FRONT);
+    drawModel("ball", true);
+    glCullFace(GL_BACK);
+    drawModel("ball", false);
     popModelMatrix();
 }
 
@@ -322,7 +313,11 @@ void DemoSceneManager::drawPaddle()
 {
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(getPaddlePos()));
-    drawModel("paddle");
+    
+    glCullFace(GL_FRONT);
+    drawModel("paddle", true);
+    glCullFace(GL_BACK);
+    drawModel("paddle", false);
     popModelMatrix();
 }
 
@@ -358,7 +353,7 @@ void DemoSceneManager::drawSkydome()
 {
     glDisable(GL_DEPTH_TEST);
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(10.0f)));
+    transformModelMatrix(vmml::create_translation(_cameras.front()->getPosition()));
     drawSkyModel("skydome");
     popModelMatrix();
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -390,17 +385,13 @@ void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float 
 
 void DemoSceneManager::drawDebug(vmml::vec3f position)
 {
-//    pushModelMatrix();
-//    transformModelMatrix(vmml::create_translation(position));
-//    drawModel("debug");
-//    popModelMatrix();
-    
     glCullFace(GL_FRONT);
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(position));
-    drawOutlinedModel("debug", 1.0);
+        transformModelMatrix(vmml::create_rotation(M_PI_F/2.0f, vmml::vec3f::UNIT_X));
+    drawModel("debug", true);
     glCullFace(GL_BACK);
-    drawOutlinedModel("debug", 0.0);
+    drawModel("debug", true);
     popModelMatrix();
 }
 
@@ -410,16 +401,17 @@ void DemoSceneManager::startGame()
     
     drawObstacles();
     
-//    drawDebug(vmml::vec3f(0.0, 0.0, 5.0));
-    
     if(_game._playing)
     {
-    
-        _game.movePaddle(_game._ball._x < _game._paddle->_x);
+        // Demo
+//        _game.movePaddle(_game._ball._x < _game._paddle->_x);
 
         // touch controls
 //        float touchDx = _scrolling.x();
-//        _game.movePaddle(-touchDx);
+//        _game.movePaddle(touchDx);
+        
+        // Gyro controls
+        _game.movePaddle(Gyro::getInstance());
 
         drawPaddle();
 
@@ -491,7 +483,10 @@ void DemoSceneManager::drawMirrorWall()
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
     transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
-    drawModel("walls");
+    glCullFace(GL_FRONT);
+    drawModel("walls", true, false);
+    glCullFace(GL_BACK);
+    drawModel("walls", false, false);
     popModelMatrix();
     
     glStencilFunc(GL_EQUAL, 1, 0xFF);
@@ -508,28 +503,41 @@ void DemoSceneManager::drawFloorReflections()
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
-    drawModel("ball", GL_TRIANGLES, true);
+    glCullFace(GL_FRONT);
+    drawModel("ball", true, true);
+    glCullFace(GL_BACK);
+    drawModel("ball", false, true);
     popModelMatrix();
     
+    glCullFace(GL_FRONT);
     for (Cuboid *obstacle : _game._obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, -1.5)));
-            drawModel(obstacle->getModelName(), GL_TRIANGLES, true);
+            drawModel(obstacle->getModelName(), true, true);
+            popModelMatrix();
+        }
+    }
+    glCullFace(GL_BACK);
+    for (Cuboid *obstacle : _game._obstacles){
+        if (strcmp(obstacle->getModelName(), "field")) {
+            pushModelMatrix();
+            transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, -1.5)));
+            drawModel(obstacle->getModelName(), false, true);
             popModelMatrix();
         }
     }
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x, _game._paddle->_y, -1)));
-    drawModel(_game._paddle->getModelName(), GL_TRIANGLES, true);
+    drawModel("paddle", false, true);
     popModelMatrix();
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
     transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_translation(vmml::vec3f(0, 0, 0.5)));
-    drawModel("walls", GL_TRIANGLES, true);
+    drawModel("walls", false, true);
     popModelMatrix();
     
     glDisable(GL_STENCIL_TEST);
@@ -543,13 +551,17 @@ void DemoSceneManager::drawWallReflections()
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
-    drawModel("ball", GL_TRIANGLES, true);
+    
+    glCullFace(GL_FRONT);
+    drawModel("ball", true, true);
+    glCullFace(GL_BACK);
+    drawModel("ball", false, true);
     popModelMatrix();
     
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x - 1.5, _game._paddle->_y, 0.5)));
-    drawModel(_game._paddle->getModelName(), GL_TRIANGLES, true);
+    drawModel(_game._paddle->getModelName(), false, true);
     popModelMatrix();
     
     pushModelMatrix();
@@ -557,13 +569,16 @@ void DemoSceneManager::drawWallReflections()
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
-    drawModel("ball", GL_TRIANGLES, true);
+    glCullFace(GL_FRONT);
+    drawModel("ball", true, true);
+    glCullFace(GL_BACK);
+    drawModel("ball", false, true);
     popModelMatrix();
     
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x + 1.5, _game._paddle->_y, 0.5)));
-    drawModel(_game._paddle->getModelName(), GL_TRIANGLES, true);
+    drawModel(_game._paddle->getModelName(), false, true);
     popModelMatrix();
 
     

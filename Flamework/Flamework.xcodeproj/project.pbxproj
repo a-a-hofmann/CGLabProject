@@ -647,14 +647,14 @@
 				11C786531AF1186A00F40E78 /* paddle.vert */,
 				11C786571AF11CC800F40E78 /* quad.frag */,
 				11C786591AF11CD000F40E78 /* quad.vert */,
-				0496EAD41AF3894D000B72EB /* walls.frag */,
-				0496EAD51AF3894D000B72EB /* walls.vert */,
+				438331CD1B1246440000BF74 /* rfloor.frag */,
+				438331CB1B12462F0000BF74 /* rfloor.vert */,
 				A068791C1B0B4549002EAD50 /* skybox.frag */,
 				A068791E1B0B4550002EAD50 /* skybox.vert */,
-				438331CB1B12462F0000BF74 /* rfloor.vert */,
-				438331CD1B1246440000BF74 /* rfloor.frag */,
 				A0AB4CAD1B11F52B00AD22D6 /* skydome.frag */,
 				A0AB4CAF1B11F53700AD22D6 /* skydome.vert */,
+				0496EAD41AF3894D000B72EB /* walls.frag */,
+				0496EAD51AF3894D000B72EB /* walls.vert */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";

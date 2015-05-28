@@ -22,11 +22,7 @@ uniform sampler2D DiffuseMap;
 uniform sampler2D NormalMap;
 uniform sampler2D EnvironmentMap;
 
-uniform lowp vec3 OverrideColor;
 
-varying lowp vec4 ambientVarying;
-varying lowp vec4 diffuseVarying;
-varying lowp vec4 specularVarying;
 varying lowp vec4 texCoordVarying;
 
 varying mediump vec4 posVarying;       // pos in world space
@@ -87,12 +83,12 @@ void main()
         mediump vec3 specular = Ks * pow(max(0.0, dot( n, h )), Ns) * Is;
         specularV = vec4(clamp(specular, 0.0, 1.0), 1.0);
     }
+
     
     lowp vec4 color = texture2D(DiffuseMap, texCoordVarying.st);
     
-    lowp vec4 gouraudColor = (ambientVarying + diffuseVarying) * color + specularVarying;
     lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
     phongColor = vec4(phongColor.x, phongColor.y, phongColor.z, 0.45);
     
-    gl_FragColor = vec4(mix(phongColor, rColor, 0.4).rgb, 1.0) + vec4(OverrideColor * 0.0, 1.0);
+    gl_FragColor = vec4(mix(phongColor, rColor, 0.4).rgb, 1.0);
 }

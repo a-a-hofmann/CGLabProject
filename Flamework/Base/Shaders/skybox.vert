@@ -10,9 +10,7 @@ varying lowp vec4 texCoordVarying;
 
 void main()
 {
-    mediump vec4 pos = ModelMatrix * Position;
     texCoordVarying = TexCoord;
-    
-    gl_Position = ProjectionMatrix * ViewMatrix * pos;
+    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * Position;
     
 }

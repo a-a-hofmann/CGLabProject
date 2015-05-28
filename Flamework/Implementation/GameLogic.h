@@ -10,6 +10,8 @@
 #define __Flamework__GameLogic__
 
 #include <iostream>
+#include "addendum.hpp"
+#include "Gyro.h"
 #include <list>
 #include "Entity.h"
 #include "Ball.h"
@@ -53,6 +55,8 @@ public:
     
     // Move paddle: touchscreen
     void movePaddle(float dx);
+    
+    void movePaddle(Gyro *g);
     
     // Move particles of all particle systems
     void moveParticles();
