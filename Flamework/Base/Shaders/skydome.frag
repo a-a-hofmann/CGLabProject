@@ -10,5 +10,5 @@ varying mediump vec4 texCoordVarying;
 
 void main()
 {
-    gl_FragColor = texture2D(DiffuseMap, texCoordVarying.st);    
+    gl_FragColor = texture2D(DiffuseMap, texCoordVarying.st);
 }

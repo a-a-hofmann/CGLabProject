@@ -44,7 +44,7 @@ public:
     virtual void draw(double deltaT);
     
     
-    void drawModel(const std::string &name, bool isOutlined = false, bool isReflection = false,  GLenum mode = GL_TRIANGLES);
+    void drawModel(const std::string &name, bool isOutlined = false, bool isReflection = false, float outlineFactor = 7.0, GLenum mode = GL_TRIANGLES);
     void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
 
     void pushModelMatrix();
@@ -95,6 +95,7 @@ private:
     Game _game;
     
     CameraQueue _cameras;
+    
 };
 
 

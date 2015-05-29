@@ -1,12 +1,7 @@
-# Material Count: 1
-
 newmtl walls
 Ns 96.078431
 Ka 0.500000 0.500000 0.500000
 Kd 0.700000 0.700000 0.700000
 Ks 0.300000 0.300000 0.300000
-# Ni 1.000000
-# d 1.000000
-# illum 1
 map_Kd wood_planks_old.png
-map_Bump wood_normal.png
+#map_Bump wood_normal.png

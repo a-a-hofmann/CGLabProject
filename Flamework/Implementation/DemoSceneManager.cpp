@@ -36,7 +36,9 @@ void DemoSceneManager::onTouchBegan(float x, float y)
     vmml::vec2f cScrollPos(x, y);
     _lScrollPos = cScrollPos;
     
-//    getSound("test")->play();
+    getSound("theme")->play();
+    getSound("test")->play();
+    
 }
 
 void DemoSceneManager::onTouchMoved(float x, float y)
@@ -51,6 +53,7 @@ void DemoSceneManager::onTouchMoved(float x, float y)
 void DemoSceneManager::onTouchEnded(float x, float y, int tapCount)
 {
     util::log("onTouchEnded");
+    
 }
 
 void DemoSceneManager::onScaleBegan(float x, float y)
@@ -67,6 +70,8 @@ void DemoSceneManager::onScaleMoved(float x, float y)
     vmml::vec2f scaleDelta(cScale - _lScale);
     _scaling += scaleDelta * SCALE_SPEED;
     _lScale = cScale;
+    
+    
 }
 
 void DemoSceneManager::onScaleEnded(float x, float y)
@@ -97,14 +102,15 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("skybox.obj", true, true);
     
 //    loadModel("debug.obj", true, true);
+    loadSound("test.mp3");
+    loadSound("theme.mp3");
     
     _modelMatrix = vmml::mat4f::IDENTITY;
 }
 
 
-void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool isReflection, GLenum mode)
+void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool isReflection, float outlineFactor, GLenum mode)
 {
-    float outlineFactor = 7.0;
 
     Model::GroupMap &groups = getModel(name)->getGroups();
     for (auto i = groups.begin(); i != groups.end(); ++i)

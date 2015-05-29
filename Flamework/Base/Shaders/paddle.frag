@@ -19,7 +19,6 @@ uniform lowp vec3 Id;   // diffuse light intensity
 uniform lowp vec3 Is;   // specular light intensity
 
 uniform sampler2D DiffuseMap;
-uniform sampler2D NormalMap;
 
 uniform lowp vec3 OverrideColor;
 uniform lowp float isOutlined;
@@ -48,17 +47,6 @@ void main()
         mediump vec3 l = normalize(LightPos - p).xyz;
         mediump vec3 t = normalize(tangentVarying);
         
-        t = normalize(t - n * dot(n, t));
-        
-        mediump vec3 b = normalize(cross(n, t));
-        mediump mat3 tbn = mat3(t, b, n);
-        mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
-        
-        mediump vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
-        bumpMap = 2.0 * bumpMap - 1.0;
-        
-    //     Bump mapping breaks illumination
-    //    n = normalize(tbn * bumpMap);
         
         // Ambient component
         lowp vec4 ambientResult = vec4(Ka * Ia, 1.0);

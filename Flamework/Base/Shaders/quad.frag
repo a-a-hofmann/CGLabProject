@@ -20,7 +20,6 @@ uniform lowp vec3 Is;   // specular light intensity
 
 
 uniform sampler2D DiffuseMap;
-uniform sampler2D NormalMap;
 
 varying lowp vec4 texCoordVarying;
 
@@ -41,23 +40,16 @@ void main()
     mediump vec3 l = normalize(LightPos.xyz - p.xyz);
     mediump vec3 t = normalize(tangentVarying);
     
-    // Bump mapping
-    t = normalize(t - n * dot(n, t));
-    mediump vec3 b = cross(n, t);
-    mediump mat3 tbn = mat3(t, b, n);
-    mediump vec3 bumpMap = texture2D(NormalMap, texCoordVarying.st).rgb;
-    bumpMap = 2.0 * bumpMap - 1.0;
-//    n = normalize(tbn * bumpMap);
     mediump vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
-    
+
     // Diffuse component
     lowp float intensity = dot(n, l);
     lowp vec3 diffuse = Kd * clamp(intensity, 0.0, 1.0) * Id;
     diffuseV = vec4(clamp(diffuse, 0.0, 1.0), 1.0);
-    
+
     // Specular component
     specularV = vec4(0.0);
     if (intensity > 0.0)
@@ -69,6 +61,7 @@ void main()
     }
     
     lowp vec4 color = texture2D(DiffuseMap, texCoordVarying.st);
+
     
     lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
     

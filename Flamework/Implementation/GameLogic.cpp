@@ -111,8 +111,16 @@ void Game::movePaddle(float dx)
 {
     unit paddleOldX = _paddle->_x;
     _paddle->_x += dx;
-    _paddle->_vx += _paddle->_dvx;
     
+    if (dx < 0)
+    {
+        _paddle->_vx -= _paddle->_dvx;
+        std::cout << "negative!" << std::endl;
+    }
+    else
+    {
+        _paddle->_vx += _paddle->_dvx;
+    }
     for (Cuboid* obstacle : _obstacles){
         if (obstacle -> detectCollision(*_paddle)) {
             _paddle->_x = paddleOldX;
