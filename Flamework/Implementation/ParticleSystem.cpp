@@ -11,12 +11,12 @@
 #include <time.h>
 #include "ParticleSystem.h"
 
-ParticleSystem::ParticleSystem(unit x, unit y, unit z) :
+ParticleSystem::ParticleSystem(float x, float y, float z) :
 _particles(),
 _x(x), _y(y), _z(z),
 step(0)
 {
-    unit maxV = 0.05;
+    float maxV = 0.05;
     for (int i = 0; i < NUM_PARTICLES; i++)
     {
         _particles.insert(_particles.begin(), new Particle(_x, _y, _z,

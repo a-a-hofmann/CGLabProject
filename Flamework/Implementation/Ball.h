@@ -15,15 +15,19 @@
 class Ball : public Entity
 {
 public:
-    unit _r;        // redius
-    unit _vx, _vy;  // velocity
-    unit _oldX, _oldY;  // previous coordinates
+    float _r;        // redius
+    float _vx, _vy;  // velocity
+    float _oldX, _oldY;  // previous coordinates
     
     // Construct ball
     // x, y: position (center of circle)
     // r: radius
     // vx, vy: initial velocity
-    Ball(unit x, unit y, unit r, unit vx, unit vy);
+    Ball(float x, float y, float r, float vx, float vy);
+    Ball();
+    ~Ball();
 };
+
+typedef std::shared_ptr<Ball> BallPtr;
 
 #endif /* defined(__Flamework__Ball__) */

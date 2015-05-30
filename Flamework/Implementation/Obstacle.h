@@ -19,11 +19,11 @@ public:
     
     // Create obstacle
     // x, y: position
-    Obstacle(unit x, unit y);
+    Obstacle(float x, float y);
     
     
     // Detect collision with ball
-    virtual bool detectCollision(Ball& ball) = 0;
+    virtual bool detectCollision(BallPtr ball) = 0;
     
     // returns true if obstacle should be destroyed on collision
     virtual bool destroyOnCollision();

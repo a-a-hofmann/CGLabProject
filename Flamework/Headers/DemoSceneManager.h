@@ -28,6 +28,8 @@ class DemoSceneManager: public SceneManager, public ITouchHandler, public IScale
 public:
     typedef std::stack< vmml::mat4f >   MatrixStack;
     typedef std::queue<CameraPtr>       CameraQueue;
+    typedef std::shared_ptr<Game> GamePtr;
+
 
     DemoSceneManager(Application *application);
     virtual ~DemoSceneManager();
@@ -92,9 +94,12 @@ private:
     vmml::mat4f _modelMatrix;
     vmml::mat4f _viewMatrix;
     
-    Game _game;
+
+    GamePtr _game;
     
     CameraQueue _cameras;
+    
+    Gyro* _gyro;
     
 };
 

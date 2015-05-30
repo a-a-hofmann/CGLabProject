@@ -26,11 +26,11 @@ Paddle::~Paddle()
     
 }
 
-bool Paddle::detectCollision(Ball& ball)
+bool Paddle::detectCollision(BallPtr ball)
 {
     if(Cuboid::detectCollision(ball))
     {
-        ball._vx += _vx/2;
+        ball->_vx += _vx/2;
         _vx = 0;
         return true;
     }

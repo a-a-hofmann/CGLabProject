@@ -25,6 +25,8 @@
 typedef std::list<Cuboid*> ObstacleList;
 typedef std::list<ParticleSystem*> ParticleSystemList;
 
+
+
 // The game
 class Game
 {
@@ -35,9 +37,10 @@ protected:
 public:
     ObstacleList _obstacles;    // list of obstacles (i.e. bricks and walls)
     ParticleSystemList _particleSystems;    // list of particle systems
-//    Paddle _paddle; // the paddle
     PaddlePtr _paddle;
-    Ball _ball;     // the ball
+    BallPtr _ball;     // the ball
+    
+    
     bool _playing;  // true if the game round has not ended yet
     
     // Construct game
@@ -49,13 +52,14 @@ public:
     // Move ball
     void moveBall();
     
-    // Move paddle: Autopilot
+    // Move paddle: autopilot
     // left: true if move to the left, false if to the right
     void movePaddle(bool left);
     
     // Move paddle: touchscreen
     void movePaddle(float dx);
     
+    // Move paddle: gyro
     void movePaddle(Gyro *g);
     
     // Move particles of all particle systems

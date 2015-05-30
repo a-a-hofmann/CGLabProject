@@ -616,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				F87C331A1910557D00E8A523 /* DemoSceneManager.h */,
+				04EFD82F1ADEB6A9000DA18A /* GameLogic.h */,
 				11A40F781AEF93280059154D /* Ball.h */,
 				11A40F791AEF93280059154D /* Entity.h */,
 				11A40F7A1AEF93280059154D /* Obstacle.h */,
@@ -623,7 +624,6 @@
 				11C7864B1AF1139300F40E78 /* Brick.h */,
 				11C7864E1AF113FD00F40E78 /* Wall.h */,
 				11C786511AF1143E00F40E78 /* Paddle.h */,
-				04EFD82F1ADEB6A9000DA18A /* GameLogic.h */,
 				0496EADC1B035A41000B72EB /* ParticleSystem.h */,
 				0496EADF1B039D63000B72EB /* Particle.h */,
 			);
@@ -634,10 +634,10 @@
 			isa = PBXGroup;
 			children = (
 				F87C331C1910557D00E8A523 /* DemoSceneManager.cpp */,
+				04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */,
 				11A40F7B1AEF93310059154D /* Ball.cpp */,
 				11A40F7C1AEF93310059154D /* Entity.cpp */,
 				11A40F7D1AEF93310059154D /* Obstacle.cpp */,
-				04EFD82E1ADEB6A9000DA18A /* GameLogic.cpp */,
 				11C786471AF1132300F40E78 /* Cuboid.cpp */,
 				11C7864A1AF1139300F40E78 /* Brick.cpp */,
 				11C7864D1AF113FD00F40E78 /* Wall.cpp */,

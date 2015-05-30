@@ -32,7 +32,7 @@ DemoSceneManager::~DemoSceneManager() {}
 
 void DemoSceneManager::onTouchBegan(float x, float y)
 {
-    util::log("onTouchBegan");
+//    util::log("onTouchBegan");
     vmml::vec2f cScrollPos(x, y);
     _lScrollPos = cScrollPos;
     
@@ -50,7 +50,10 @@ void DemoSceneManager::onTouchMoved(float x, float y)
 
 void DemoSceneManager::onTouchEnded(float x, float y, int tapCount)
 {
-    util::log("onTouchEnded");
+//    util::log("onTouchEnded");
+    
+    _tapCount = tapCount;
+    std::cout << _tapCount << std::endl;
     
 }
 
@@ -59,6 +62,7 @@ void DemoSceneManager::onScaleBegan(float x, float y)
     util::log("onScaleBegan");
     vmml::vec2f cScale(-x, y);
     _lScale = cScale;
+
 }
 
 void DemoSceneManager::onScaleMoved(float x, float y)
@@ -90,6 +94,13 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     _cameras.push(std::make_shared<Camera>());
 
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
+    
+    // Create game
+    _game = std::make_shared<Game>();
+    
+    
+    // Gyro
+    _gyro = Gyro::getInstance();
 
     
     // Load objects
@@ -120,7 +131,7 @@ void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool 
         
         // Don't delete this!
         // Classic outlining. Extrude normals and draw the backfaces then draw over it normally
-        GeometryData::VboVertices &vertexData = geometry.getVertexData();
+//        GeometryData::VboVertices &vertexData = geometry.getVertexData();
 //        if (isOutlined) {
 //            extrudeVertex(vertexData, outlineFactor);
 //            geometry.updateVertexBuffer();
@@ -281,7 +292,7 @@ void DemoSceneManager::setCameras()
 
 vmml::vec3f DemoSceneManager::getPaddlePos() const
 {
-    return vmml::vec3f(_game._paddle->_x, _game._paddle->_y, 0.0);
+    return vmml::vec3f(_game->_paddle->_x, _game->_paddle->_y, 0.0);
 }
 
 void DemoSceneManager::extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
@@ -310,7 +321,7 @@ void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float 
 void DemoSceneManager::drawObstacles()
 {
     glCullFace(GL_FRONT);
-    for (Cuboid *obstacle : _game._obstacles){
+    for (Cuboid *obstacle : _game->_obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0.5)));
@@ -320,7 +331,7 @@ void DemoSceneManager::drawObstacles()
         }
     }
     glCullFace(GL_BACK);
-    for (Cuboid *obstacle : _game._obstacles){
+    for (Cuboid *obstacle : _game->_obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0.5)));
@@ -335,11 +346,11 @@ void DemoSceneManager::drawBall()
     float angle = _time * M_PI_F;
     float rotationFactor = 3.0f;
     
-    float xRotation = _game._ball._vx * angle * rotationFactor;
-    float yRotation = _game._ball._vy * angle * rotationFactor;
+    float xRotation = _game->_ball->_vx * angle * rotationFactor;
+    float yRotation = _game->_ball->_vy * angle * rotationFactor;
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_ball->_x, _game->_ball->_y, 0)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(xRotation , vmml::vec3f::UNIT_X));
     transformModelMatrix(vmml::create_rotation(yRotation, vmml::vec3f::UNIT_Y));
@@ -366,7 +377,7 @@ void DemoSceneManager::drawPaddle()
 
 void DemoSceneManager::drawParticleSystems()
 {
-    for(ParticleSystem* particleSystem : _game._particleSystems)
+    for(ParticleSystem* particleSystem : _game->_particleSystems)
     {
         for(Particle* particle : particleSystem->_particles)
         {
@@ -422,29 +433,29 @@ void DemoSceneManager::startGame()
     
     drawObstacles();
     
-    if(_game._playing)
+    if(_game->_playing)
     {
+        _game->moveBall();
+        drawBall();
+        
         // Demo
-        _game.movePaddle(_game._ball._x < _game._paddle->_x);
+        _game->movePaddle(_game->_ball->_x < _game->_paddle->_x);
 
         // touch controls
 //        float touchDx = _scrolling.x();
 //        _game.movePaddle(touchDx);
         
         // Gyro controls
-//        _game.movePaddle(Gyro::getInstance());
+//        _game.movePaddle(_gyro);
 
         drawPaddle();
 
-        _game.moveBall();
-        drawBall();
-
-        _game.moveParticles();
+        _game->moveParticles();
         drawParticleSystems();
     }
     else
     {
-        if(_game.isWon())
+        if(_game->isWon())
             std::cout << "WON!!!" << std::endl;
         else
             std::cout << "LOST!" << std::endl;
@@ -528,10 +539,10 @@ void DemoSceneManager::drawFloorReflections()
     // Draw ball reflection and outline
     float angle = _time;
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, -1)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_ball->_x, _game->_ball->_y, -1)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    transformModelMatrix(vmml::create_rotation(_game->_ball->_vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game->_ball->_vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
@@ -546,7 +557,7 @@ void DemoSceneManager::drawFloorReflections()
     
     // Draw Bricks reflection and outline
     glCullFace(GL_FRONT);
-    for (Cuboid *obstacle : _game._obstacles){
+    for (Cuboid *obstacle : _game->_obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, -1.5)));
@@ -556,7 +567,7 @@ void DemoSceneManager::drawFloorReflections()
         }
     }
     glCullFace(GL_BACK);
-    for (Cuboid *obstacle : _game._obstacles){
+    for (Cuboid *obstacle : _game->_obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, -1.5)));
@@ -568,7 +579,7 @@ void DemoSceneManager::drawFloorReflections()
     
     // Draw paddle reflection
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x, _game._paddle->_y, -1)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_paddle->_x, _game->_paddle->_y, -1)));
     drawModel("paddle", false, true);
     popModelMatrix();
     
@@ -588,10 +599,10 @@ void DemoSceneManager::drawWallReflections()
 {
     float angle = _time;
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x - 1.4, _game._ball._y - 0.7, 0.5)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_ball->_x - 1.4, _game->_ball->_y - 0.7, 0.5)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    transformModelMatrix(vmml::create_rotation(_game->_ball->_vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game->_ball->_vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
@@ -605,15 +616,15 @@ void DemoSceneManager::drawWallReflections()
     
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x - 1.5, _game._paddle->_y, 0.5)));
-    drawModel(_game._paddle->getModelName(), false, true);
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_paddle->_x - 1.5, _game->_paddle->_y, 0.5)));
+    drawModel(_game->_paddle->getModelName(), false, true);
     popModelMatrix();
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x + 1.5, _game._ball._y -2.5, 0.5)));
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_ball->_x + 1.5, _game->_ball->_y -2.5, 0.5)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    transformModelMatrix(vmml::create_rotation(_game->_ball->_vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
+    transformModelMatrix(vmml::create_rotation(_game->_ball->_vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     
     
     pushModelMatrix();
@@ -628,8 +639,8 @@ void DemoSceneManager::drawWallReflections()
     
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x + 1.5, _game._paddle->_y, 0.5)));
-    drawModel(_game._paddle->getModelName(), false, true);
+    transformModelMatrix(vmml::create_translation(vmml::vec3f(_game->_paddle->_x + 1.5, _game->_paddle->_y, 0.5)));
+    drawModel(_game->_paddle->getModelName(), false, true);
     popModelMatrix();
 
     

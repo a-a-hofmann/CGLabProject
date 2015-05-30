@@ -18,7 +18,7 @@ public:
     // Construct brick
     // x, y: position (i.e. center of brick)
     // width, height: width and height of brick
-    Brick(unit x, unit y, unit width, unit height);
+    Brick(float x, float y, float width, float height);
     
     // see Obstacle
     bool destroyOnCollision();

@@ -12,10 +12,10 @@
 Game::Game() :
 _obstacles(),
 _particleSystems(),
-_ball(0.0, 0.0, 0.5, 0.0, -0.2),
-_velocityDivisor(1),
+_velocityDivisor(2),
 _playing(true)
 {
+    _ball = std::make_shared<Ball>();
     _paddle = std::make_shared<Paddle>();
     
     Wall* lowerWall = new Wall(0.0, -19.0, 27.5, 2.0, true);
@@ -29,8 +29,8 @@ _playing(true)
     _obstacles.insert(_obstacles.begin(), rightWall);
     
     
-    for(unit x = -4.0; x <= 4.0; x += 2.0)
-        for(unit y = 4.0; y >= 2.0; y -= 1.0)
+    for(float x = -4.0; x <= 4.0; x += 2.0)
+        for(float y = 4.0; y >= 2.0; y -= 1.0)
             _obstacles.insert(_obstacles.begin(), new Brick(x, y, 2.0, 1.0));
 
 }
@@ -59,11 +59,11 @@ void Game::moveBall()
 
 void Game::moveBall2()
 {
-    _ball._oldX = _ball._x;
-    _ball._oldY = _ball._y;
+    _ball->_oldX = _ball->_x;
+    _ball->_oldY = _ball->_y;
     
-    _ball._x += _ball._vx/_velocityDivisor;
-    _ball._y += _ball._vy/_velocityDivisor;
+    _ball->_x += _ball->_vx/_velocityDivisor;
+    _ball->_y += _ball->_vy/_velocityDivisor;
 
     _paddle->detectCollision(_ball);
     
@@ -91,7 +91,7 @@ void Game::moveBall2()
 
 void Game::movePaddle(bool left)
 {
-    unit paddleOldX = _paddle->_x;
+    float paddleOldX = _paddle->_x;
     if(left)
         _paddle->_vx -= _paddle->_dvx;
     else
@@ -109,7 +109,7 @@ void Game::movePaddle(bool left)
 
 void Game::movePaddle(float dx)
 {
-    unit paddleOldX = _paddle->_x;
+    float paddleOldX = _paddle->_x;
     _paddle->_x += dx;
     
     if (dx < 0)

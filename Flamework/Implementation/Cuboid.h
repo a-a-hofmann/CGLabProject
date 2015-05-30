@@ -15,19 +15,20 @@
 class Cuboid : public Obstacle
 {
 public:
-    unit _width, _height;   // width and height of cuboid
+    float _width, _height;   // width and height of cuboid
     
     // Construct cuboid
     // x, y: position (i.e. center of cuboid)
     // width, height: width and height of cuboid
-    Cuboid(unit x, unit y, unit width, unit height);
+    Cuboid(float x, float y, float width, float height);
     
     // see Obstacle
-    bool detectCollision(Ball& ball);
+    bool detectCollision(BallPtr ball);
     
     // see Obstacle
     bool detectCollision(Cuboid& cuboid);
 };
 
+typedef std::shared_ptr<Cuboid> CuboidPtr;
 
 #endif /* defined(__Flamework__Cuboid__) */

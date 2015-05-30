@@ -15,13 +15,13 @@
 class Particle : public Entity
 {
 public:
-    unit _z;    // z coordinate
-    unit _vx, _vy, _vz; // veloicty
+    float _z;    // z coordinate
+    float _vx, _vy, _vz; // veloicty
     
     // Construct particle
     // x, y, z: coordinates of particle
     // xv, vy, xz: velocity of particle
-    Particle(unit x, unit y, unit z, unit vx, unit vy, unit vz) :
+    Particle(float x, float y, float z, float vx, float vy, float vz) :
     Entity(x, y),
     _z(z),
     _vx(vx), _vy(vy), _vz(vz)
