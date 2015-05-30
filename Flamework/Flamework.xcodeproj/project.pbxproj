@@ -58,12 +58,19 @@
 		438331D01B1265190000BF74 /* ball.frag in Resources */ = {isa = PBXBuildFile; fileRef = 438331CF1B1265190000BF74 /* ball.frag */; };
 		A00F60521B0A629C007432C3 /* skybox.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A00F604F1B0A629C007432C3 /* skybox.mtl */; };
 		A00F60531B0A629C007432C3 /* skybox.obj in Resources */ = {isa = PBXBuildFile; fileRef = A00F60501B0A629C007432C3 /* skybox.obj */; };
+		A01620201B19EB800053476F /* celBall.frag in Resources */ = {isa = PBXBuildFile; fileRef = A01620161B19EB800053476F /* celBall.frag */; };
+		A01620211B19EB800053476F /* celBall.vert in Resources */ = {isa = PBXBuildFile; fileRef = A01620171B19EB800053476F /* celBall.vert */; };
+		A01620221B19EB800053476F /* celBrick.frag in Resources */ = {isa = PBXBuildFile; fileRef = A01620181B19EB800053476F /* celBrick.frag */; };
+		A01620231B19EB800053476F /* celBrick.vert in Resources */ = {isa = PBXBuildFile; fileRef = A01620191B19EB800053476F /* celBrick.vert */; };
+		A01620241B19EB800053476F /* celPaddle.frag in Resources */ = {isa = PBXBuildFile; fileRef = A016201A1B19EB800053476F /* celPaddle.frag */; };
+		A01620251B19EB800053476F /* celPaddle.vert in Resources */ = {isa = PBXBuildFile; fileRef = A016201B1B19EB800053476F /* celPaddle.vert */; };
+		A01620261B19EB800053476F /* celRfloor.frag in Resources */ = {isa = PBXBuildFile; fileRef = A016201C1B19EB800053476F /* celRfloor.frag */; };
+		A01620271B19EB800053476F /* celRfloor.vert in Resources */ = {isa = PBXBuildFile; fileRef = A016201D1B19EB800053476F /* celRfloor.vert */; };
+		A01620281B19EB800053476F /* celWalls.frag in Resources */ = {isa = PBXBuildFile; fileRef = A016201E1B19EB800053476F /* celWalls.frag */; };
+		A01620291B19EB800053476F /* celWalls.vert in Resources */ = {isa = PBXBuildFile; fileRef = A016201F1B19EB800053476F /* celWalls.vert */; };
 		A068791D1B0B4549002EAD50 /* skybox.frag in Resources */ = {isa = PBXBuildFile; fileRef = A068791C1B0B4549002EAD50 /* skybox.frag */; };
 		A068791F1B0B4550002EAD50 /* skybox.vert in Resources */ = {isa = PBXBuildFile; fileRef = A068791E1B0B4550002EAD50 /* skybox.vert */; };
 		A06879211B0B8C85002EAD50 /* rsz_skybox.png in Resources */ = {isa = PBXBuildFile; fileRef = A06879201B0B8C85002EAD50 /* rsz_skybox.png */; };
-		A077B6BA1B186C87003F5375 /* dan.png in Resources */ = {isa = PBXBuildFile; fileRef = A077B6B91B186C87003F5375 /* dan.png */; };
-		A077B6BC1B186EA3003F5375 /* day.png in Resources */ = {isa = PBXBuildFile; fileRef = A077B6BB1B186EA3003F5375 /* day.png */; };
-		A077B6BE1B187020003F5375 /* night.png in Resources */ = {isa = PBXBuildFile; fileRef = A077B6BD1B187020003F5375 /* night.png */; };
 		A0AB4CA51B11ED4000AD22D6 /* skyDome.png in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA41B11ED4000AD22D6 /* skyDome.png */; };
 		A0AB4CA71B11EFE200AD22D6 /* iceTexture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA61B11EFE200AD22D6 /* iceTexture.jpg */; };
 		A0AB4CAA1B11F3DA00AD22D6 /* skydome.mtl in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CA81B11F3DA00AD22D6 /* skydome.mtl */; };
@@ -183,12 +190,19 @@
 		8D1107310486CEB800E47090 /* Flamework-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Flamework-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A00F604F1B0A629C007432C3 /* skybox.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.mtl; sourceTree = "<group>"; };
 		A00F60501B0A629C007432C3 /* skybox.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skybox.obj; sourceTree = "<group>"; };
+		A01620161B19EB800053476F /* celBall.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celBall.frag; sourceTree = "<group>"; };
+		A01620171B19EB800053476F /* celBall.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celBall.vert; sourceTree = "<group>"; };
+		A01620181B19EB800053476F /* celBrick.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celBrick.frag; sourceTree = "<group>"; };
+		A01620191B19EB800053476F /* celBrick.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celBrick.vert; sourceTree = "<group>"; };
+		A016201A1B19EB800053476F /* celPaddle.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celPaddle.frag; sourceTree = "<group>"; };
+		A016201B1B19EB800053476F /* celPaddle.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celPaddle.vert; sourceTree = "<group>"; };
+		A016201C1B19EB800053476F /* celRfloor.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celRfloor.frag; sourceTree = "<group>"; };
+		A016201D1B19EB800053476F /* celRfloor.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celRfloor.vert; sourceTree = "<group>"; };
+		A016201E1B19EB800053476F /* celWalls.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celWalls.frag; sourceTree = "<group>"; };
+		A016201F1B19EB800053476F /* celWalls.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = celWalls.vert; sourceTree = "<group>"; };
 		A068791C1B0B4549002EAD50 /* skybox.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.frag; sourceTree = "<group>"; };
 		A068791E1B0B4550002EAD50 /* skybox.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.vert; sourceTree = "<group>"; };
 		A06879201B0B8C85002EAD50 /* rsz_skybox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsz_skybox.png; sourceTree = "<group>"; };
-		A077B6B91B186C87003F5375 /* dan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dan.png; sourceTree = "<group>"; };
-		A077B6BB1B186EA3003F5375 /* day.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day.png; sourceTree = "<group>"; };
-		A077B6BD1B187020003F5375 /* night.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = night.png; sourceTree = "<group>"; };
 		A0AB4CA41B11ED4000AD22D6 /* skyDome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyDome.png; sourceTree = "<group>"; };
 		A0AB4CA61B11EFE200AD22D6 /* iceTexture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iceTexture.jpg; sourceTree = "<group>"; };
 		A0AB4CA81B11F3DA00AD22D6 /* skydome.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skydome.mtl; sourceTree = "<group>"; };
@@ -482,12 +496,26 @@
 			name = skybox;
 			sourceTree = "<group>";
 		};
+		A01620151B19EB800053476F /* Cel Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A01620161B19EB800053476F /* celBall.frag */,
+				A01620171B19EB800053476F /* celBall.vert */,
+				A01620181B19EB800053476F /* celBrick.frag */,
+				A01620191B19EB800053476F /* celBrick.vert */,
+				A016201A1B19EB800053476F /* celPaddle.frag */,
+				A016201B1B19EB800053476F /* celPaddle.vert */,
+				A016201C1B19EB800053476F /* celRfloor.frag */,
+				A016201D1B19EB800053476F /* celRfloor.vert */,
+				A016201E1B19EB800053476F /* celWalls.frag */,
+				A016201F1B19EB800053476F /* celWalls.vert */,
+			);
+			path = "Cel Shaders";
+			sourceTree = "<group>";
+		};
 		A0AB4CAC1B11F3E000AD22D6 /* skydome */ = {
 			isa = PBXGroup;
 			children = (
-				A077B6BD1B187020003F5375 /* night.png */,
-				A077B6BB1B186EA3003F5375 /* day.png */,
-				A077B6B91B186C87003F5375 /* dan.png */,
 				A0AB4CA81B11F3DA00AD22D6 /* skydome.mtl */,
 				A0AB4CA91B11F3DA00AD22D6 /* skydome.obj */,
 				A0AB4CA41B11ED4000AD22D6 /* skyDome.png */,
@@ -648,6 +676,7 @@
 		F87C33301910561A00E8A523 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				A01620151B19EB800053476F /* Cel Shaders */,
 				438331CF1B1265190000BF74 /* ball.frag */,
 				0496EAC11AF15FE9000B72EB /* ball.vert */,
 				11C7865D1AF1248300F40E78 /* brick.frag */,
@@ -810,10 +839,12 @@
 				11209B431AFE8B4900D055CB /* wood_normal.png in Resources */,
 				A0BB1C231B0E48ED0033BD96 /* debug.obj in Resources */,
 				11209B451AFE907100D055CB /* red_normal.png in Resources */,
+				A01620291B19EB800053476F /* celWalls.vert in Resources */,
 				11209B3D1AFE88B600D055CB /* crazy_paving_normal.png in Resources */,
 				F8757CA119107FA000B62379 /* default.vert in Resources */,
 				A0AB4CA71B11EFE200AD22D6 /* iceTexture.jpg in Resources */,
 				A0AB4CAE1B11F52B00AD22D6 /* skydome.frag in Resources */,
+				A01620271B19EB800053476F /* celRfloor.vert in Resources */,
 				F8757CA019107F9800B62379 /* default.frag in Resources */,
 				A0AB4CA51B11ED4000AD22D6 /* skyDome.png in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
@@ -822,20 +853,23 @@
 				A068791D1B0B4549002EAD50 /* skybox.frag in Resources */,
 				0496EACD1AF367B8000B72EB /* crazy_paving.png in Resources */,
 				A068791F1B0B4550002EAD50 /* skybox.vert in Resources */,
+				A01620251B19EB800053476F /* celPaddle.vert in Resources */,
 				0496EABE1AF15EF3000B72EB /* ball.mtl in Resources */,
 				A0E1DBEA1B17CB17005106FB /* theme.mp3 in Resources */,
 				1149693D1AF3DCA200FC0A7E /* quad.mtl in Resources */,
 				F87C33491910561A00E8A523 /* test.mp3 in Resources */,
 				A06879211B0B8C85002EAD50 /* rsz_skybox.png in Resources */,
 				0496EACF1AF367B8000B72EB /* red_shiny_wet_tiles.png in Resources */,
-				A077B6BA1B186C87003F5375 /* dan.png in Resources */,
+				A01620221B19EB800053476F /* celBrick.frag in Resources */,
 				283D33F312AEDA3D00C06CB4 /* FrameworkViewController.xib in Resources */,
 				F8ED69F316E64F7400E6D6CA /* Default-568h@2x.png in Resources */,
 				A00F60531B0A629C007432C3 /* skybox.obj in Resources */,
+				A01620281B19EB800053476F /* celWalls.frag in Resources */,
 				11C7865C1AF1247900F40E78 /* brick.vert in Resources */,
 				F8ED69F416E64F7400E6D6CA /* Default.png in Resources */,
 				0496EAD61AF3894D000B72EB /* walls.frag in Resources */,
 				11209B411AFE8AD300D055CB /* metal_texture2.png in Resources */,
+				A01620241B19EB800053476F /* celPaddle.frag in Resources */,
 				F87C333D1910561A00E8A523 /* quad.obj in Resources */,
 				0496EAC71AF2154B000B72EB /* brick.png in Resources */,
 				F8ED69F516E64F7400E6D6CA /* Default@2x.png in Resources */,
@@ -844,12 +878,14 @@
 				F8ED6AD016E652B800E6D6CA /* ACKNOWLEDGEMENTS in Resources */,
 				438331C71B1244AD0000BF74 /* rfloor.mtl in Resources */,
 				11209B3B1AFE889100D055CB /* brick_normal.png in Resources */,
+				A01620231B19EB800053476F /* celBrick.vert in Resources */,
 				438331C81B1244AD0000BF74 /* rfloor.obj in Resources */,
 				11C786561AF1187300F40E78 /* paddle.frag in Resources */,
 				A0AB4CAB1B11F3DA00AD22D6 /* skydome.obj in Resources */,
 				F87C33371910561A00E8A523 /* ball.obj in Resources */,
 				0496EAD31AF388EA000B72EB /* walls.mtl in Resources */,
 				4380AE0B1AF8CF6B00818ABB /* paddle.mtl in Resources */,
+				A01620211B19EB800053476F /* celBall.vert in Resources */,
 				0496EAD71AF3894D000B72EB /* walls.vert in Resources */,
 				F8ED6AD116E652B800E6D6CA /* LICENSE in Resources */,
 				A0AB4CB01B11F53700AD22D6 /* skydome.vert in Resources */,
@@ -863,14 +899,14 @@
 				1149693B1AF394B700FC0A7E /* walls.obj in Resources */,
 				0496EAD11AF36EA9000B72EB /* wood_planks_old.png in Resources */,
 				0496EABF1AF15EF3000B72EB /* ball.png in Resources */,
-				A077B6BC1B186EA3003F5375 /* day.png in Resources */,
 				438331D01B1265190000BF74 /* ball.frag in Resources */,
+				A01620261B19EB800053476F /* celRfloor.frag in Resources */,
 				A00F60521B0A629C007432C3 /* skybox.mtl in Resources */,
 				04EFD8381AE31B94000DA18A /* paddle.obj in Resources */,
+				A01620201B19EB800053476F /* celBall.frag in Resources */,
 				0496EADB1AF900FD000B72EB /* metal_texture.png in Resources */,
 				A0AB4CB21B12395700AD22D6 /* ice-texture.jpg in Resources */,
 				04EFD83A1AE382CC000DA18A /* brick.obj in Resources */,
-				A077B6BE1B187020003F5375 /* night.png in Resources */,
 				11C7865E1AF1248300F40E78 /* brick.frag in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

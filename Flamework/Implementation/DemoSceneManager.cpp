@@ -36,8 +36,6 @@ void DemoSceneManager::onTouchBegan(float x, float y)
     vmml::vec2f cScrollPos(x, y);
     _lScrollPos = cScrollPos;
     
-    getSound("theme")->play();
-    getSound("test")->play();
     
 }
 
@@ -87,11 +85,14 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     getApplication()->addTouchHandler(this);
     getApplication()->addScaleHandler(this);
     
+    // Instanciate two cameras
     _cameras.push(std::make_shared<Camera>());
     _cameras.push(std::make_shared<Camera>());
 
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
 
+    
+    // Load objects
     loadModel("ball.obj", true, true);
     loadModel("brick.obj", true, true);
     loadModel("paddle.obj", true, true);
@@ -100,12 +101,12 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadModel("rfloor.obj", true, true);
     loadModel("skydome.obj", true, true);
     loadModel("skybox.obj", true, true);
-    
 //    loadModel("debug.obj", true, true);
+    
+    // Load music/sound effects
     loadSound("test.mp3");
     loadSound("theme.mp3");
     
-    _modelMatrix = vmml::mat4f::IDENTITY;
 }
 
 
@@ -116,12 +117,14 @@ void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool 
     for (auto i = groups.begin(); i != groups.end(); ++i)
     {
         Geometry &geometry = i->second;
-        GeometryData::VboVertices &vertexData = geometry.getVertexData();
         
-        if (isOutlined) {
-            extrudeVertex(vertexData, outlineFactor);
-            geometry.updateVertexBuffer();
-        }
+        // Don't delete this!
+        // Classic outlining. Extrude normals and draw the backfaces then draw over it normally
+        GeometryData::VboVertices &vertexData = geometry.getVertexData();
+//        if (isOutlined) {
+//            extrudeVertex(vertexData, outlineFactor);
+//            geometry.updateVertexBuffer();
+//        }
         
         
         MaterialPtr material = geometry.getMaterial();
@@ -142,6 +145,8 @@ void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool 
             shader->setUniform("Id", vmml::vec3f(1.3f));
             shader->setUniform("Is", vmml::vec3f(1.3f));
             
+            // string::compare return 0 iff str1 == str2
+            // iff obj to draw is NOT a quad or rfloor
             if (name.compare("quad") && name.compare("rfloor"))
             {
                 shader->setUniform("isOutlined", isOutlined);
@@ -162,14 +167,16 @@ void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool 
         }
         geometry.draw(mode);
         
-        if (isOutlined) {
-            resetVertex(vertexData, outlineFactor);
-            geometry.updateVertexBuffer();
-        }
+        // Don't delete this!
+//        if (isOutlined) {
+//            resetVertex(vertexData, outlineFactor);
+//            geometry.updateVertexBuffer();
+//        }
     }
 }
 
 
+// Shortened drawModel method for the sky-box/dome
 void DemoSceneManager::drawSkyModel(const std::string &name, GLenum mode)
 {
     Model::GroupMap &groups = getModel(name)->getGroups();
@@ -233,8 +240,6 @@ void DemoSceneManager::draw(double deltaT)
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     glFrontFace(GL_CW);
   
@@ -246,6 +251,8 @@ void DemoSceneManager::draw(double deltaT)
     
     _lightPos = vmml::vec4f(10.0, -3.0, 15.0, 1.0);
     
+    getSound("theme")->play();
+//    swapCameras();
     startGame();
 }
 
@@ -277,6 +284,29 @@ vmml::vec3f DemoSceneManager::getPaddlePos() const
     return vmml::vec3f(_game._paddle->_x, _game._paddle->_y, 0.0);
 }
 
+void DemoSceneManager::extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
+{
+    for (Vertex &v : vertexData)
+    {
+        Point3 &p = v.position;
+        p.x += v.normal.x/outlineFactor;
+        p.y += v.normal.y/outlineFactor;
+        p.z += v.normal.z/outlineFactor;
+    }
+}
+
+void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
+{
+    for (Vertex &v : vertexData)
+    {
+        Point3 &p = v.position;
+        p.x -= v.normal.x/outlineFactor;
+        p.y -= v.normal.y/outlineFactor;
+        p.z -= v.normal.z/outlineFactor;
+    }
+}
+
+
 void DemoSceneManager::drawObstacles()
 {
     glCullFace(GL_FRONT);
@@ -284,6 +314,7 @@ void DemoSceneManager::drawObstacles()
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, 0.5)));
+            transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.1, 1.1, 1.)));
             drawModel(obstacle->getModelName(), true);
             popModelMatrix();
         }
@@ -301,15 +332,24 @@ void DemoSceneManager::drawObstacles()
 
 void DemoSceneManager::drawBall()
 {
-    float angle = _time;
+    float angle = _time * M_PI_F;
+    float rotationFactor = 3.0f;
+    
+    float xRotation = _game._ball._vx * angle * rotationFactor;
+    float yRotation = _game._ball._vy * angle * rotationFactor;
+    
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, 0)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
-    transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    transformModelMatrix(vmml::create_rotation(xRotation , vmml::vec3f::UNIT_X));
+    transformModelMatrix(vmml::create_rotation(yRotation, vmml::vec3f::UNIT_Y));
     
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.2)));
     glCullFace(GL_FRONT);
     drawModel("ball", true);
+    popModelMatrix();
+    
     glCullFace(GL_BACK);
     drawModel("ball", false);
     popModelMatrix();
@@ -320,9 +360,6 @@ void DemoSceneManager::drawPaddle()
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(getPaddlePos()));
     
-    glCullFace(GL_FRONT);
-    drawModel("paddle", true);
-    glCullFace(GL_BACK);
     drawModel("paddle", false);
     popModelMatrix();
 }
@@ -367,28 +404,6 @@ void DemoSceneManager::drawSkydome()
     
 }
 
-void DemoSceneManager::extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
-{
-    for (Vertex &v : vertexData)
-    {
-        Point3 &p = v.position;
-        p.x += v.normal.x/outlineFactor;
-        p.y += v.normal.y/outlineFactor;
-        p.z += v.normal.z/outlineFactor;
-    }
-}
-
-void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor)
-{
-    for (Vertex &v : vertexData)
-    {
-        Point3 &p = v.position;
-        p.x -= v.normal.x/outlineFactor;
-        p.y -= v.normal.y/outlineFactor;
-        p.z -= v.normal.z/outlineFactor;
-    }
-}
-
 void DemoSceneManager::drawDebug(vmml::vec3f position)
 {
     glCullFace(GL_FRONT);
@@ -410,14 +425,14 @@ void DemoSceneManager::startGame()
     if(_game._playing)
     {
         // Demo
-//        _game.movePaddle(_game._ball._x < _game._paddle->_x);
+        _game.movePaddle(_game._ball._x < _game._paddle->_x);
 
         // touch controls
 //        float touchDx = _scrolling.x();
 //        _game.movePaddle(touchDx);
         
         // Gyro controls
-        _game.movePaddle(Gyro::getInstance());
+//        _game.movePaddle(Gyro::getInstance());
 
         drawPaddle();
 
@@ -462,6 +477,9 @@ void DemoSceneManager::drawMirrorFloor()
     drawModel("quad");
     popModelMatrix();
     
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(0, 0.0, -0.5)));
     transformModelMatrix(vmml::create_rotation(0.5f * M_PI_F, vmml::vec3f::UNIT_X));
@@ -489,8 +507,11 @@ void DemoSceneManager::drawMirrorWall()
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
     transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.05, 1.05, 1.0)));
     glCullFace(GL_FRONT);
     drawModel("walls", true, false);
+    popModelMatrix();
     glCullFace(GL_BACK);
     drawModel("walls", false, false);
     popModelMatrix();
@@ -503,23 +524,33 @@ void DemoSceneManager::drawMirrorWall()
 
 void DemoSceneManager::drawFloorReflections()
 {
+    
+    // Draw ball reflection and outline
     float angle = _time;
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._ball._x, _game._ball._y, -1)));
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
     glCullFace(GL_FRONT);
     drawModel("ball", true, true);
+    
+    popModelMatrix();
     glCullFace(GL_BACK);
     drawModel("ball", false, true);
     popModelMatrix();
     
+    
+    // Draw Bricks reflection and outline
     glCullFace(GL_FRONT);
     for (Cuboid *obstacle : _game._obstacles){
         if (strcmp(obstacle->getModelName(), "field")) {
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(vmml::vec3f(obstacle -> _x, obstacle -> _y, -1.5)));
+            transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.1, 1.1, 1.0)));
             drawModel(obstacle->getModelName(), true, true);
             popModelMatrix();
         }
@@ -534,11 +565,15 @@ void DemoSceneManager::drawFloorReflections()
         }
     }
     
+    
+    // Draw paddle reflection
     pushModelMatrix();
     transformModelMatrix(vmml::create_translation(vmml::vec3f(_game._paddle->_x, _game._paddle->_y, -1)));
     drawModel("paddle", false, true);
     popModelMatrix();
     
+    
+    // Draw walls reflection
     pushModelMatrix();
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(5, 4, 4)));
     transformModelMatrix(vmml::create_rotation(M_PI_F, vmml::vec3f::UNIT_Y));
@@ -558,8 +593,12 @@ void DemoSceneManager::drawWallReflections()
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
     glCullFace(GL_FRONT);
     drawModel("ball", true, true);
+    popModelMatrix();
+    
     glCullFace(GL_BACK);
     drawModel("ball", false, true);
     popModelMatrix();
@@ -575,8 +614,14 @@ void DemoSceneManager::drawWallReflections()
     transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.5)));
     transformModelMatrix(vmml::create_rotation(_game._ball._vx * angle * M_PI_F, vmml::vec3f::UNIT_Y));
     transformModelMatrix(vmml::create_rotation(_game._ball._vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
+    
+    
+    pushModelMatrix();
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
     glCullFace(GL_FRONT);
     drawModel("ball", true, true);
+    popModelMatrix();
+    
     glCullFace(GL_BACK);
     drawModel("ball", false, true);
     popModelMatrix();
@@ -589,4 +634,5 @@ void DemoSceneManager::drawWallReflections()
 
     
     glDisable(GL_STENCIL_TEST);
+    glDisable(GL_BLEND);
 }
