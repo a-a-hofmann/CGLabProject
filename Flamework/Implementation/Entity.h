@@ -10,7 +10,7 @@
 #define __Flamework__Entity__
 
 #include <iostream>
-
+#include "addendum.hpp"
 
 // An object of the game
 class Entity {
@@ -26,6 +26,9 @@ public:
     
     // Get model name for drawing of model (must be loaded beforehand using loadModel)
     char* getModelName() { return (char*)_modelName; }
+    
+    virtual vmml::vec2f getPosition2f() const;
+    virtual vmml::vec3f getPosition3f() const;
 };
 
 #endif /* defined(__Flamework__Entity__) */

@@ -79,6 +79,7 @@
 		A0AB4CB01B11F53700AD22D6 /* skydome.vert in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CAF1B11F53700AD22D6 /* skydome.vert */; };
 		A0AB4CB21B12395700AD22D6 /* ice-texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0AB4CB11B12395700AD22D6 /* ice-texture.jpg */; };
 		A0BB1C231B0E48ED0033BD96 /* debug.obj in Resources */ = {isa = PBXBuildFile; fileRef = A0BB1C221B0E48ED0033BD96 /* debug.obj */; };
+		A0D81DBB1B1DCA6100275F6C /* Sky.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A0D81DB91B1DCA6100275F6C /* Sky.cpp */; };
 		A0E1DBEA1B17CB17005106FB /* theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A0E1DBE91B17CB17005106FB /* theme.mp3 */; };
 		F814A6161716A0E000A2A910 /* obj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814A6121716A0E000A2A910 /* obj.cpp */; };
 		F814A6171716A0E000A2A910 /* obj_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814A6141716A0E000A2A910 /* obj_parser.cpp */; };
@@ -211,6 +212,8 @@
 		A0AB4CAF1B11F53700AD22D6 /* skydome.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skydome.vert; sourceTree = "<group>"; };
 		A0AB4CB11B12395700AD22D6 /* ice-texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ice-texture.jpg"; sourceTree = "<group>"; };
 		A0BB1C221B0E48ED0033BD96 /* debug.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = debug.obj; sourceTree = "<group>"; };
+		A0D81DB91B1DCA6100275F6C /* Sky.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sky.cpp; path = Implementation/Sky.cpp; sourceTree = SOURCE_ROOT; };
+		A0D81DBA1B1DCA6100275F6C /* Sky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sky.h; path = Implementation/Sky.h; sourceTree = SOURCE_ROOT; };
 		A0E1DBE91B17CB17005106FB /* theme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = theme.mp3; sourceTree = "<group>"; };
 		F814A6121716A0E000A2A910 /* obj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = obj.cpp; sourceTree = "<group>"; };
 		F814A6131716A0E000A2A910 /* obj.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = obj.hpp; sourceTree = "<group>"; };
@@ -626,6 +629,7 @@
 				11C786511AF1143E00F40E78 /* Paddle.h */,
 				0496EADC1B035A41000B72EB /* ParticleSystem.h */,
 				0496EADF1B039D63000B72EB /* Particle.h */,
+				A0D81DBA1B1DCA6100275F6C /* Sky.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -643,6 +647,7 @@
 				11C7864D1AF113FD00F40E78 /* Wall.cpp */,
 				11C786501AF1143E00F40E78 /* Paddle.cpp */,
 				0496EADD1B0377F2000B72EB /* ParticleSystem.cpp */,
+				A0D81DB91B1DCA6100275F6C /* Sky.cpp */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -931,6 +936,7 @@
 				F87C33091910554000E8A523 /* FrameworkViewController.mm in Sources */,
 				11C7864F1AF113FD00F40E78 /* Wall.cpp in Sources */,
 				F87C33081910554000E8A523 /* FrameworkAppDelegate.m in Sources */,
+				A0D81DBB1B1DCA6100275F6C /* Sky.cpp in Sources */,
 				F87C33141910554000E8A523 /* PhysicsManager.cpp in Sources */,
 				F87C33161910554000E8A523 /* Shader.cpp in Sources */,
 				F87C33101910554000E8A523 /* Material.cpp in Sources */,

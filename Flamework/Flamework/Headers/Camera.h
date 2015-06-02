@@ -20,6 +20,7 @@ class Camera
 public:
     
     Camera();
+    Camera(vmml::vec3f pos);
     ~Camera();
     
     void lookAt(const vmml::vec3f &point, const vmml::vec3f &up = vmml::vec3f::UP);

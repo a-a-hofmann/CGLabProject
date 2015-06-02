@@ -39,5 +39,4 @@ void main()
     texCoordVarying = TexCoord;
     
     gl_Position = ProjectionMatrix * ViewMatrix * posVarying;
-
 }

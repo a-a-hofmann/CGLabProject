@@ -9,12 +9,19 @@
 #include "Camera.h"
 #include <cassert>
 
-Camera::Camera()
-{
-    _position = vmml::vec3f::ZERO;
-    _viewMatrix = vmml::mat4f::IDENTITY;
-    _projectionMatrix = vmml::mat4f::IDENTITY;
-}
+
+
+Camera::Camera() :
+_position(vmml::vec3f::ZERO),
+_viewMatrix(vmml::mat4f::IDENTITY),
+_projectionMatrix(vmml::mat4f::IDENTITY)
+{}
+
+Camera::Camera(vmml::vec3f pos) :
+_position(pos),
+_viewMatrix(vmml::mat4f::IDENTITY),
+_projectionMatrix(vmml::mat4f::IDENTITY)
+{}
 
 Camera::~Camera()
 {

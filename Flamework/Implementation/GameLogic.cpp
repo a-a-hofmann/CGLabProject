@@ -115,7 +115,6 @@ void Game::movePaddle(float dx)
     if (dx < 0)
     {
         _paddle->_vx -= _paddle->_dvx;
-        std::cout << "negative!" << std::endl;
     }
     else
     {

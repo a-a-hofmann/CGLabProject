@@ -17,6 +17,7 @@
 #include <queue>
 
 #include "GameLogic.h"
+#include "Sky.h"
 
 #include <glm/glm/glm.hpp>
 
@@ -28,7 +29,8 @@ class DemoSceneManager: public SceneManager, public ITouchHandler, public IScale
 public:
     typedef std::stack< vmml::mat4f >   MatrixStack;
     typedef std::queue<CameraPtr>       CameraQueue;
-    typedef std::shared_ptr<Game> GamePtr;
+    typedef std::shared_ptr<Game>       GamePtr;
+    typedef std::shared_ptr<Sky>        SkyPtr;
 
 
     DemoSceneManager(Application *application);
@@ -43,24 +45,24 @@ public:
     virtual void onScaleEnded(float x, float y);
     
     virtual void initialize(size_t width, size_t height);
-    virtual void draw(double deltaT);
     
-    
-    void drawModel(const std::string &name, bool isOutlined = false, bool isReflection = false, float outlineFactor = 7.0, GLenum mode = GL_TRIANGLES);
-    void drawSkyboxModel(GLenum mode = GL_TRIANGLES);
-
     void pushModelMatrix();
     void popModelMatrix();
     void transformModelMatrix(const vmml::mat4f &t);
     
-    void drawSkyModel(const std::string &name, GLenum mode = GL_TRIANGLES);
-    void drawSphere();
+    
+    virtual void draw(double deltaT);
+    void drawModel(const std::string &name, bool isOutlined = false, bool isReflection = false, float outlineFactor = 7.0, GLenum mode = GL_TRIANGLES);
+    void drawSky(GLenum mode = GL_TRIANGLES);
+    
+    void setUpShader(const std::string &name);
+    void setUpSkyShader(const std::string &name);
+    
+
     void drawObstacles();
     void drawBall();
     void drawPaddle();
     void drawParticleSystems();
-    void drawSkybox();
-    void drawSkydome();
     void drawDebug(vmml::vec3f position);
     
     void drawMirrorFloor();
@@ -68,19 +70,26 @@ public:
     void drawMirrorWall();
     void drawWallReflections();
 
+    
     void extrudeVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
     void resetVertex(GeometryData::VboVertices &vertexData, float outlineFactor);
     
     void startGame();
     
-    void setCameras();
+    void initShaders();
+    void initCameras();
+    void setSecondCamera();
+    void setThirdCamera();
     void swapCameras();
     
-    vmml::vec3f getPaddlePos() const;
+    void initSky();
+    
+
+    vmml::vec4f getLightPos() const {return _lightPos;};
+    
     
 private:
-    double _time;
-    int _tapCount;
+    double      _time;
 
     vmml::vec2f _scrolling;
     vmml::vec2f _lScrollPos;
@@ -95,11 +104,12 @@ private:
     vmml::mat4f _viewMatrix;
     
 
-    GamePtr _game;
+    SkyPtr      _sky;
+    GamePtr     _game;
     
     CameraQueue _cameras;
     
-    Gyro* _gyro;
+    Gyro*       _gyro;
     
 };
 

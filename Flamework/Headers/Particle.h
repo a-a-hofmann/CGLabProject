@@ -26,6 +26,8 @@ public:
     _z(z),
     _vx(vx), _vy(vy), _vz(vz)
     { _modelName = "brick"; }
+    
+    vmml::vec3f getPosition3f() const {return vmml::vec3f(getPosition2f(), _z);}
 };
 
 typedef std::list<Particle*> ParticleList;

@@ -85,18 +85,29 @@ Shader::~Shader()
 
 void Shader::setUniform(const std::string &name, const vmml::vec4f &arg)
 {
-    glUseProgram(_programID);
+    GLint id;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+    id = GLuint(id);
+    
+    if(id != _programID)
+        glUseProgram(_programID);
     
     GLint loc = findUniformLocation(name);
     if (loc > -1)
     {
         glUniform4fv(loc, 1, arg.begin());
     }
+
 }
 
 void Shader::setUniform(const std::string &name, const vmml::vec3f &arg)
 {
-    glUseProgram(_programID);
+    GLint id;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+    id = GLuint(id);
+    
+    if(id != _programID)
+        glUseProgram(_programID);
     
     GLint loc = findUniformLocation(name);
     if (loc > -1)
@@ -107,7 +118,12 @@ void Shader::setUniform(const std::string &name, const vmml::vec3f &arg)
 
 void Shader::setUniform(const std::string &name, const vmml::mat4f &arg)
 {
-    glUseProgram(_programID);
+    GLint id;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+    id = GLuint(id);
+    
+    if(id != _programID)
+        glUseProgram(_programID);
     
     GLint loc = findUniformLocation(name);
     if (loc > -1)
@@ -118,7 +134,12 @@ void Shader::setUniform(const std::string &name, const vmml::mat4f &arg)
 
 void Shader::setUniform(const std::string &name, const vmml::mat3f &arg)
 {
-    glUseProgram(_programID);
+    GLint id;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+    id = GLuint(id);
+    
+    if(id != _programID)
+        glUseProgram(_programID);
     
     GLint loc = findUniformLocation(name);
     if (loc > -1)
@@ -129,7 +150,12 @@ void Shader::setUniform(const std::string &name, const vmml::mat3f &arg)
 
 void Shader::setUniform(const std::string &name, float arg)
 {
-    glUseProgram(_programID);
+    GLint id;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+    id = GLuint(id);
+    
+    if(id != _programID)
+        glUseProgram(_programID);
     
     GLint loc = findUniformLocation(name);
     if (loc > -1)
@@ -140,8 +166,13 @@ void Shader::setUniform(const std::string &name, float arg)
 
 void Shader::setUniform(const std::string &name, TexturePtr texture)
 {
-    glUseProgram(_programID);
-
+    GLint id;
+    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+    id = GLuint(id);
+    
+    if(id != _programID)
+        glUseProgram(_programID);
+    
     GLint loc = findUniformLocation(name);
     if (loc > -1)
     {
