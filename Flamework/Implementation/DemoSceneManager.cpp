@@ -261,14 +261,13 @@ void DemoSceneManager::setUpShader(const std::string &name)
     
 }
 
-
 // Draw methods
 void DemoSceneManager::drawModel(const std::string &name, bool isOutlined, bool isReflection, float outlineFactor, GLenum mode)
 {
     
     Model::GroupMap &groups = getModel(name)->getGroups();
     Geometry &geometry = groups.begin()->second;
-    
+
     // Don't delete this!
     // Classic outlining. Extrude normals and draw the backfaces then draw over it normally
 //        GeometryData::VboVertices &vertexData = geometry.getVertexData();
@@ -411,7 +410,6 @@ void DemoSceneManager::resetVertex(GeometryData::VboVertices &vertexData, float 
     }
 }
 
-
 void DemoSceneManager::drawObstacles()
 {
     glCullFace(GL_FRONT);
@@ -469,6 +467,11 @@ void DemoSceneManager::drawPaddle()
     popModelMatrix();
 }
 
+float floatRand()
+{
+    return (rand() % 200 - 100) * .01f;
+}
+
 void DemoSceneManager::drawParticleSystems()
 {
     for(ParticleSystem* particleSystem : _game->_particleSystems)
@@ -478,7 +481,20 @@ void DemoSceneManager::drawParticleSystems()
             pushModelMatrix();
             transformModelMatrix(vmml::create_translation(particle->getPosition3f()));
             transformModelMatrix(vmml::create_scaling(vmml::vec3f(0.1)));
+            Geometry &geometry = getModel(particle->getModelName())->getGroups().begin()->second;
+            GeometryData::VboVertices &vertexData = geometry.getVertexData();
+            GeometryData::VboVertices vertexDataCopy = vertexData;
+            for (Vertex &v : vertexData)
+            {
+                Point3 &p = v.position;
+                p.x += floatRand();
+                p.y += floatRand();
+                p.z += floatRand();
+            }
+            geometry.updateVertexBuffer();
             drawModel(particle->getModelName());
+            vertexData = vertexDataCopy;
+            geometry.updateVertexBuffer();
             popModelMatrix();
         }
     }
