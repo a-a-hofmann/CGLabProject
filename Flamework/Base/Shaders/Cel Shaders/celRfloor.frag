@@ -38,6 +38,21 @@ float compute_intesity(vec3 n, vec3 l)
     return floor(df * levels) * scaleFactor;
 }
 
+
+// rim lighting
+const mediump float gamma = 1.0/0.8;
+const lowp vec3 rimColor = vec3(0.5);
+
+mediump vec3 compute_rim(vec3 n, vec3 v)
+{
+    float f = 1.0 - max(dot(n, v), 0.0);
+    f = pow(f, 5.0);
+    f = smoothstep(0.6, 1.0, f);
+    
+    return f * rimColor;
+}
+
+
 void main()
 {
     // Phong Shading (per-fragment lighting)
@@ -61,6 +76,8 @@ void main()
     lowp vec4 rColor = texture2D(EnvironmentMap, reflection);
     
 
+    // Rim lightning
+    lowp vec4 rim = vec4(compute_rim(n, eyeVec), 1.0);
     
     // Ambient component
     ambientV = vec4(Ka * Ia, 1.0);
@@ -82,8 +99,16 @@ void main()
 
     
     lowp vec4 color = texture2D(DiffuseMap, texCoordVarying.st);
-    lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
-    phongColor = vec4(phongColor.x, phongColor.y, phongColor.z, 0.45);
+    lowp vec4 phongColor = (rim + ambientV + diffuseV) * color + specularV;
     
-    gl_FragColor = vec4(mix(phongColor, rColor, 0.4).rgb, 1.0);
+    
+    phongColor = vec4(phongColor.xyz, 0.85);
+    
+    lowp vec4 finalColor = vec4(pow(phongColor.r, gamma),
+                                pow(phongColor.g, gamma),
+                                pow(phongColor.b, gamma),
+                                phongColor.a);
+    
+    
+    gl_FragColor = vec4(mix(finalColor, rColor, 0.4).rgb, phongColor.a);
 }

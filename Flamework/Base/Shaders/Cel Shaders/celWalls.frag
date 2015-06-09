@@ -46,6 +46,18 @@ float compute_intesity(vec3 n, vec3 l)
     return floor(df * levels) * scaleFactor;
 }
 
+// rim lighting
+const mediump float gamma = 1.0/0.8;
+const lowp vec3 rimColor = vec3(0.5);
+
+mediump vec3 compute_rim(vec3 n, vec3 v)
+{
+    float f = 1.0 - max(dot(n, v), 0.0);
+    f = pow(f, 5.0);
+    f = smoothstep(0.6, 1.0, f);
+    
+    return f * rimColor;
+}
 
 void main()
 {
@@ -63,10 +75,15 @@ void main()
         vec3 eyeVec = normalize(EyePos.xyz - p.xyz);
         vec3 h = normalize(l + eyeVec);
         
+        
+        
+        // Rim lightning
+        lowp vec4 rim = vec4(compute_rim(n, eyeVec), 1.0);
+
         // Ambient component
         ambientV = vec4(Ka * Ia, 1.0);
         
-//        // Diffuse component
+        // Diffuse component
         float df = compute_intesity(n, l);
         lowp vec3 diffuse = Kd * clamp(df, 0.0, 1.0) * Id;
         diffuseV = vec4(clamp(diffuse, 0.0, 1.0), 1.0);
@@ -84,7 +101,7 @@ void main()
         
         lowp vec4 color = texture2D(DiffuseMap, texCoordVarying.st);
         
-        lowp vec4 phongColor = (ambientV + diffuseV) * color + specularV;
+        lowp vec4 phongColor = (rim + ambientV + diffuseV) * color + specularV;
         
         lowp float f = OverrideColor.z;
         if (f != 0.0)
@@ -93,6 +110,12 @@ void main()
             phongColor.a = 0.15;
         }
         
-        gl_FragColor = phongColor;
+        lowp vec4 finalColor = vec4(pow(phongColor.r, gamma),
+                                    pow(phongColor.g, gamma),
+                                    pow(phongColor.b, gamma),
+                                    phongColor.a);
+
+        
+        gl_FragColor = finalColor;
     }
 }

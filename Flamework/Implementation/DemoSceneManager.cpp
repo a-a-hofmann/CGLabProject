@@ -85,14 +85,14 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     getApplication()->addTouchHandler(this);
     getApplication()->addScaleHandler(this);
     
-    
+    // init cameras
     initCameras();
 
+    // push identity to stack
     _modelMatrixStack.push(vmml::mat4f::IDENTITY);
     
     // Create game
     _game = std::make_shared<Game>();
-    
     
     // Gyro
     _gyro = Gyro::getInstance();
@@ -120,6 +120,7 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     loadSound("theme.mp3");
     
     
+    // init shaders static uniforms
     initShaders();
     
     
@@ -166,9 +167,11 @@ void DemoSceneManager::initCameras()
 void DemoSceneManager::setSecondCamera()
 {
     vmml::vec3f pos = _game->_paddle->getPosition3f() + vmml::vec3f(0.0, -9.0, 3.0);
-    _cameras.back()->moveCamera(pos);
-    _cameras.back()->lookAt(vmml::vec3f::UNIT_Y * 10.f + vmml::vec3f(pos.x(), pos.y(), 0.0));
-    _cameras.back()->setProjection(0.6f);
+    _cameras.front()->moveCamera(pos);
+    _cameras.front()->lookAt(vmml::vec3f::UNIT_Y * 10.f + vmml::vec3f(pos.x(), pos.y(), 0.0));
+    _cameras.front()->setProjection(0.6f);
+    
+    initShaders();
 }
 
 void DemoSceneManager::setThirdCamera()
@@ -177,6 +180,8 @@ void DemoSceneManager::setThirdCamera()
     _cameras.back()->moveCamera(vmml::vec3f(0.0, -23.0, 13.0));
     _cameras.back()->lookAt(vmml::vec3f(0.0, 10.0, 10.0));
     _cameras.back()->setProjection(1.2);
+    
+    initShaders();
 }
 
 void DemoSceneManager::swapCameras()
@@ -339,7 +344,7 @@ void DemoSceneManager::draw(double deltaT)
 {
     _time += deltaT;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    getSound("theme")->play();
+//    getSound("theme")->play();
     startGame();
 }
 
@@ -448,7 +453,7 @@ void DemoSceneManager::drawBall()
     transformModelMatrix(vmml::create_rotation(yRotation, vmml::vec3f::UNIT_Y));
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.2)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.3f)));
     glCullFace(GL_FRONT);
     drawModel("ball", true);
     popModelMatrix();
@@ -584,7 +589,7 @@ void DemoSceneManager::drawFloorReflections()
     transformModelMatrix(vmml::create_rotation(_game->_ball->_vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2f)));
     glCullFace(GL_FRONT);
     drawModel("ball", true, true);
     
@@ -644,7 +649,7 @@ void DemoSceneManager::drawWallReflections()
     transformModelMatrix(vmml::create_rotation(_game->_ball->_vy * angle * M_PI_F, vmml::vec3f::UNIT_X));
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2f)));
     glCullFace(GL_FRONT);
     drawModel("ball", true, true);
     popModelMatrix();
@@ -667,7 +672,7 @@ void DemoSceneManager::drawWallReflections()
     
     
     pushModelMatrix();
-    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2, 1.2, 1.0)));
+    transformModelMatrix(vmml::create_scaling(vmml::vec3f(1.2f)));
     glCullFace(GL_FRONT);
     drawModel("ball", true, true);
     popModelMatrix();
