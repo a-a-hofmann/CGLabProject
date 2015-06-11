@@ -13,7 +13,9 @@ Game::Game() :
 _obstacles(),
 _particleSystems(),
 _velocityDivisor(2),
-_playing(true)
+_playing(true),
+_collisionDetectedObstacle(false),
+_collisionDetectedPaddle(false)
 {
     _ball = std::make_shared<Ball>();
     _paddle = std::make_shared<Paddle>();
@@ -65,12 +67,14 @@ void Game::moveBall2()
     _ball->_x += _ball->_vx/_velocityDivisor;
     _ball->_y += _ball->_vy/_velocityDivisor;
 
-    _paddle->detectCollision(_ball);
+    _collisionDetectedPaddle = _paddle->detectCollision(_ball);
+    
     
     ObstacleList toDestroy;
     
     for(Cuboid* obstacle : _obstacles) {
         if(obstacle -> detectCollision(_ball)) {
+            _collisionDetectedObstacle = true;
             if(obstacle -> endRoundOnCollision()) {
                 _playing = false;
                 return;

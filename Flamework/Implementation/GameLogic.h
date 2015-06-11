@@ -40,7 +40,8 @@ public:
     PaddlePtr _paddle;
     BallPtr _ball;     // the ball
     
-    
+    bool _collisionDetectedPaddle;
+    bool _collisionDetectedObstacle;
     bool _playing;  // true if the game round has not ended yet
     
     // Construct game

@@ -32,6 +32,7 @@ bool Paddle::detectCollision(BallPtr ball)
     {
         ball->_vx += _vx/2;
         _vx = 0;
+        
         return true;
     }
     _vx = 0;

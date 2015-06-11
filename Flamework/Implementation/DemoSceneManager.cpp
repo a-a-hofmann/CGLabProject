@@ -118,6 +118,8 @@ void DemoSceneManager::initialize(size_t width, size_t height)
     // Load music/sound effects
     loadSound("test.mp3");
     loadSound("theme.mp3");
+    loadSound("explosion.mp3");
+    loadSound("ball_paddle.mp3");
     
     
     // init shaders static uniforms
@@ -344,7 +346,7 @@ void DemoSceneManager::draw(double deltaT)
 {
     _time += deltaT;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    getSound("theme")->play();
+    getSound("theme")->play();
     startGame();
 }
 
@@ -357,18 +359,26 @@ void DemoSceneManager::startGame()
     
     if(_game->_playing)
     {
+        if(_game->_collisionDetectedObstacle){
+            getSound("explosion")->play();
+            _game->_collisionDetectedObstacle = false;
+        }
+        else if(_game->_collisionDetectedPaddle){
+            getSound("ball_paddle")->play();
+            _game->_collisionDetectedPaddle = false;
+        }
         _game->moveBall();
         drawBall();
         
         // Demo
-        _game->movePaddle(_game->_ball->_x < _game->_paddle->_x);
+//        _game->movePaddle(_game->_ball->_x < _game->_paddle->_x);
         
         // touch controls
         //        float touchDx = _scrolling.x();
         //        _game->movePaddle(touchDx);
         
         // Gyro controls
-//        _game->movePaddle(_gyro);
+        _game->movePaddle(_gyro);
         
         drawPaddle();
         
