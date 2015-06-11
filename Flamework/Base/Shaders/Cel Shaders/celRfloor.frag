@@ -69,7 +69,7 @@ void main()
     vec3 stretch = vec3(0.0, 0.0, 10.0);
     vec3 e = normalize(p.xyz  - EyePos.xyz - stretch);
     vec3 r = normalize(reflect(e, n));
-    r.z += 1.0;
+    r.z += 0.5;
     float m = 2.0 * sqrt(dot(r, r));
     vec2 reflection = -(r.xy/m + vec2(0.5));
     
